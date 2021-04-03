@@ -1,7 +1,9 @@
+package src.Vista;
+
 public class ListaVideoJuegos extends javax.swing.JFrame {
 
     /**
-     * Creates new form ListaVideoJuegos
+     * Creates new form src.Vista.ListaVideoJuegos
      */
     public ListaVideoJuegos() {
         initComponents();

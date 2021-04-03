@@ -1,3 +1,5 @@
+package src.Integración;
+
 import java.util.ArrayList;
 
 public interface DAOVideojuego {

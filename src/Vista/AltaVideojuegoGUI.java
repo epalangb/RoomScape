@@ -1,9 +1,14 @@
+package src.Vista;
+
+import src.Integración.DaoVideojuegoImp;
+import src.Integración.TFVideojuego;
+
 import javax.swing.JOptionPane;
 
 public class AltaVideojuegoGUI extends javax.swing.JFrame {
 
     /**
-     * Creates new form AltaVideojuegoGUI
+     * Creates new form src.Vista.AltaVideojuegoGUI
      */
     public AltaVideojuegoGUI() {
         initComponents();
@@ -38,7 +43,7 @@ public class AltaVideojuegoGUI extends javax.swing.JFrame {
 
         jLabel1.setText("Nombre: ");
 
-        jLabel2.setText("Descripci�n:");
+        jLabel2.setText("Descripci�n:");
 
         DescTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,7 +138,9 @@ public class AltaVideojuegoGUI extends javax.swing.JFrame {
 			JOptionPane.showMessageDialog(null, "Se deben rellenar todos los campos",
 					"Error", JOptionPane.WARNING_MESSAGE);
 		} else {
-			
+                TFVideojuego tfVideojuego = new TFVideojuego(name,desc,cons);
+                DaoVideojuegoImp daoVideojuego = new DaoVideojuegoImp();
+                daoVideojuego.altaVideojuego(tfVideojuego);
 				JOptionPane.showMessageDialog(null, "Alta realizada");
 				return;
 			}

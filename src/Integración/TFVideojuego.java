@@ -1,3 +1,5 @@
+package src.Integración;
+
 public class TFVideojuego {
     private String nombre;
     private String descripcion;

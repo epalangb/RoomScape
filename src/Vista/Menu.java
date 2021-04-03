@@ -1,3 +1,5 @@
+package src.Vista;
+
 public class Menu extends javax.swing.JFrame {
 
     /**
@@ -21,7 +23,7 @@ public class Menu extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Gestión Videojuegos");
+        setTitle("Gestiï¿½n Videojuegos");
 
         jButton1.setText("Alta Videojuego");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -31,7 +33,7 @@ public class Menu extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("GESTIÓN DE VIDEOJUEGOS");
+        jLabel1.setText("GESTIï¿½N DE VIDEOJUEGOS");
 
         jButton2.setText("Mostrar Lista de Videojuegos");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
