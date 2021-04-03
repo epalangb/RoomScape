@@ -5,9 +5,10 @@ import java.sql.SQLException;
 public class DB {
     private static Connection connection;
 
-    final static String DATABASE = ""; //Aquí va la url
-    final static String USER = "root";
-    final static String PASSWORD = "";
+    final static String DATABASE = "mysql.roomscape.es:3306"; //Aquí va la url
+    final static String USER = "roomscape";
+    final static String PASSWORD = "roomscape";
+
 
     public static Connection getConnection(){
         try{
@@ -17,5 +18,38 @@ public class DB {
             throwables.printStackTrace();
         }
         return connection;
+    }
+
+    public void start() {
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void commit() {
+        if(connection != null){
+            try {
+                connection.commit();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void rollback() {
+        try {
+            connection.rollback();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Object obtenerRecurso() {
+        return connection;
+
     }
 }
