@@ -5,6 +5,10 @@ public class TFVideojuego {
     private String descripcion;
     private String consola;
 
+    public TFVideojuego() {
+
+    }
+
     public String getNombre() {
         return nombre;
     }

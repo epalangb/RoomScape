@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DB {
     private static Connection connection;
 
-    final static String DATABASE = "jdbc:mysql.roomscape.es:3306/roomscape_prototype"; //Aquí va la url
+    final static String DATABASE = "jdbc:mysql://mysql.roomscape.es:3306/roomscape_prototype"; //Aquí va la url
     final static String USER = "roomscape";
     final static String PASSWORD = "roomscape";
 

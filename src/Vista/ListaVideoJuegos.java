@@ -1,5 +1,10 @@
 package src.Vista;
 
+import src.Integración.DaoVideojuegoImp;
+import src.Integración.TFVideojuego;
+
+import java.util.ArrayList;
+
 public class ListaVideoJuegos extends javax.swing.JFrame {
 
     /**
@@ -23,11 +28,16 @@ public class ListaVideoJuegos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Lista de Videojuegos");
-
+        DaoVideojuegoImp daoVideo = new DaoVideojuegoImp();
+        ArrayList<String> listaV = new ArrayList<String>();
+        ArrayList<TFVideojuego> tfV = daoVideo.listarVideojuegos();
+        for(TFVideojuego aux : tfV ){
+            listaV.add(aux.getNombre());
+        }
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+
+            public int getSize() { return listaV.size(); }
+            public String getElementAt(int i) { return listaV.get(i); }
         });
         jScrollPane1.setViewportView(jList1);
 
