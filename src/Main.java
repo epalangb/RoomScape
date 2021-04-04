@@ -1,9 +1,9 @@
 package src;
 
-import src.Vista.Menu;
+import src.Presentacion.Vistas.MenuGUI;
 
 public class Main {
     public static void main(String[] args) {
-                new Menu().setVisible(true);
-	}
+        new MenuGUI().setVisible(true);
+    }
 }
