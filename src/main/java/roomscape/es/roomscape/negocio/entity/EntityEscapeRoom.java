@@ -34,6 +34,7 @@ public class EntityEscapeRoom {
     public TEscapeRoom toTransfer() {
 
         TEscapeRoom tEscapeRoom = new TEscapeRoom();
+        tEscapeRoom.setActivo(this.activo);
         tEscapeRoom.setId(this.id);
         tEscapeRoom.setCapacidadPersonas(this.capacidadPersonas);
         tEscapeRoom.setDuracion(this.duracion);
