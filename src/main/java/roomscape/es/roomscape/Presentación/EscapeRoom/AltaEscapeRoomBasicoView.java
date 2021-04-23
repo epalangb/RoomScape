@@ -3,11 +3,12 @@ package roomscape.es.roomscape.Presentación.EscapeRoom;
 import roomscape.es.roomscape.Presentación.Controller.Context;
 import roomscape.es.roomscape.Presentación.Controller.Controller;
 import roomscape.es.roomscape.Presentación.Eventos;
+import roomscape.es.roomscape.negocio.escape_room.TEscapeRoom;
 
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
 
@@ -318,8 +319,19 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
     }
 
     private void registrarActionPerformed(java.awt.event.ActionEvent evt) {
-        /*Contexto c = new Contexto(transfer, EventosEnum.AltaMarcaOK);
-        Controlador.getInstance().action(c);*/
+        TEscapeRoom tEscapeRoom = new TEscapeRoom();
+        try {
+            tEscapeRoom.setNombre(nombreTextField.getText());
+            tEscapeRoom.setCapacidadPersonas(Integer.parseInt(capacidadTextField.getText()));
+            tEscapeRoom.setDuracion(Integer.parseInt(duracionTextField.getText()));
+            tEscapeRoom.setPrecio(Double.parseDouble(precioTextField.getText()));
+        }
+        catch (NumberFormatException e1) {
+            JOptionPane.showMessageDialog(null, "Formato inválido");
+            return;
+        }
+        Context c = new Context(tEscapeRoom, Eventos.AltaEscapeRoomBasicoOK);
+        Controller.getInstance().action(c);
     }
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {
