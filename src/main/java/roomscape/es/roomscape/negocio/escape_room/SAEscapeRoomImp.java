@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import roomscape.es.roomscape.negocio.entity.EntityEscapeRoom;
+import roomscape.es.roomscape.negocio.exceptions.list.EmptyListException;
+import roomscape.es.roomscape.negocio.exceptions.list.NoRoomEscapesException;
 import roomscape.es.roomscape.negocio.repository.RepositoryEscapeRoom;
 import roomscape.es.roomscape.negocio.exceptions.validations.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -68,5 +72,20 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
         EntityEscapeRoom entityEscapeRoomSaved = repositoryEscapeRoom.save(entityEscapeRoom);
 
         return entityEscapeRoomSaved.toTransfer();
+    }
+
+    @Override
+    public List<TEscapeRoom> listarEscapeRooms() throws Exception {
+        List<EntityEscapeRoom> listaAux = repositoryEscapeRoom.findAll();
+
+        if (listaAux.isEmpty()) {
+            EmptyListException e = new NoRoomEscapesException();
+            log.warn(e.getMessage());
+            throw e;
+        }
+
+        List<TEscapeRoom> listaEscapeRooms = new ArrayList<>();
+        listaAux.forEach(entityEscapeRoom -> listaEscapeRooms.add(entityEscapeRoom.toTransfer()));
+        return listaEscapeRooms;
     }
 }
