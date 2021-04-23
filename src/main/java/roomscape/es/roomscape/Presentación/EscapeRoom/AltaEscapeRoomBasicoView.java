@@ -1,4 +1,8 @@
-package roomscape.es.roomscape.Presentación;
+package roomscape.es.roomscape.Presentación.EscapeRoom;
+
+import roomscape.es.roomscape.Presentación.Controller.Context;
+import roomscape.es.roomscape.Presentación.Controller.Controller;
+import roomscape.es.roomscape.Presentación.Eventos;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -21,6 +25,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         last = null;
+        setVisible(true);
     }
 
     /**
@@ -40,17 +45,17 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nombreTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        capacidadTextField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        duracionTextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        precioTextField = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        registrarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RoomScape");
@@ -124,7 +129,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
 
         jLabel4.setText("Nombre: ");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nombreTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
@@ -132,7 +137,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
 
         jLabel5.setText("Capacidad en personas:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        capacidadTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
             }
@@ -140,7 +145,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
 
         jLabel6.setText("Duración:");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        duracionTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
             }
@@ -148,7 +153,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
 
         jLabel7.setText("Precio:");
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        precioTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
             }
@@ -178,10 +183,15 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
         });
 
 
-        jButton6.setBackground(new java.awt.Color(0, 0, 0));
-        jButton6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Registrar");
+        registrarButton.setBackground(new java.awt.Color(0, 0, 0));
+        registrarButton.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        registrarButton.setForeground(new java.awt.Color(255, 255, 255));
+        registrarButton.setText("Registrar");
+        registrarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -193,7 +203,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
                                 .addGap(79, 79, 79)
                                 .addComponent(jButton4)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton6)
+                                .addComponent(registrarButton)
                                 .addGap(123, 123, 123))
         );
         jPanel3Layout.setVerticalGroup(
@@ -203,7 +213,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jButton5)
                                         .addComponent(jButton4)
-                                        .addComponent(jButton6))
+                                        .addComponent(registrarButton))
                                 .addContainerGap())
         );
 
@@ -214,8 +224,8 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextField2)
-                                        .addComponent(jTextField3)
+                                        .addComponent(capacidadTextField)
+                                        .addComponent(duracionTextField)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(jLabel4)
@@ -223,7 +233,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
                                                         .addComponent(jLabel6)
                                                         .addComponent(jLabel7))
                                                 .addGap(0, 0, Short.MAX_VALUE))
-                                        .addComponent(jTextField4)
+                                        .addComponent(precioTextField)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(jPanel2Layout.createSequentialGroup()
@@ -232,7 +242,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
                                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                                                 .addComponent(jLabel3)
                                                                 .addGap(0, 0, Short.MAX_VALUE))
-                                                        .addComponent(jTextField1))
+                                                        .addComponent(nombreTextField))
                                                 .addContainerGap())))
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -246,19 +256,19 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(capacidadTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(duracionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(precioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -282,10 +292,10 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        this.setVisible(false);
-        EscapeRoomView escapeRoomView = new EscapeRoomView();
-        escapeRoomView.setVisible(true);
-        escapeRoomView.setLast(this);
+        Context c = new Context(null, Eventos.AbrirEscapeRoomView);
+        Controller control= Controller.getInstance();
+        control.action(c);
+        this.dispose();
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,18 +305,21 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
+    //boton ATRAS
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
-        if(last!= null) {
-            this.setVisible(false);
-            last.setVisible(true);
-        }
+
     }
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
-        this.setVisible(false);
-        EscapeRoomView escapeRoomView = new EscapeRoomView();
-        escapeRoomView.setVisible(true);
-        escapeRoomView.setLast(this);
+        Context c = new Context(null, Eventos.AbrirEscapeRoomView);
+        Controller control= Controller.getInstance();
+        control.action(c);
+        this.dispose();
+    }
+
+    private void registrarActionPerformed(java.awt.event.ActionEvent evt) {
+        /*Contexto c = new Contexto(transfer, EventosEnum.AltaMarcaOK);
+        Controlador.getInstance().action(c);*/
     }
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -338,7 +351,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton registrarButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -348,9 +361,9 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField nombreTextField;
+    private javax.swing.JTextField capacidadTextField;
+    private javax.swing.JTextField duracionTextField;
+    private javax.swing.JTextField precioTextField;
     // End of variables declaration
 }

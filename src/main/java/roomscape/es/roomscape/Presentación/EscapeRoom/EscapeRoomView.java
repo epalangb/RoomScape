@@ -1,4 +1,9 @@
-package roomscape.es.roomscape.Presentación;
+package roomscape.es.roomscape.Presentación.EscapeRoom;
+
+import roomscape.es.roomscape.Presentación.Controller.Context;
+import roomscape.es.roomscape.Presentación.Controller.Controller;
+import roomscape.es.roomscape.Presentación.Eventos;
+import roomscape.es.roomscape.Presentación.MainView;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -20,6 +25,7 @@ public class EscapeRoomView extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         last = null;
+        setVisible(true);
     }
 
     /**
@@ -202,17 +208,17 @@ public class EscapeRoomView extends javax.swing.JFrame {
     }
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
-        if(last!= null) {
-            this.setVisible(false);
-            last.setVisible(true);
-        }
+        Context c = new Context(null, Eventos.AbrirMainView);
+        Controller control= Controller.getInstance();
+        control.action(c);
+        this.dispose();
     }
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
-        this.setVisible(false);
-        AltaEscapeRoomBasicoView altaEscapeRoomBasicoView = new AltaEscapeRoomBasicoView();
-        altaEscapeRoomBasicoView.setVisible(true);
-        altaEscapeRoomBasicoView.setLast(this);
+        Context c = new Context(null, Eventos.AbrirAltaEscapeRoomBasicoView);
+        Controller control= Controller.getInstance();
+        control.action(c);
+        this.dispose();
     }
 
     public JFrame getLast() {

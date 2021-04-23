@@ -1,5 +1,7 @@
 package roomscape.es.roomscape.Presentación;
 
+import roomscape.es.roomscape.Presentación.Controller.Controller;
+
 public class Main {
 
     public static void main(String args[]) {
@@ -29,8 +31,8 @@ public class Main {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MainView main = new MainView();
-                main.setVisible(true);
+                Controller c = null;
+                c.getInstance();
             }
         });
     }

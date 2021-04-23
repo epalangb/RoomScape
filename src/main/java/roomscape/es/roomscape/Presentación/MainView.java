@@ -1,5 +1,9 @@
 package roomscape.es.roomscape.Presentación;
 
+import roomscape.es.roomscape.Presentación.Controller.Context;
+import roomscape.es.roomscape.Presentación.Controller.Controller;
+import roomscape.es.roomscape.Presentación.EscapeRoom.EscapeRoomView;
+
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -15,6 +19,7 @@ public class MainView extends javax.swing.JFrame {
         setIconImage(icon);
         setResizable(false);
         setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /**
@@ -131,10 +136,10 @@ public class MainView extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        this.setVisible(false);
-        EscapeRoomView escapeRoomView = new EscapeRoomView();
-        escapeRoomView.setVisible(true);
-        escapeRoomView.setLast(this);
+        Context c = new Context(null, Eventos.AbrirEscapeRoomView);
+        Controller control= Controller.getInstance();
+        control.action(c);
+        this.dispose();
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,6 +147,7 @@ public class MainView extends javax.swing.JFrame {
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+
         this.dispose();
     }
 
