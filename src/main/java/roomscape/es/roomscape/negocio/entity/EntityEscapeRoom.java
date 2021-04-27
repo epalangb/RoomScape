@@ -29,6 +29,7 @@ public class EntityEscapeRoom {
         this.capacidadPersonas = tEscapeRoom.getCapacidadPersonas();
         this.duracion = tEscapeRoom.getDuracion();
         this.precio = tEscapeRoom.getPrecio();
+        this.activo = tEscapeRoom.isActivo();
     }
 
     public TEscapeRoom toTransfer() {
@@ -36,6 +37,7 @@ public class EntityEscapeRoom {
         TEscapeRoom tEscapeRoom = new TEscapeRoom();
         tEscapeRoom.setActivo(this.activo);
         tEscapeRoom.setId(this.id);
+        tEscapeRoom.setActivo(this.activo);
         tEscapeRoom.setCapacidadPersonas(this.capacidadPersonas);
         tEscapeRoom.setDuracion(this.duracion);
         tEscapeRoom.setNombre(this.nombre);
