@@ -25,7 +25,7 @@ public class AltaEscapeRoomBasicoCommand extends Command {
                 .uri(URI.create("http://localhost:8080/escape-room"))
                 .headers("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(body))
-                .timeout(Duration.ofSeconds(5))
+                .timeout(Duration.ofSeconds(50))
                 .build();
 
         Context context;

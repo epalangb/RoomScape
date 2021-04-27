@@ -1,7 +1,5 @@
 package roomscape.es.roomscape.negocio.escape_room;
 
-
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +20,7 @@ public class SAEscapeRoomImpTestUnitAlta {
 
     @Test
     @DisplayName("Dar de alta un EscapeRoom de manera correcta")
-    public void altaEscapeRoomExito(){
+    public void altaEscapeRoomExito() {
         EntityEscapeRoom entityEscapeRoom = new EntityEscapeRoom();
         entityEscapeRoom.setActivo(true);
         entityEscapeRoom.setCapacidadPersonas(5);
@@ -40,9 +38,10 @@ public class SAEscapeRoomImpTestUnitAlta {
         Assertions.assertEquals(escapeRoom.getPrecio(), 20);
         Assertions.assertEquals(escapeRoom.getCapacidadPersonas(), 5);
     }
-    @Test (expected = InvalidDataAccessApiUsageException.class)
+
+    @Test(expected = InvalidDataAccessApiUsageException.class)
     @DisplayName("Dar de alta un escapeRoom con datos invalidos")
-    public void altaEscapeRoom() throws  InvalidDataAccessApiUsageException{
+    public void altaEscapeRoom() throws InvalidDataAccessApiUsageException {
         repositoryEscapeRoom.save(null);
     }
 }

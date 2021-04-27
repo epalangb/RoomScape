@@ -1,5 +1,6 @@
 package roomscape.es.roomscape;
 
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class WebController {
     SAEscapeRoom saEscapeRoom;
 
     @PostMapping(path = "/escape-room", consumes = "application/json")
-    public TEscapeRoom addVideoGame(@RequestBody TEscapeRoom tEscapeRoom, HttpServletResponse response) {
+    public String createEscapeRoom(@RequestBody TEscapeRoom tEscapeRoom, HttpServletResponse response) {
 
         TEscapeRoom newEscapeRoom;
 
@@ -29,7 +30,8 @@ public class WebController {
         try {
             optional = Optional.ofNullable(saEscapeRoom.crearEscapeRoom(tEscapeRoom));
         } catch (Exception e) {
-            e.printStackTrace();
+            response.setStatus(400);
+            return e.getMessage();
         }
         if (optional.isPresent()) {
             response.setStatus(HttpServletResponse.SC_OK);
@@ -38,6 +40,6 @@ public class WebController {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             newEscapeRoom = new TEscapeRoom();
         }
-        return newEscapeRoom;
+        return new Gson().toJson(newEscapeRoom);
     }
 }

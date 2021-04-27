@@ -5,25 +5,27 @@ import roomscape.es.roomscape.Presentación.FactoryView.AbstractFactoryView;
 
 import javax.swing.*;
 
-public class DispatcherImp extends Dispatcher{
+public class DispatcherImp extends Dispatcher {
 
     @Override
     public void createView(Context contexto) {
-        JFrame vista=null;
-        switch(contexto.getEvento()) {
+        switch (contexto.getEvento()) {
             case AbrirMainView:
-                vista= AbstractFactoryView.getInstance().createMainView();
+                AbstractFactoryView.getInstance().createMainView();
                 break;
             case AbrirEscapeRoomView:
-                vista= AbstractFactoryView.getInstance().createViewEscapeRoomBasico();
+                AbstractFactoryView.getInstance().createViewEscapeRoomBasico();
                 break;
             case AbrirAltaEscapeRoomBasicoView:
-                vista= AbstractFactoryView.getInstance().createAltaEscapeRoomBasicoView();
+                AbstractFactoryView.getInstance().createAltaEscapeRoomBasicoView();
+                break;
+            case AltaEscapeRoomBasicoOK:
+            case AltaEscapeRoomBasicoError:
+                AbstractFactoryView.getInstance().createAltaEscapeRoomBasicoView().update(contexto);
                 break;
             case CommandError:
-                vista = AbstractFactoryView.getInstance().createVistaError("No se puede ejecutar el comando");
+                AbstractFactoryView.getInstance().createVistaError("No se puede ejecutar el comando");
                 break;
-
         }
     }
 }
