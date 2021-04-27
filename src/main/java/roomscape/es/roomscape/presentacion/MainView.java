@@ -1,8 +1,7 @@
-package roomscape.es.roomscape.Presentación;
+package roomscape.es.roomscape.presentacion;
 
-import roomscape.es.roomscape.Presentación.Controller.Context;
-import roomscape.es.roomscape.Presentación.Controller.Controller;
-import roomscape.es.roomscape.Presentación.EscapeRoom.EscapeRoomView;
+import roomscape.es.roomscape.presentacion.controller.Context;
+import roomscape.es.roomscape.presentacion.controller.Controller;
 
 import java.awt.Image;
 import java.awt.Toolkit;

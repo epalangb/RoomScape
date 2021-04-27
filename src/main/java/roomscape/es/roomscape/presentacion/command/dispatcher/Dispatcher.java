@@ -1,6 +1,6 @@
-package roomscape.es.roomscape.Presentación.Command.Dispatcher;
+package roomscape.es.roomscape.presentacion.command.dispatcher;
 
-import roomscape.es.roomscape.Presentación.Controller.Context;
+import roomscape.es.roomscape.presentacion.controller.Context;
 
 public abstract class Dispatcher {
 

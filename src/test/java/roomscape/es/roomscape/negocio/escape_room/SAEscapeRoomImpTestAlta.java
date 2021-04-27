@@ -29,7 +29,7 @@ public class SAEscapeRoomImpTestAlta {
     @BeforeEach
     void setMockOutput() {
         escapeRoomIn = new EntityEscapeRoom();
-        escapeRoomIn.setActivo(false);
+        escapeRoomIn.setActivo(true);
         escapeRoomIn.setCapacidadPersonas(5);
         escapeRoomIn.setDuracion(20);
         escapeRoomIn.setNombre("Test EscapeRoom");
@@ -57,7 +57,7 @@ public class SAEscapeRoomImpTestAlta {
         TEscapeRoom testEscapeRoom = saEscapeRoom.crearEscapeRoom(transferEscapeRoom);
         Assertions.assertEquals(testEscapeRoom.getId(), 1);
         Assertions.assertEquals(testEscapeRoom.getNombre(), "Test EscapeRoom");
-        Assertions.assertFalse(testEscapeRoom.isActivo());
+        Assertions.assertTrue(testEscapeRoom.isActivo());
         Assertions.assertEquals(testEscapeRoom.getDuracion(), 20);
         Assertions.assertEquals(testEscapeRoom.getPrecio(), 20);
         Assertions.assertEquals(testEscapeRoom.getCapacidadPersonas(), 5);

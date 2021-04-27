@@ -1,10 +1,10 @@
-package roomscape.es.roomscape.Presentación.FactoryView;
+package roomscape.es.roomscape.presentacion.factory_view;
 
 
-import roomscape.es.roomscape.Presentación.ErrorView;
-import roomscape.es.roomscape.Presentación.EscapeRoom.AltaEscapeRoomBasicoView;
-import roomscape.es.roomscape.Presentación.EscapeRoom.EscapeRoomView;
-import roomscape.es.roomscape.Presentación.MainView;
+import roomscape.es.roomscape.presentacion.ErrorView;
+import roomscape.es.roomscape.presentacion.escape_room.AltaEscapeRoomBasicoView;
+import roomscape.es.roomscape.presentacion.escape_room.EscapeRoomView;
+import roomscape.es.roomscape.presentacion.MainView;
 
 import javax.swing.*;
 

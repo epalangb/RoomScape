@@ -1,8 +1,9 @@
-package roomscape.es.roomscape.Presentación.EscapeRoom;
+package roomscape.es.roomscape.presentacion.escape_room;
 
-import roomscape.es.roomscape.Presentación.Controller.Context;
-import roomscape.es.roomscape.Presentación.Controller.Controller;
-import roomscape.es.roomscape.Presentación.Eventos;
+import roomscape.es.roomscape.presentacion.controller.Context;
+import roomscape.es.roomscape.presentacion.controller.Controller;
+import roomscape.es.roomscape.presentacion.Eventos;
+import roomscape.es.roomscape.presentacion.vistas.Vista;
 import roomscape.es.roomscape.negocio.escape_room.TEscapeRoom;
 
 import java.awt.Image;
@@ -10,7 +11,7 @@ import java.awt.Toolkit;
 
 import javax.swing.*;
 
-public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
+public class AltaEscapeRoomBasicoView extends javax.swing.JFrame implements Vista {
 
     /**
      * Creates new form AltaEscapeRoomBasicoView
@@ -294,7 +295,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         Context c = new Context(null, Eventos.AbrirEscapeRoomView);
-        Controller control= Controller.getInstance();
+        Controller control = Controller.getInstance();
         control.action(c);
         this.dispose();
     }
@@ -306,6 +307,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
+
     //boton ATRAS
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -313,7 +315,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
         Context c = new Context(null, Eventos.AbrirEscapeRoomView);
-        Controller control= Controller.getInstance();
+        Controller control = Controller.getInstance();
         control.action(c);
         this.dispose();
     }
@@ -325,8 +327,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
             tEscapeRoom.setCapacidadPersonas(Integer.parseInt(capacidadTextField.getText()));
             tEscapeRoom.setDuracion(Integer.parseInt(duracionTextField.getText()));
             tEscapeRoom.setPrecio(Double.parseDouble(precioTextField.getText()));
-        }
-        catch (NumberFormatException e1) {
+        } catch (NumberFormatException e1) {
             JOptionPane.showMessageDialog(null, "Formato inválido");
             return;
         }
@@ -353,6 +354,7 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
     public JFrame getLast() {
         return last;
     }
+
     public void setLast(JFrame last) {
         this.last = last;
     }
@@ -377,5 +379,17 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame {
     private javax.swing.JTextField capacidadTextField;
     private javax.swing.JTextField duracionTextField;
     private javax.swing.JTextField precioTextField;
+
+    @Override
+    public void update(Context context) {
+        switch (context.getEvento()) {
+            case AltaEscapeRoomBasicoOK:
+                JOptionPane.showMessageDialog(null, ((TEscapeRoom) context.getDatos()).toString(), "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case AltaEscapeRoomBasicoError:
+                JOptionPane.showMessageDialog(null, (context.getDatos()).toString(), "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+        }
+    }
     // End of variables declaration
 }

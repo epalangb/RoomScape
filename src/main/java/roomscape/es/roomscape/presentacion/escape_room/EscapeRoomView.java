@@ -1,12 +1,10 @@
-package roomscape.es.roomscape.Presentación.EscapeRoom;
+package roomscape.es.roomscape.presentacion.escape_room;
 
-import roomscape.es.roomscape.Presentación.Controller.Context;
-import roomscape.es.roomscape.Presentación.Controller.Controller;
-import roomscape.es.roomscape.Presentación.Eventos;
-import roomscape.es.roomscape.Presentación.MainView;
+import roomscape.es.roomscape.presentacion.controller.Context;
+import roomscape.es.roomscape.presentacion.controller.Controller;
+import roomscape.es.roomscape.presentacion.Eventos;
 
-import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.*;
 
 import javax.swing.JFrame;
 
@@ -238,4 +236,5 @@ public class EscapeRoomView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration
+
 }
