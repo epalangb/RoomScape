@@ -11,10 +11,20 @@ public class Context {
         this.datos=datos;
         this.evento=evento;
     }
+
     public Object getDatos() {
-        return this.datos;
+        return datos;
     }
+
+    public void setDatos(Object datos) {
+        this.datos = datos;
+    }
+
     public Eventos getEvento() {
-        return this.evento;
+        return evento;
+    }
+
+    public void setEvento(Eventos evento) {
+        this.evento = evento;
     }
 }
