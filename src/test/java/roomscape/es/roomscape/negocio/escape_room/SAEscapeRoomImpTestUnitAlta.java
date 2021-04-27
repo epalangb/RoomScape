@@ -24,7 +24,7 @@ public class SAEscapeRoomImpTestUnitAlta {
     @DisplayName("Dar de alta un EscapeRoom de manera correcta")
     public void altaEscapeRoomExito(){
         EntityEscapeRoom entityEscapeRoom = new EntityEscapeRoom();
-        entityEscapeRoom.setActivo(false);
+        entityEscapeRoom.setActivo(true);
         entityEscapeRoom.setCapacidadPersonas(5);
         entityEscapeRoom.setDuracion(20);
         entityEscapeRoom.setNombre("Test EscapeRoom");
@@ -36,6 +36,7 @@ public class SAEscapeRoomImpTestUnitAlta {
         Assertions.assertEquals(escapeRoom.getId(), 1);
         Assertions.assertEquals(escapeRoom.getNombre(), "Test EscapeRoom");
         Assertions.assertEquals(escapeRoom.getDuracion(), 20);
+        Assertions.assertTrue(escapeRoom.isActivo());
         Assertions.assertEquals(escapeRoom.getPrecio(), 20);
         Assertions.assertEquals(escapeRoom.getCapacidadPersonas(), 5);
     }

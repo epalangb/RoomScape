@@ -57,7 +57,7 @@ public class SAEscapeRoomImpTestAlta {
         TEscapeRoom testEscapeRoom = saEscapeRoom.crearEscapeRoom(transferEscapeRoom);
         Assertions.assertEquals(testEscapeRoom.getId(), 1);
         Assertions.assertEquals(testEscapeRoom.getNombre(), "Test EscapeRoom");
-        //Assertions.assertEquals(testEscapeRoom.getActivo(), 1); No existe getActivo por alguna razon, aunque exista el atributo activo
+        Assertions.assertFalse(testEscapeRoom.isActivo());
         Assertions.assertEquals(testEscapeRoom.getDuracion(), 20);
         Assertions.assertEquals(testEscapeRoom.getPrecio(), 20);
         Assertions.assertEquals(testEscapeRoom.getCapacidadPersonas(), 5);
@@ -78,7 +78,7 @@ public class SAEscapeRoomImpTestAlta {
 
         Assertions.assertEquals(testEscapeRoom.getId(), 1);
         Assertions.assertEquals(testEscapeRoom.getNombre(), "Test EscapeRoom");
-        //Assertions.assertEquals(testEscapeRoom.getActivo(), 1); No existe getActivo por alguna razon, aunque exista el atributo activo
+        Assertions.assertEquals(testEscapeRoom.isActivo(), 1);
         Assertions.assertEquals(testEscapeRoom.getDuracion(), 20);
         Assertions.assertEquals(testEscapeRoom.getPrecio(), 20);
         Assertions.assertEquals(testEscapeRoom.getCapacidadPersonas(), 5);
