@@ -1,4 +1,4 @@
-package roomscape.es.roomscape.Presentación;
+package roomscape.es.roomscape.presentacion;
 
 public enum Eventos {
 

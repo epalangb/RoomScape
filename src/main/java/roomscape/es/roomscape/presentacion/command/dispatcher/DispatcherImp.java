@@ -1,9 +1,7 @@
-package roomscape.es.roomscape.Presentación.Command.Dispatcher;
+package roomscape.es.roomscape.presentacion.command.dispatcher;
 
-import roomscape.es.roomscape.Presentación.Controller.Context;
-import roomscape.es.roomscape.Presentación.FactoryView.AbstractFactoryView;
-
-import javax.swing.*;
+import roomscape.es.roomscape.presentacion.controller.Context;
+import roomscape.es.roomscape.presentacion.factory_view.AbstractFactoryView;
 
 public class DispatcherImp extends Dispatcher {
 

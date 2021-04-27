@@ -1,6 +1,6 @@
-package roomscape.es.roomscape.Presentación.Controller;
+package roomscape.es.roomscape.presentacion.controller;
 
-import roomscape.es.roomscape.Presentación.Eventos;
+import roomscape.es.roomscape.presentacion.Eventos;
 
 public class Context {
 

@@ -1,6 +1,6 @@
-package roomscape.es.roomscape.Presentación.Command;
+package roomscape.es.roomscape.presentacion.command;
 
-import roomscape.es.roomscape.Presentación.Eventos;
+import roomscape.es.roomscape.presentacion.Eventos;
 
 public abstract class CommandFactory {
 

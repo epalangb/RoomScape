@@ -1,10 +1,10 @@
-package roomscape.es.roomscape.Presentación.Command.RoomScapeCommands;
+package roomscape.es.roomscape.presentacion.command.escape_room;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import roomscape.es.roomscape.Presentación.Command.Command;
-import roomscape.es.roomscape.Presentación.Controller.Context;
-import roomscape.es.roomscape.Presentación.Eventos;
+import roomscape.es.roomscape.presentacion.command.Command;
+import roomscape.es.roomscape.presentacion.controller.Context;
+import roomscape.es.roomscape.presentacion.Eventos;
 import roomscape.es.roomscape.negocio.escape_room.TEscapeRoom;
 
 import java.io.IOException;
