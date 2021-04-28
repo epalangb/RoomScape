@@ -16,7 +16,7 @@ public class TableModelListarEscapeRoom extends AbstractTableModel {
         scapeRooms = new ArrayList<TEscapeRoom>();
     }
 
-    public void uptade(ArrayList<TEscapeRoom> scaperooms)
+    public void update(ArrayList<TEscapeRoom> scaperooms)
     {
         this.scapeRooms = new ArrayList<TEscapeRoom>();
         Iterator<TEscapeRoom> it = scaperooms.iterator();

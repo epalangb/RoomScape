@@ -2,6 +2,7 @@ package roomscape.es.roomscape.presentacion.escape_room;
 
 import roomscape.es.roomscape.negocio.escape_room.TEscapeRoom;
 import roomscape.es.roomscape.presentacion.Eventos;
+import roomscape.es.roomscape.presentacion.command.escape_room.TableModelListarEscapeRoom;
 import roomscape.es.roomscape.presentacion.controller.Context;
 import roomscape.es.roomscape.presentacion.controller.Controller;
 import roomscape.es.roomscape.presentacion.vistas.Vista;
@@ -20,12 +21,12 @@ public class ListarEscapeRoomView extends javax.swing.JFrame implements Vista {
     private javax.swing.JButton buttonBack;
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonList;
-    private javax.swing.JLabel labelListScapeRoom;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-
+    private javax.swing.JPanel panelLeft;
+    private javax.swing.JPanel panelRight;
+    private javax.swing.JPanel panelBottom;
+    private TableModelListarEscapeRoom tableModel;
     private JTable table;
+    private JScrollPane tableScroll;
 
     public ListarEscapeRoomView() {
         initComponents();
@@ -40,21 +41,25 @@ public class ListarEscapeRoomView extends javax.swing.JFrame implements Vista {
 
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelLeft = new javax.swing.JPanel();
         buttonScapeRooms = new javax.swing.JButton();
         buttonReservas = new javax.swing.JButton();
         buttonClose = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        labelListScapeRoom = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        panelRight = new javax.swing.JPanel();
+        panelBottom = new javax.swing.JPanel();
         buttonBack = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
         buttonList = new javax.swing.JButton();
+        tableModel = new TableModelListarEscapeRoom();
+        table = new JTable(tableModel);
+        table.setShowGrid(true);
+        table.getTableHeader().setReorderingAllowed(true);
+        tableScroll = new JScrollPane(table);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RoomScape");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelLeft.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         buttonScapeRooms.setBackground(new java.awt.Color(0, 0, 0));
         buttonScapeRooms.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -90,8 +95,8 @@ public class ListarEscapeRoomView extends javax.swing.JFrame implements Vista {
         });
 
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(panelLeft);
+        panelLeft.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -117,12 +122,8 @@ public class ListarEscapeRoomView extends javax.swing.JFrame implements Vista {
                                 .addContainerGap())
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        labelListScapeRoom.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        labelListScapeRoom.setText("Listar Escape Room");
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        panelRight.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelBottom.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         buttonBack.setBackground(new java.awt.Color(153, 153, 153));
         buttonBack.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -155,14 +156,17 @@ public class ListarEscapeRoomView extends javax.swing.JFrame implements Vista {
         buttonList.setText("Registrar");
         buttonList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                // TODO
                 ArrayList<TEscapeRoom> scapeRoomList = new ArrayList<TEscapeRoom>();
                 Context c = new Context(scapeRoomList, Eventos.ListarEscapeRoomOK);
                 Controller.getInstance().action(c);
+
+                tableModel.update(scapeRoomList);
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(panelBottom);
+        panelBottom.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
                 jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -186,28 +190,13 @@ public class ListarEscapeRoomView extends javax.swing.JFrame implements Vista {
                                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                                                .addComponent(labelListScapeRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(0, 0, Short.MAX_VALUE)))
-                                                                        .addContainerGap())))
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(panelRight);
         jPanel2Layout.setVerticalGroup(
                 jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(labelListScapeRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tableScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(panelBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -215,14 +204,14 @@ public class ListarEscapeRoomView extends javax.swing.JFrame implements Vista {
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(panelLeft, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(panelRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
