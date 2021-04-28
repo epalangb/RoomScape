@@ -2,9 +2,9 @@ package roomscape.es.roomscape.negocio.exceptions.validations;
 
 public class InvalidNameCharactersException extends ValidationException {
 
-    private static final String MESSAGE = "El nombre no es válido porque contiene caracteres no permitidos";
+    private static final String MESSAGE = "Nombre no válido por contener los siguientes caracteres no permitidos: ";
 
-    public InvalidNameCharactersException() {
-        super(MESSAGE);
+    public InvalidNameCharactersException(String invalidCharacters) {
+        super(MESSAGE + invalidCharacters);
     }
 }
