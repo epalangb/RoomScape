@@ -9,5 +9,4 @@ class RoomscapeApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

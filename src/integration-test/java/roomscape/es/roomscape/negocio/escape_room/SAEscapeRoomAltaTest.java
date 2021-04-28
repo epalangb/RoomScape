@@ -13,7 +13,7 @@ import roomscape.es.roomscape.negocio.entity.EntityEscapeRoom;
 
 @DataJpaTest
 @RunWith(SpringRunner.class)
-public class SAEscapeRoomImpTestUnitAlta {
+public class SAEscapeRoomAltaTest {
 
     @Autowired
     private RepositoryEscapeRoom repositoryEscapeRoom;
