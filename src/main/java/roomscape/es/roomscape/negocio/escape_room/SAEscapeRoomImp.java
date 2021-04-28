@@ -10,6 +10,7 @@ import roomscape.es.roomscape.negocio.repository.RepositoryEscapeRoom;
 import roomscape.es.roomscape.negocio.exceptions.validations.*;
 
 import java.util.Optional;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
@@ -33,8 +34,13 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
         if (optional.isPresent() && optional.get().isActivo()) {
             e = new InvalidNameException();
         } else if (pattern.matcher(tEscapeRoom.getNombre()).find()) {
-            e = new InvalidNameCharactersException();
-        } else if (tEscapeRoom.getCapacidadPersonas() <= 0) {
+            Matcher matcher = pattern.matcher(tEscapeRoom.getNombre());
+            StringBuffer sb = new StringBuffer();
+            while (matcher.find()) {
+                sb.append(matcher.group());
+            }
+            e = new InvalidNameCharactersException(sb.toString());
+        } else if (tEscapeRoom.getCapacidadPersonas() < 1) {
             e = new InvalidCapacityException();
         } else if (tEscapeRoom.getDuracion() <= 0) {
             e = new InvalidDurationException();
