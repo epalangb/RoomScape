@@ -4,6 +4,7 @@ package roomscape.es.roomscape.presentacion.factory_view;
 import roomscape.es.roomscape.presentacion.escape_room.AltaEscapeRoomBasicoView;
 import roomscape.es.roomscape.presentacion.escape_room.EscapeRoomView;
 import roomscape.es.roomscape.presentacion.MainView;
+import roomscape.es.roomscape.presentacion.escape_room.ListarEscapeRoomView;
 
 import javax.swing.*;
 
@@ -28,6 +29,7 @@ public abstract class AbstractFactoryView {
 
     public abstract EscapeRoomView createViewEscapeRoomBasico();
     public abstract AltaEscapeRoomBasicoView createAltaEscapeRoomBasicoView();
+    public abstract ListarEscapeRoomView createListarEscapeRoomBasicoView();
 
     public abstract JFrame createVistaError(String s);
 }

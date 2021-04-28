@@ -5,6 +5,7 @@ import roomscape.es.roomscape.presentacion.ErrorView;
 import roomscape.es.roomscape.presentacion.escape_room.AltaEscapeRoomBasicoView;
 import roomscape.es.roomscape.presentacion.escape_room.EscapeRoomView;
 import roomscape.es.roomscape.presentacion.MainView;
+import roomscape.es.roomscape.presentacion.escape_room.ListarEscapeRoomView;
 
 import javax.swing.*;
 
@@ -31,6 +32,14 @@ public class FactoryViewImp extends AbstractFactoryView {
             v = new AltaEscapeRoomBasicoView();
         }
         return (AltaEscapeRoomBasicoView) v;
+    }
+
+    @Override
+    public ListarEscapeRoomView createListarEscapeRoomBasicoView() {
+        if (v == null || !(v instanceof ListarEscapeRoomView)) {
+            v = new ListarEscapeRoomView();
+        }
+        return (ListarEscapeRoomView) v;
     }
 
     public MainView createMainView() {
