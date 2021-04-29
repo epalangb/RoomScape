@@ -75,4 +75,64 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
 
         return entityEscapeRoomSaved.toTransfer();
     }
+
+    @Override
+    public void updateEscapeRoom(TEscapeRoom tEscapeRoom) throws Exception {
+
+        Optional<EntityEscapeRoom> erToModifyOptional = repositoryEscapeRoom.findById(tEscapeRoom.getId());
+        EntityEscapeRoom auxEscapeRoom = repositoryEscapeRoom.findEntityEscapeRoomByNombre(tEscapeRoom.getNombre());
+        Optional<EntityEscapeRoom> optionalIfNameExists = Optional.ofNullable(auxEscapeRoom);
+
+        Pattern pattern = Pattern.compile("[^a-zA-Z0-9á-üÁ-Ü-_. ]");
+
+        ValidationException e = null;
+        // Check if the escape room already exists
+        if (!erToModifyOptional.isPresent() ||
+                erToModifyOptional.isPresent() && !erToModifyOptional.get().isActivo()) {
+            e = new NonExistentEscapeRoom();
+        }
+        // Check if the name to update does not exist
+        else if (optionalIfNameExists.isPresent() && optionalIfNameExists.get().isActivo() &&
+                !erToModifyOptional.get().getNombre().equals(optionalIfNameExists.get().getNombre())) {
+            e = new InvalidNameException();
+        }
+        else if (pattern.matcher(tEscapeRoom.getNombre()).find()) {
+            Matcher matcher = pattern.matcher(tEscapeRoom.getNombre());
+            StringBuffer sb = new StringBuffer();
+            while (matcher.find()) {
+                sb.append(matcher.group());
+            }
+            e = new InvalidNameCharactersException(sb.toString());
+        }
+        else if (tEscapeRoom.getCapacidadPersonas() < 1) {
+            e = new InvalidCapacityException();
+        }
+        else if (tEscapeRoom.getDuracion() <= 0) {
+            e = new InvalidDurationException();
+        }
+        else if (tEscapeRoom.getPrecio() < 0) {
+            e = new InvalidPriceException();
+        }
+
+        if (Optional.ofNullable(e).isPresent()) {
+            log.warn("Escape room: {} has not passed the validation rules: {}",
+                    tEscapeRoom.getNombre(),
+                    e.getMessage());
+            throw e;
+        }
+
+        EntityEscapeRoom entityEscapeRoom;
+
+        if (erToModifyOptional.isPresent()) {
+            entityEscapeRoom = erToModifyOptional.get();
+            entityEscapeRoom.setCapacidadPersonas(tEscapeRoom.getCapacidadPersonas());
+            entityEscapeRoom.setDuracion(tEscapeRoom.getDuracion());
+            entityEscapeRoom.setNombre(tEscapeRoom.getNombre());
+            entityEscapeRoom.setPrecio(tEscapeRoom.getPrecio());
+            repositoryEscapeRoom.save(entityEscapeRoom);
+        }
+
+        log.debug("Escape room: {} has passed the validation rules", tEscapeRoom.getNombre());
+
+    }
 }
