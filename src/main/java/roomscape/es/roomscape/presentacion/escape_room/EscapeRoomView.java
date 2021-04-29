@@ -170,8 +170,8 @@ public class EscapeRoomView extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(labelScapeRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(buttonAltaScapeRoom))
-                                        .addComponent(buttonListarScapeRoom)
+                                        .addComponent(buttonAltaScapeRoom)
+                                        .addComponent(buttonListarScapeRoom))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
