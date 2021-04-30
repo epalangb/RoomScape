@@ -3,6 +3,7 @@ package roomscape.es.roomscape.presentacion.escape_room;
 import roomscape.es.roomscape.presentacion.controller.Context;
 import roomscape.es.roomscape.presentacion.controller.Controller;
 import roomscape.es.roomscape.presentacion.Eventos;
+import roomscape.es.roomscape.presentacion.utils.Validator;
 import roomscape.es.roomscape.presentacion.vistas.Vista;
 import roomscape.es.roomscape.negocio.escape_room.TEscapeRoom;
 
@@ -323,12 +324,12 @@ public class AltaEscapeRoomBasicoView extends javax.swing.JFrame implements Vist
     private void registrarActionPerformed(java.awt.event.ActionEvent evt) {
         TEscapeRoom tEscapeRoom = new TEscapeRoom();
         try {
-            tEscapeRoom.setNombre(nombreTextField.getText());
-            tEscapeRoom.setCapacidadPersonas(Integer.parseInt(capacidadTextField.getText()));
-            tEscapeRoom.setDuracion(Integer.parseInt(duracionTextField.getText()));
-            tEscapeRoom.setPrecio(Double.parseDouble(precioTextField.getText()));
-        } catch (NumberFormatException e1) {
-            JOptionPane.showMessageDialog(null, "Formato inválido");
+            tEscapeRoom.setNombre(Validator.EmptyFieldValidator(nombreTextField.getText(), "nombre"));
+            tEscapeRoom.setCapacidadPersonas(Validator.NumericFieldValidator(capacidadTextField.getText(), "capacidad"));
+            tEscapeRoom.setDuracion(Validator.NumericFieldValidator(duracionTextField.getText(), "duración"));
+            tEscapeRoom.setPrecio(Validator.DoubleFieldValidator(precioTextField.getText(), "precio"));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Atención", JOptionPane.WARNING_MESSAGE);
             return;
         }
         Context c = new Context(tEscapeRoom, Eventos.AltaEscapeRoomBasicoOK);

@@ -104,6 +104,21 @@ public class SAEscapeRoomImpAltaTest {
     }
 
     @Test
+    @DisplayName("Comprobación de que se lanza una exepción al intentar dar de alta un escape room con un nombre vacío")
+    public void CreateEscapeRoomWithEmptyName() {
+
+        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("")).thenReturn(null);
+
+        tEscapeRoom.setNombre("");
+        try {
+            saEscapeRoom.crearEscapeRoom(tEscapeRoom);
+        } catch (Exception e) {
+            Assertions.assertEquals(e.getClass(), InvalidEmptyNameException.class);
+            Assertions.assertEquals(e.getMessage(), "Nombre no válido por ser vacío");
+        }
+    }
+
+    @Test
     @DisplayName("Comprobación de que se lanza una exepción al intentar dar de alta un escape room con un precio inválido")
     public void CreateEscapeRoomWithInvalidPrice() {
 
