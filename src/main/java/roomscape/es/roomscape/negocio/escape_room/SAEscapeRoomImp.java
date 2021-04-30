@@ -33,6 +33,8 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
         ValidationException e = null;
         if (optional.isPresent() && optional.get().isActivo()) {
             e = new InvalidNameException();
+        } else if (tEscapeRoom.getNombre().isEmpty()) {
+            e = new InvalidEmptyNameException();
         } else if (pattern.matcher(tEscapeRoom.getNombre()).find()) {
             Matcher matcher = pattern.matcher(tEscapeRoom.getNombre());
             StringBuffer sb = new StringBuffer();
