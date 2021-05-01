@@ -1,4 +1,4 @@
-package roomscape.es.roomscape.negocio.escape_room;
+package roomscape.es.roomscapebackend.negocio.escape_room;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

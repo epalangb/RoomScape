@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import roomscape.es.roomscapebackend.negocio.entity.EntityEscapeRoom;
+import roomscape.es.roomscapebackend.negocio.exceptions.list.EmptyListException;
+import roomscape.es.roomscapebackend.negocio.exceptions.list.NoRoomEscapesException;
 import roomscape.es.roomscapebackend.negocio.exceptions.validations.*;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
 
@@ -25,7 +27,7 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
     private RepositoryEscapeRoom repositoryEscapeRoom;
 
     @Override
-    public TEscapeRoom crearEscapeRoom(TEscapeRoom tEscapeRoom) throws Exception {
+    public TEscapeRoom createEscapeRoom(TEscapeRoom tEscapeRoom) throws Exception {
 
         EntityEscapeRoom auxEscapeRoom = repositoryEscapeRoom.findEntityEscapeRoomByNombre(tEscapeRoom.getNombre());
         Optional<EntityEscapeRoom> optional = Optional.ofNullable(auxEscapeRoom);
@@ -81,7 +83,7 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
     }
 
     @Override
-    public List<TEscapeRoom> listarEscapeRooms() throws Exception {
+    public List<TEscapeRoom> listEscapeRooms() throws Exception {
         List<EntityEscapeRoom> listaAux = repositoryEscapeRoom.findAll();
 
         if (listaAux.isEmpty()) {
