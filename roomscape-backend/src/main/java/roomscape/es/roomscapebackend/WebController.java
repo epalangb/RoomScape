@@ -9,6 +9,8 @@ import roomscape.es.roomscapebackend.negocio.escape_room.SAEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.escape_room.TEscapeRoom;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -41,5 +43,27 @@ public class WebController {
             newEscapeRoom = new TEscapeRoom();
         }
         return new Gson().toJson(newEscapeRoom);
+    }
+
+    @GetMapping(path = "/escape-room/list")
+    public String listEscapeRoom(HttpServletResponse response) {
+
+        List<TEscapeRoom> escapeRoomList;
+
+        Optional<List<TEscapeRoom>> optional = null;
+        try {
+            optional = Optional.ofNullable(saEscapeRoom.listarEscapeRooms());
+        } catch (Exception e) {
+            response.setStatus(400);
+            return e.getMessage();
+        }
+        if (optional.isPresent()) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            escapeRoomList = optional.get();
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            escapeRoomList = new ArrayList<TEscapeRoom>();
+        }
+        return new Gson().toJson(escapeRoomList);
     }
 }

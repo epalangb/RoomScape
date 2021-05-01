@@ -32,6 +32,14 @@ public class FactoryViewImp extends AbstractFactoryView {
         return (AltaEscapeRoomBasicoView) v;
     }
 
+    @Override
+    public ListarEscapeRoomView createListarEscapeRoomBasicoView() {
+        if (v == null || !(v instanceof ListarEscapeRoomView)) {
+            v = new ListarEscapeRoomView();
+        }
+        return (ListarEscapeRoomView) v;
+    }
+
     public MainView createMainView() {
         if (v == null || !(v instanceof MainView)) {
             v = new MainView();

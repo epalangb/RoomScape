@@ -7,5 +7,8 @@ public enum Event {
     AbrirAltaEscapeRoomBasicoView,
     AltaEscapeRoomBasicoOK,
     AltaEscapeRoomBasicoError,
+    AbrirListarEscapeRoomView,
+    ListarEscapeRoomOK,
+    ListarEscapeRoomError,
     CommandError,
 }
