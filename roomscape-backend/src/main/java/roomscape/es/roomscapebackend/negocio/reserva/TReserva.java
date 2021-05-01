@@ -1,4 +1,4 @@
-package roomscape.es.roomscape.negocio.reserva;
+package roomscape.es.roomscapebackend.negocio.reserva;
 
 import lombok.Data;
 

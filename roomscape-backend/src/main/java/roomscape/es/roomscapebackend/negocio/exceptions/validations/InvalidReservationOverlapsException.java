@@ -1,6 +1,6 @@
-package roomscape.es.roomscape.negocio.exceptions.validations;
+package roomscape.es.roomscapebackend.negocio.exceptions.validations;
 
-public class InvalidReservationOverlapsException extends ValidationException{
+public class InvalidReservationOverlapsException extends ValidationException {
     private static final String MESSAGE = "Ya existe una reserva para la Escape Room en el rango horario seleccionado";
 
     public InvalidReservationOverlapsException() {

@@ -1,13 +1,10 @@
-package roomscape.es.roomscape.negocio.repository;
+package roomscape.es.roomscapebackend.negocio.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-
-import org.springframework.data.jpa.repository.Query;
-import roomscape.es.roomscape.negocio.entity.EntityReserva;
+import roomscape.es.roomscapebackend.negocio.entity.EntityReserva;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public interface RepositoryReserva extends JpaRepository<EntityReserva, Integer>, JpaSpecificationExecutor<EntityReserva> {

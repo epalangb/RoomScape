@@ -1,14 +1,14 @@
-package roomscape.es.roomscape.negocio.reserva;
+package roomscape.es.roomscapebackend.negocio.reserva;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import roomscape.es.roomscape.negocio.entity.EntityEscapeRoom;
-import roomscape.es.roomscape.negocio.entity.EntityReserva;
-import roomscape.es.roomscape.negocio.exceptions.validations.*;
-import roomscape.es.roomscape.negocio.repository.RepositoryEscapeRoom;
-import roomscape.es.roomscape.negocio.repository.RepositoryReserva;
+import roomscape.es.roomscapebackend.negocio.entity.EntityEscapeRoom;
+import roomscape.es.roomscapebackend.negocio.entity.EntityReserva;
+import roomscape.es.roomscapebackend.negocio.exceptions.validations.*;
+import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
+import roomscape.es.roomscapebackend.negocio.repository.RepositoryReserva;
 
 import java.util.ArrayList;
 import java.util.Calendar;

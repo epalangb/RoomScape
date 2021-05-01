@@ -1,17 +1,14 @@
-package roomscape.es.roomscape.negocio.entity;
+package roomscape.es.roomscapebackend.negocio.entity;
 
 import lombok.Data;
-
-import java.util.Calendar;
-import java.util.Date;
-
-import roomscape.es.roomscape.negocio.reserva.TReserva;
-
+import roomscape.es.roomscapebackend.negocio.reserva.TReserva;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Calendar;
+import java.util.Date;
 
 
 @Entity

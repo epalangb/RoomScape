@@ -1,9 +1,9 @@
 package roomscape.es.roomscapefrontend.views.escape_room;
 
-import roomscape.es.roomscapefrontend.utils.Configuration;
 import roomscape.es.roomscapefrontend.app_controller.Context;
-import roomscape.es.roomscapefrontend.app_controller.controller.Controller;
 import roomscape.es.roomscapefrontend.app_controller.Event;
+import roomscape.es.roomscapefrontend.app_controller.controller.Controller;
+import roomscape.es.roomscapefrontend.utils.Configuration;
 
 import javax.swing.*;
 import java.awt.*;
