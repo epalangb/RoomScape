@@ -2,6 +2,7 @@ package roomscape.es.roomscape.presentacion.command;
 
 import roomscape.es.roomscape.presentacion.command.escape_room.AltaEscapeRoomBasicoCommand;
 import roomscape.es.roomscape.presentacion.Eventos;
+import roomscape.es.roomscape.presentacion.command.escape_room.ListarEscapeRoomCommand;
 
 import java.util.HashMap;
 
@@ -14,6 +15,7 @@ public class CommandFactoryImp extends CommandFactory{
 
         //AGC
         availableCommands.put(Eventos.AltaEscapeRoomBasicoOK, new AltaEscapeRoomBasicoCommand());
+        availableCommands.put(Eventos.ListarEscapeRoomOK, new ListarEscapeRoomCommand());
     }
 
 
