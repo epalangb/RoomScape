@@ -9,6 +9,8 @@ import roomscape.es.roomscapebackend.negocio.entity.EntityEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.exceptions.validations.*;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -76,5 +78,20 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
         EntityEscapeRoom entityEscapeRoomSaved = repositoryEscapeRoom.save(entityEscapeRoom);
 
         return entityEscapeRoomSaved.toTransfer();
+    }
+
+    @Override
+    public List<TEscapeRoom> listarEscapeRooms() throws Exception {
+        List<EntityEscapeRoom> listaAux = repositoryEscapeRoom.findAll();
+
+        if (listaAux.isEmpty()) {
+            EmptyListException e = new NoRoomEscapesException();
+            log.warn(e.getMessage());
+            throw e;
+        }
+
+        List<TEscapeRoom> listaEscapeRooms = new ArrayList<>();
+        listaAux.forEach(entityEscapeRoom -> listaEscapeRooms.add(entityEscapeRoom.toTransfer()));
+        return listaEscapeRooms;
     }
 }
