@@ -15,7 +15,7 @@ import java.util.Calendar;
 import java.util.Optional;
 
 
-public class SAReservaImp implements  SAReserva {
+public class SAReservaImp implements SAReserva {
 
     private static final Logger log = LoggerFactory.getLogger(SAReservaImp.class);
 
@@ -35,28 +35,27 @@ public class SAReservaImp implements  SAReserva {
         }
         int duration = auxEscapeRoom.getDuracion(); //Miramos duracion de escape room elegida
 
-        EntityReserva auxReserva = repositoryReserva.findEntityReservaByEscapeRoomAndDate(tReserva.getNombreEscapeRoom(), tReserva.getFechaIni());
+        EntityReserva auxReserva = repositoryReserva.findEntityReservaByNombreEscapeRoomAndFechaIni(tReserva.getNombreEscapeRoom(), tReserva.getFechaIni().getTime());
         Optional<EntityReserva> optional = Optional.ofNullable(auxReserva);
 
         Calendar fechaFin = tReserva.getFechaIni();
         fechaFin.add(Calendar.MINUTE, duration);
         tReserva.setFechaFin(fechaFin); //añadimos la duracion del escape room a la reserva
 
-        ArrayList<EntityReserva> escapeRoomList = repositoryReserva.findEntityReservaByEscapeRoom(tReserva.getNombreEscapeRoom());
+        ArrayList<EntityReserva> escapeRoomList = repositoryReserva.findEntityReservaByNombreEscapeRoom(tReserva.getNombreEscapeRoom());
 
         Boolean ocupado = false;
-        for(EntityReserva entityReserva: escapeRoomList){ //Comprobamos si se sobreponen horarios
-            if(tReserva.getFechaIni().before(entityReserva.getFechaFin()) && tReserva.getFechaFin().after(entityReserva.getFechaIni())){
+        for (EntityReserva entityReserva : escapeRoomList) { //Comprobamos si se sobreponen horarios
+            if (tReserva.getFechaIni().before(entityReserva.getFechaFin()) && tReserva.getFechaFin().after(entityReserva.getFechaIni())) {
                 ocupado = true;
             } //(StartA <= EndB) and (EndA >= StartB)  https://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap
         }
 
         if (optional.isPresent() && optional.get().isActivo()) { //Ya existe reserva a escape room a esa hora
             e = new InvalidReservationException();
-        } else if (ocupado){ //El rango elegido esta ocupado
+        } else if (ocupado) { //El rango elegido esta ocupado
             e = new InvalidReservationOverlapsException();
-        }
-        else if (auxEscapeRoom.getCapacidadPersonas() < tReserva.getParticipantes()) { //Mayor numero de participantes que capacidad de escape rooom
+        } else if (auxEscapeRoom.getCapacidadPersonas() < tReserva.getParticipantes()) { //Mayor numero de participantes que capacidad de escape rooom
             e = new InvalidParticipantException();
         }
 
@@ -71,10 +70,10 @@ public class SAReservaImp implements  SAReserva {
         if (optional.isPresent()) {
             entityReserva = optional.get();
             entityReserva.setActivo(true);
-            entityReserva.setFechaIni(tReserva.getFechaIni());
+            entityReserva.setFechaIni(tReserva.getFechaIni().getTime());
             entityReserva.setParticipantes(tReserva.getParticipantes());
             entityReserva.setNombreEscapeRoom(tReserva.getNombreEscapeRoom());
-            entityReserva.setFechaFin(tReserva.getFechaFin());
+            entityReserva.setFechaFin(tReserva.getFechaFin().getTime());
         } else {
             tReserva.setActivo(true);
             entityReserva = new EntityReserva(tReserva);

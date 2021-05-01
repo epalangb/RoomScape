@@ -1,7 +1,10 @@
 package roomscape.es.roomscape.negocio.entity;
 
 import lombok.Data;
+
 import java.util.Calendar;
+import java.util.Date;
+
 import roomscape.es.roomscape.negocio.reserva.TReserva;
 
 
@@ -20,29 +23,29 @@ public class EntityReserva {
     private boolean activo;
     private int participantes;
     private String nombreEscapeRoom;
-    private Calendar fechaIni;
-    private Calendar fechaFin;
+    private Date fechaIni;
+    private Date fechaFin;
 
-    public EntityReserva(){
+    public EntityReserva() {
 
     }
 
-    public EntityReserva(TReserva tReserva){
+    public EntityReserva(TReserva tReserva) {
         this.participantes = tReserva.getParticipantes();
         this.nombreEscapeRoom = tReserva.getNombreEscapeRoom();
-        this.fechaIni = tReserva.getFechaIni();
-        this.fechaFin = tReserva.getFechaFin();
+        this.fechaIni = tReserva.getFechaIni().getTime();
+        this.fechaFin = tReserva.getFechaFin().getTime();
         this.activo = tReserva.isActivo();
     }
 
-    public TReserva toTransfer(){
+    public TReserva toTransfer() {
         TReserva tReserva = new TReserva();
         tReserva.setId(this.id);
         tReserva.setActivo(this.activo);
         tReserva.setParticipantes(this.participantes);
         tReserva.setNombreEscapeRoom(this.nombreEscapeRoom);
-        tReserva.setFechaIni(this.fechaIni);
-        tReserva.setFechaFin(this.fechaFin);
+        tReserva.setFechaIni(new Calendar.Builder().setInstant(this.fechaIni).build());
+        tReserva.setFechaFin(new Calendar.Builder().setInstant(this.fechaFin).build());
 
         return tReserva;
     }
