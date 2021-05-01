@@ -8,6 +8,9 @@ import es.roomscape.roomscapefrontend.factory_view.AbstractFactoryView;
 public class ControllerImp extends Controller {
 
     public ControllerImp() {
+    }
+
+    public void startApp() {
         AbstractFactoryView.getInstance().createMainView();
     }
 

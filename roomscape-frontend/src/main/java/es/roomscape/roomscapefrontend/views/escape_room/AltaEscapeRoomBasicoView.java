@@ -1,5 +1,6 @@
 package es.roomscape.roomscapefrontend.views.escape_room;
 
+import es.roomscape.roomscapefrontend.Configuration;
 import es.roomscape.roomscapefrontend.TEscapeRoom;
 import es.roomscape.roomscapefrontend.controller.Event;
 import es.roomscape.roomscapefrontend.controller.Context;
@@ -18,10 +19,13 @@ public class AltaEscapeRoomBasicoView extends JFrame implements Vista {
 
     private JFrame last;
 
+    private Configuration config = Controller.getInstance().getConfiguration();
+
     public AltaEscapeRoomBasicoView() {
+
         initComponents();
         setSize(744, 454);
-        Image icon = Toolkit.getDefaultToolkit().getImage("roomscape-frontend\\src\\main\\resources\\images\\IconoApp_1.png");
+        Image icon = Toolkit.getDefaultToolkit().getImage(config.getImageFolder() + "IconoApp_1.png");
         setIconImage(icon);
         setResizable(false);
         setLocationRelativeTo(null);

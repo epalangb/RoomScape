@@ -2,12 +2,17 @@ package es.roomscape.roomscapefrontend;
 
 import es.roomscape.roomscapefrontend.controller.Controller;
 import es.roomscape.roomscapefrontend.views.MainView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.core.env.Environment;
 
 @SpringBootApplication
 public class RoomscapeFrontendApplication implements CommandLineRunner {
+
+    @Autowired
+    Environment environment;
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(RoomscapeFrontendApplication.class).headless(false).run(args);
@@ -15,6 +20,7 @@ public class RoomscapeFrontendApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -37,6 +43,10 @@ public class RoomscapeFrontendApplication implements CommandLineRunner {
             java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        Controller.getInstance();
+
+        Configuration config = new Configuration();
+        config.loadConfiguration(environment);
+        Controller.getInstance().setConfiguration(config);
+        Controller.getInstance().startApp();
     }
 }

@@ -2,7 +2,9 @@ package es.roomscape.roomscapefrontend.command.escape_room;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import es.roomscape.roomscapefrontend.Configuration;
 import es.roomscape.roomscapefrontend.TEscapeRoom;
+import es.roomscape.roomscapefrontend.controller.Controller;
 import es.roomscape.roomscapefrontend.controller.Event;
 import es.roomscape.roomscapefrontend.command.Command;
 import es.roomscape.roomscapefrontend.controller.Context;
@@ -15,17 +17,26 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 
 public class AltaEscapeRoomBasicoCommand extends Command {
+
+    private static final String CONNECTION_ERROR_MSG = "Ha ocurrido un error de comunicación con el servicio";
+    private static final String PATH = "/escape-room";
+    private static final String CONTENT_TYPE_HEADER = "Content-Type";
+    private static final String CONTENT_TYPE_HEADER_VALUE = "application/json";
+    private static final int DEFAULT_TIMEOUT = 10;
+
     @Override
     public Context execute(Object data) {
 
         String body = new Gson().toJson(data);
 
+        Configuration config = Controller.getInstance().getConfiguration();
+
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/escape-room"))
-                .headers("Content-Type", "application/json")
+                .uri(URI.create(config.getBackendURL() + PATH))
+                .headers(CONTENT_TYPE_HEADER, CONTENT_TYPE_HEADER_VALUE)
                 .POST(HttpRequest.BodyPublishers.ofString(body))
-                .timeout(Duration.ofSeconds(50))
+                .timeout(Duration.ofSeconds(DEFAULT_TIMEOUT))
                 .build();
 
         Context context;
@@ -39,8 +50,7 @@ public class AltaEscapeRoomBasicoCommand extends Command {
                 context = new Context(response.body(), Event.AltaEscapeRoomBasicoError);
             }
         } catch (IOException | InterruptedException | JsonSyntaxException e) {
-            String error = "Ha ocurrido un error de comunicación con el servicio.";
-            context = new Context(error, Event.AltaEscapeRoomBasicoError);
+            context = new Context(CONNECTION_ERROR_MSG, Event.AltaEscapeRoomBasicoError);
         }
 
         return context;
