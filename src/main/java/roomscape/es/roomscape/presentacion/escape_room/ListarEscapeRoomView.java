@@ -57,8 +57,6 @@ public class ListarEscapeRoomView extends javax.swing.JFrame implements Vista {
         tableScroll = new JScrollPane(table);
         tableScroll.setViewportView(table);
 
-
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RoomScape");
 
@@ -71,9 +69,7 @@ public class ListarEscapeRoomView extends javax.swing.JFrame implements Vista {
         buttonScapeRooms.setBorder(null);
         buttonScapeRooms.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Context c = new Context(null, Eventos.AbrirEscapeRoomView);
-                Controller control = Controller.getInstance();
-                control.action(c);
+                Controller.getInstance().action(new Context(null, Eventos.AbrirEscapeRoomView));
                 dispose();
             }
         });
@@ -134,7 +130,8 @@ public class ListarEscapeRoomView extends javax.swing.JFrame implements Vista {
         buttonBack.setText("Atrás");
         buttonBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // TODO
+                Controller.getInstance().action(new Context(null, Eventos.AbrirEscapeRoomView));
+                dispose();
             }
         });
 
@@ -159,12 +156,8 @@ public class ListarEscapeRoomView extends javax.swing.JFrame implements Vista {
         buttonList.setText("Listar");
         buttonList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                // TODO
-                ArrayList<TEscapeRoom> scapeRoomList = new ArrayList<TEscapeRoom>();
-                Context c = new Context(scapeRoomList, Eventos.ListarEscapeRoomOK);
+                Context c = new Context(null, Eventos.ListarEscapeRoomOK);
                 Controller.getInstance().action(c);
-
-                tableModel.update(scapeRoomList);
             }
         });
 
@@ -236,6 +229,6 @@ public class ListarEscapeRoomView extends javax.swing.JFrame implements Vista {
 
     @Override
     public void update(Context context) {
-        // TODO
+        tableModel.update((ArrayList<TEscapeRoom>) context.getDatos());
     }
 }
