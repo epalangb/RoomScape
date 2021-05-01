@@ -84,16 +84,17 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
 
     @Override
     public List<TEscapeRoom> listEscapeRooms() throws Exception {
-        List<EntityEscapeRoom> listaAux = repositoryEscapeRoom.findAll();
 
-        if (listaAux.isEmpty()) {
+        List<EntityEscapeRoom> auxList = repositoryEscapeRoom.findAll();
+
+        if (auxList.isEmpty()) {
             EmptyListException e = new NoRoomEscapesException();
             log.warn(e.getMessage());
             throw e;
         }
 
-        List<TEscapeRoom> listaEscapeRooms = new ArrayList<>();
-        listaAux.forEach(entityEscapeRoom -> listaEscapeRooms.add(entityEscapeRoom.toTransfer()));
-        return listaEscapeRooms;
+        List<TEscapeRoom> escapeRoomList = new ArrayList<>();
+        auxList.forEach(entityEscapeRoom -> escapeRoomList.add(entityEscapeRoom.toTransfer()));
+        return escapeRoomList;
     }
 }

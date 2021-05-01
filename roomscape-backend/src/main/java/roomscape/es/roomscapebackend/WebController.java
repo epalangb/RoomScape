@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 public class WebController {
@@ -30,7 +29,7 @@ public class WebController {
 
         Optional<TEscapeRoom> optional = null;
         try {
-            optional = Optional.ofNullable(saEscapeRoom.crearEscapeRoom(tEscapeRoom));
+            optional = Optional.ofNullable(saEscapeRoom.createEscapeRoom(tEscapeRoom));
         } catch (Exception e) {
             response.setStatus(400);
             return e.getMessage();
@@ -52,7 +51,7 @@ public class WebController {
 
         Optional<List<TEscapeRoom>> optional = null;
         try {
-            optional = Optional.ofNullable(saEscapeRoom.listarEscapeRooms());
+            optional = Optional.ofNullable(saEscapeRoom.listEscapeRooms());
         } catch (Exception e) {
             response.setStatus(400);
             return e.getMessage();
@@ -62,7 +61,7 @@ public class WebController {
             escapeRoomList = optional.get();
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            escapeRoomList = new ArrayList<TEscapeRoom>();
+            escapeRoomList = new ArrayList<>();
         }
         return new Gson().toJson(escapeRoomList);
     }

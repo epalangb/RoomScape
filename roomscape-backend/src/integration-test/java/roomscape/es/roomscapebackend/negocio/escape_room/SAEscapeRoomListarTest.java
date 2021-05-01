@@ -26,8 +26,8 @@ public class SAEscapeRoomListarTest {
         escapeRoom.setPrecio(25);
 
         try {
-            saEscapeRoom.crearEscapeRoom(escapeRoom);
-            List<TEscapeRoom> listaEscapeRooms = saEscapeRoom.listarEscapeRooms();
+            saEscapeRoom.createEscapeRoom(escapeRoom);
+            List<TEscapeRoom> listaEscapeRooms = saEscapeRoom.listEscapeRooms();
             Assertions.assertEquals(listaEscapeRooms.size(), 2);
         } catch (Exception e) {
             Assertions.assertNull(e);

@@ -1,7 +1,6 @@
 package roomscape.es.roomscapebackend.negocio.escape_room;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class SAEscapeRoomAltaTest {
         tEscapeRoom.setPrecio(20);
 
         try {
-            TEscapeRoom tEscapeRoomSaved = saEscapeRoom.crearEscapeRoom(tEscapeRoom);
+            TEscapeRoom tEscapeRoomSaved = saEscapeRoom.createEscapeRoom(tEscapeRoom);
             Assertions.assertEquals(tEscapeRoomSaved.getCapacidadPersonas(), 5);
             Assertions.assertEquals(tEscapeRoomSaved.getDuracion(), 20);
             Assertions.assertEquals(tEscapeRoomSaved.getId(), 1);

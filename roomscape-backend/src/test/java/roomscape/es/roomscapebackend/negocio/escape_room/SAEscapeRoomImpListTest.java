@@ -1,6 +1,9 @@
 package roomscape.es.roomscapebackend.negocio.escape_room;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -9,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import roomscape.es.roomscapebackend.negocio.entity.EntityEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.exceptions.list.NoRoomEscapesException;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
-import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ public class SAEscapeRoomImpListTest {
     SAEscapeRoomImp saEscapeRoom = new SAEscapeRoomImp();
 
     private EntityEscapeRoom escapeRoom;
-    private List<EntityEscapeRoom> listaEscapeRooms;
+    private List<EntityEscapeRoom> escapeRoomList;
 
     @BeforeEach
     void setMockOutput() {
@@ -36,20 +38,20 @@ public class SAEscapeRoomImpListTest {
         escapeRoom.setNombre("Escape room de prueba");
         escapeRoom.setPrecio(25);
 
-        listaEscapeRooms = new ArrayList<>();
+        escapeRoomList = new ArrayList<>();
     }
 
 
     @Test
     @DisplayName("Comprobación de que los escape rooms se listan correctamente")
-    public void listarEscapeRooms() {
+    public void listEscapeRooms() {
 
-        listaEscapeRooms.add(escapeRoom);
+        escapeRoomList.add(escapeRoom);
 
-        Mockito.when(repositoryEscapeRoom.findAll()).thenReturn(listaEscapeRooms);
+        Mockito.when(repositoryEscapeRoom.findAll()).thenReturn(escapeRoomList);
 
         try {
-            List<TEscapeRoom> tEscapeRooms = saEscapeRoom.listarEscapeRooms();
+            List<TEscapeRoom> tEscapeRooms = saEscapeRoom.listEscapeRooms();
             Assertions.assertEquals(tEscapeRooms.size(), 1);
             Assertions.assertEquals(tEscapeRooms.get(0).isActivo(), true);
             Assertions.assertEquals(tEscapeRooms.get(0).getCapacidadPersonas(), 10);
@@ -64,20 +66,20 @@ public class SAEscapeRoomImpListTest {
 
     @Test
     @DisplayName("Comprobación de que se lanza una exepción al no existir escape rooms")
-    public void listarEscapeRoomsException() {
+    public void listEscapeRoomsException() {
 
-        Mockito.when(repositoryEscapeRoom.findAll()).thenReturn(listaEscapeRooms);
+        Mockito.when(repositoryEscapeRoom.findAll()).thenReturn(escapeRoomList);
 
-        Assertions.assertThrows(NoRoomEscapesException.class, () -> saEscapeRoom.listarEscapeRooms());
+        Assertions.assertThrows(NoRoomEscapesException.class, () -> saEscapeRoom.listEscapeRooms());
     }
 
     @Test
     @DisplayName("Comprobación de que el mensaje de la exepción por no tener escape rooms sea el esperado")
-    public void listarEscapeRoomsExceptionMessage() {
+    public void listEscapeRoomsExceptionMessage() {
 
-        Mockito.when(repositoryEscapeRoom.findAll()).thenReturn(listaEscapeRooms);
+        Mockito.when(repositoryEscapeRoom.findAll()).thenReturn(escapeRoomList);
         try {
-            saEscapeRoom.listarEscapeRooms();
+            saEscapeRoom.listEscapeRooms();
         } catch (Exception e) {
             Assertions.assertEquals(e.getMessage(), "La lista esta vacía, no existen Escape Rooms");
         }

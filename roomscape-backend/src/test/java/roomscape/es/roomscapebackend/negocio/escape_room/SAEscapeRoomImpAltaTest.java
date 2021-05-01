@@ -1,17 +1,16 @@
 package roomscape.es.roomscapebackend.negocio.escape_room;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-
 import org.mockito.junit.jupiter.MockitoExtension;
 import roomscape.es.roomscapebackend.negocio.entity.EntityEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.exceptions.validations.*;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
-import org.junit.jupiter.api.Assertions;
 
 import static org.mockito.Mockito.when;
 
@@ -62,7 +61,7 @@ public class SAEscapeRoomImpAltaTest {
         when(repositoryEscapeRoom.save(entityEscapeRoomIn)).thenReturn(entityEscapeRoomOut);
 
         try {
-            TEscapeRoom testEscapeRoom = saEscapeRoom.crearEscapeRoom(tEscapeRoom);
+            TEscapeRoom testEscapeRoom = saEscapeRoom.createEscapeRoom(tEscapeRoom);
             Assertions.assertEquals(testEscapeRoom.getId(), 1);
             Assertions.assertEquals(testEscapeRoom.getNombre(), "Test EscapeRoom");
             Assertions.assertTrue(testEscapeRoom.isActivo());
@@ -81,7 +80,7 @@ public class SAEscapeRoomImpAltaTest {
         when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(entityEscapeRoomOut);
 
         try {
-            saEscapeRoom.crearEscapeRoom(tEscapeRoom);
+            saEscapeRoom.createEscapeRoom(tEscapeRoom);
         } catch (Exception e) {
             Assertions.assertEquals(e.getClass(), InvalidNameException.class);
             Assertions.assertEquals(e.getMessage(), "Nombre no válido por existir en la base de datos");
@@ -96,7 +95,7 @@ public class SAEscapeRoomImpAltaTest {
 
         tEscapeRoom.setNombre("*[Nombre Inválido+?");
         try {
-            saEscapeRoom.crearEscapeRoom(tEscapeRoom);
+            saEscapeRoom.createEscapeRoom(tEscapeRoom);
         } catch (Exception e) {
             Assertions.assertEquals(e.getClass(), InvalidNameCharactersException.class);
             Assertions.assertEquals(e.getMessage(), "Nombre no válido por contener los siguientes caracteres no permitidos: *[+?");
@@ -111,7 +110,7 @@ public class SAEscapeRoomImpAltaTest {
 
         tEscapeRoom.setNombre("");
         try {
-            saEscapeRoom.crearEscapeRoom(tEscapeRoom);
+            saEscapeRoom.createEscapeRoom(tEscapeRoom);
         } catch (Exception e) {
             Assertions.assertEquals(e.getClass(), InvalidEmptyNameException.class);
             Assertions.assertEquals(e.getMessage(), "Nombre no válido por ser vacío");
@@ -126,7 +125,7 @@ public class SAEscapeRoomImpAltaTest {
 
         tEscapeRoom.setPrecio(-1);
         try {
-            saEscapeRoom.crearEscapeRoom(tEscapeRoom);
+            saEscapeRoom.createEscapeRoom(tEscapeRoom);
         } catch (Exception e) {
             Assertions.assertEquals(e.getClass(), InvalidPriceException.class);
             Assertions.assertEquals(e.getMessage(), "Precio no válido, se considera válido un precio mayor o igual que 0");
@@ -141,7 +140,7 @@ public class SAEscapeRoomImpAltaTest {
 
         tEscapeRoom.setDuracion(-1);
         try {
-            saEscapeRoom.crearEscapeRoom(tEscapeRoom);
+            saEscapeRoom.createEscapeRoom(tEscapeRoom);
         } catch (Exception e) {
             Assertions.assertEquals(e.getClass(), InvalidDurationException.class);
             Assertions.assertEquals(e.getMessage(), "Duración no válida, se considera válida una duración mayor que 0");
@@ -156,7 +155,7 @@ public class SAEscapeRoomImpAltaTest {
 
         tEscapeRoom.setCapacidadPersonas(0);
         try {
-            saEscapeRoom.crearEscapeRoom(tEscapeRoom);
+            saEscapeRoom.createEscapeRoom(tEscapeRoom);
         } catch (Exception e) {
             Assertions.assertEquals(e.getClass(), InvalidCapacityException.class);
             Assertions.assertEquals(e.getMessage(), "Capacidad no válida. Se considera válida una capacidad mayor o igual que 1");
