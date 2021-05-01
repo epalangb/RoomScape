@@ -229,6 +229,9 @@ public class ListarEscapeRoomView extends javax.swing.JFrame implements Vista {
 
     @Override
     public void update(Context context) {
-        tableModel.update((ArrayList<TEscapeRoom>) context.getDatos());
+        if(context.getEvento() == Eventos.ListarEscapeRoomError)
+            JOptionPane.showMessageDialog(null, "La lista de escape rooms está vacía","Error", JOptionPane.ERROR_MESSAGE);
+        else
+            tableModel.update((ArrayList<TEscapeRoom>) context.getDatos());
     }
 }
