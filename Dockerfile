@@ -1,6 +1,6 @@
 FROM maven:3.6.3-openjdk-16
 
-COPY .roomscape-backend/target/roomscape-backend-0.0.1-SNAPSHOT.jar /usr/app/
+COPY roomscape-backend/target/roomscape-backend-0.0.1-SNAPSHOT.jar /usr/app/
 
 WORKDIR /usr/app
 
