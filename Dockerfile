@@ -1,4 +1,4 @@
-FROM maven:3-jdk-16
+FROM maven:3.6.3-openjdk-16
 
 COPY ./target/roomscape-backend.jar /usr/app/
 
