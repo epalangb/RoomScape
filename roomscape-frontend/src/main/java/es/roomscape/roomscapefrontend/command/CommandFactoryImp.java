@@ -1,7 +1,7 @@
-package es.roomscape.roomscapefrontend.presentacion.command;
+package es.roomscape.roomscapefrontend.command;
 
-import es.roomscape.roomscapefrontend.presentacion.Event;
-import es.roomscape.roomscapefrontend.presentacion.command.escape_room.AltaEscapeRoomBasicoCommand;
+import es.roomscape.roomscapefrontend.controller.Event;
+import es.roomscape.roomscapefrontend.command.escape_room.AltaEscapeRoomBasicoCommand;
 
 import java.util.HashMap;
 

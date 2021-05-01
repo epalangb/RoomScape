@@ -1,6 +1,4 @@
-package es.roomscape.roomscapefrontend.presentacion.controller;
-
-import es.roomscape.roomscapefrontend.presentacion.Event;
+package es.roomscape.roomscapefrontend.controller;
 
 public class Context {
 

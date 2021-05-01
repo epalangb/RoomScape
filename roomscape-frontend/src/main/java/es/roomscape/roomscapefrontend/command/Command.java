@@ -1,6 +1,6 @@
-package es.roomscape.roomscapefrontend.presentacion.command;
+package es.roomscape.roomscapefrontend.command;
 
-import es.roomscape.roomscapefrontend.presentacion.controller.Context;
+import es.roomscape.roomscapefrontend.controller.Context;
 
 public abstract class Command {
 

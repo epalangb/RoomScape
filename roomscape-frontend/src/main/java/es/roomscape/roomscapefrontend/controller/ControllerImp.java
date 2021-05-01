@@ -1,10 +1,9 @@
-package es.roomscape.roomscapefrontend.presentacion.controller;
+package es.roomscape.roomscapefrontend.controller;
 
-import es.roomscape.roomscapefrontend.presentacion.Event;
-import es.roomscape.roomscapefrontend.presentacion.command.Command;
-import es.roomscape.roomscapefrontend.presentacion.command.CommandFactory;
-import es.roomscape.roomscapefrontend.presentacion.command.dispatcher.Dispatcher;
-import es.roomscape.roomscapefrontend.presentacion.factory_view.AbstractFactoryView;
+import es.roomscape.roomscapefrontend.command.Command;
+import es.roomscape.roomscapefrontend.command.CommandFactory;
+import es.roomscape.roomscapefrontend.command.dispatcher.Dispatcher;
+import es.roomscape.roomscapefrontend.factory_view.AbstractFactoryView;
 
 public class ControllerImp extends Controller {
 

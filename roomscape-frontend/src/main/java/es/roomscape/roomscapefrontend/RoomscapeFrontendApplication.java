@@ -1,9 +1,8 @@
 package es.roomscape.roomscapefrontend;
 
-import es.roomscape.roomscapefrontend.presentacion.MainView;
-import es.roomscape.roomscapefrontend.presentacion.controller.Controller;
+import es.roomscape.roomscapefrontend.controller.Controller;
+import es.roomscape.roomscapefrontend.views.MainView;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 

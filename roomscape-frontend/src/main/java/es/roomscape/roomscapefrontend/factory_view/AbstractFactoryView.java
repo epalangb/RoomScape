@@ -1,8 +1,8 @@
-package es.roomscape.roomscapefrontend.presentacion.factory_view;
+package es.roomscape.roomscapefrontend.factory_view;
 
-import es.roomscape.roomscapefrontend.presentacion.MainView;
-import es.roomscape.roomscapefrontend.presentacion.escape_room.AltaEscapeRoomBasicoView;
-import es.roomscape.roomscapefrontend.presentacion.escape_room.EscapeRoomView;
+import es.roomscape.roomscapefrontend.views.MainView;
+import es.roomscape.roomscapefrontend.views.escape_room.AltaEscapeRoomBasicoView;
+import es.roomscape.roomscapefrontend.views.escape_room.EscapeRoomView;
 
 import javax.swing.*;
 

@@ -1,4 +1,4 @@
-package es.roomscape.roomscapefrontend.presentacion;
+package es.roomscape.roomscapefrontend.views;
 
 import javax.swing.*;
 

@@ -32,10 +32,8 @@
             <artifactId>gson</artifactId>
         </dependency>
         <dependency>
-            <groupId>roomscape.es</groupId>
-            <artifactId>roomscape-backend</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 

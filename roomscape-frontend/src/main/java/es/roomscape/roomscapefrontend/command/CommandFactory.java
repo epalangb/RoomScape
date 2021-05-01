@@ -1,6 +1,6 @@
-package es.roomscape.roomscapefrontend.presentacion.command;
+package es.roomscape.roomscapefrontend.command;
 
-import es.roomscape.roomscapefrontend.presentacion.Event;
+import es.roomscape.roomscapefrontend.controller.Event;
 
 public abstract class CommandFactory {
 

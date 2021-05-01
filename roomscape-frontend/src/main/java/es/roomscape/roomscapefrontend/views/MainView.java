@@ -1,7 +1,8 @@
-package es.roomscape.roomscapefrontend.presentacion;
+package es.roomscape.roomscapefrontend.views;
 
-import es.roomscape.roomscapefrontend.presentacion.controller.Context;
-import es.roomscape.roomscapefrontend.presentacion.controller.Controller;
+import es.roomscape.roomscapefrontend.controller.Event;
+import es.roomscape.roomscapefrontend.controller.Context;
+import es.roomscape.roomscapefrontend.controller.Controller;
 
 import java.awt.*;
 

@@ -1,4 +1,4 @@
-package es.roomscape.roomscapefrontend.presentacion.utils;
+package es.roomscape.roomscapefrontend.utils;
 
 public class Validator {
 

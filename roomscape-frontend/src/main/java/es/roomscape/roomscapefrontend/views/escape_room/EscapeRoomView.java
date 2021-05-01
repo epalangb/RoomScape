@@ -1,8 +1,8 @@
-package es.roomscape.roomscapefrontend.presentacion.escape_room;
+package es.roomscape.roomscapefrontend.views.escape_room;
 
-import es.roomscape.roomscapefrontend.presentacion.Event;
-import es.roomscape.roomscapefrontend.presentacion.controller.Context;
-import es.roomscape.roomscapefrontend.presentacion.controller.Controller;
+import es.roomscape.roomscapefrontend.controller.Event;
+import es.roomscape.roomscapefrontend.controller.Context;
+import es.roomscape.roomscapefrontend.controller.Controller;
 
 import javax.swing.*;
 import java.awt.*;

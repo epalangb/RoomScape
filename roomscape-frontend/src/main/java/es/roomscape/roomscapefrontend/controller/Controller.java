@@ -1,4 +1,4 @@
-package es.roomscape.roomscapefrontend.presentacion.controller;
+package es.roomscape.roomscapefrontend.controller;
 
 public abstract class Controller {
 
