@@ -21,7 +21,7 @@ public class AltaEscapeRoomBasicoView extends JFrame implements Vista {
     public AltaEscapeRoomBasicoView() {
         initComponents();
         setSize(744, 454);
-        Image icon = Toolkit.getDefaultToolkit().getImage("src\\Images\\IconoApp_1.png");
+        Image icon = Toolkit.getDefaultToolkit().getImage("roomscape-frontend\\src\\main\\resources\\images\\IconoApp_1.png");
         setIconImage(icon);
         setResizable(false);
         setLocationRelativeTo(null);

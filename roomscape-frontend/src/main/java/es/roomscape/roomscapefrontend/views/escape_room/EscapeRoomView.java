@@ -17,7 +17,7 @@ public class EscapeRoomView extends JFrame {
     public EscapeRoomView() {
         initComponents();
         setSize(744, 454);
-        Image icon = Toolkit.getDefaultToolkit().getImage("src\\Images\\IconoApp_1.png");
+        Image icon = Toolkit.getDefaultToolkit().getImage("roomscape-frontend\\src\\main\\resources\\images\\IconoApp_1.png");
         setIconImage(icon);
         setResizable(false);
         setLocationRelativeTo(null);

@@ -14,7 +14,7 @@ public class MainView extends javax.swing.JFrame {
     public MainView() {
         initComponents();
         setSize(744, 454);
-        Image icon = Toolkit.getDefaultToolkit().getImage("src\\Images\\IconoApp_1.png");
+        Image icon = Toolkit.getDefaultToolkit().getImage("roomscape-frontend\\src\\main\\resources\\images\\IconoApp_1.png");
         setIconImage(icon);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -109,11 +109,12 @@ public class MainView extends javax.swing.JFrame {
         jPanel2.add(jLabel3);
         jLabel3.setBounds(160, 130, 490, 130);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("src\\Images\\IconoGrande_1.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("roomscape-frontend\\src\\main\\resources\\images\\IconoGrande_1.png")); // NOI18N
         jPanel2.add(jLabel1);
         jLabel1.setBounds(240, 200, 190, 140);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("src\\Images\\imagenfondo_1.png")); // NOI18N
+
+        jLabel2.setIcon(new javax.swing.ImageIcon("roomscape-frontend\\src\\main\\resources\\images\\imagenfondo_1.png")); // NOI18N
         jPanel2.add(jLabel2);
         jLabel2.setBounds(0, -20, 670, 460);
 
