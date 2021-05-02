@@ -1,4 +1,4 @@
-package roomscape.es.roomscape.negocio.exceptions.validations;
+package roomscape.es.roomscapebackend.negocio.exceptions.validations;
 
 public class NonExistentEscapeRoom extends ValidationException {
 
