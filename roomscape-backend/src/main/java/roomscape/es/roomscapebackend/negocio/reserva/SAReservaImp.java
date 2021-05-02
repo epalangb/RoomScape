@@ -3,6 +3,7 @@ package roomscape.es.roomscapebackend.negocio.reserva;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import roomscape.es.roomscapebackend.negocio.entity.EntityEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.entity.EntityReserva;
@@ -10,11 +11,10 @@ import roomscape.es.roomscapebackend.negocio.exceptions.validations.*;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryReserva;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Optional;
+import java.util.*;
 
-
+@Service
+@Transactional
 public class SAReservaImp implements SAReserva {
 
     private static final Logger log = LoggerFactory.getLogger(SAReservaImp.class);
@@ -24,7 +24,6 @@ public class SAReservaImp implements SAReserva {
     @Autowired
     private RepositoryEscapeRoom repositoryEscapeRoom;
 
-    @Transactional
     public TReserva crearReserva(TReserva tReserva) throws Exception {
 
         EntityEscapeRoom auxEscapeRoom = repositoryEscapeRoom.findEntityEscapeRoomByNombre(tReserva.getNombreEscapeRoom());
@@ -83,5 +82,16 @@ public class SAReservaImp implements SAReserva {
         EntityReserva entityReservaSaved = repositoryReserva.save(entityReserva);
 
         return entityReservaSaved.toTransfer();
+    }
+
+    @Override
+    public List<TReserva> listByDateAndHour(Calendar reservationDate) throws Exception {
+        List<TReserva> tReservations = new ArrayList<>();
+        List<EntityReserva> reservations = repositoryReserva.findAll();
+        reservations.stream()
+                .filter(reservation -> reservation.getFechaIni().compareTo(reservationDate.getTime()) == 1)
+                .forEach(reservation -> tReservations.add(reservation.toTransfer()));
+        Collections.sort(tReservations);
+        return tReservations;
     }
 }
