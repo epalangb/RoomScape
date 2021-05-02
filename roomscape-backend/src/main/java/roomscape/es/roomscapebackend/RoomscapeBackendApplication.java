@@ -1,12 +1,12 @@
-package roomscape.es.roomscape;
+package roomscape.es.roomscapebackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RoomscapeApplication {
+public class RoomscapeBackendApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RoomscapeApplication.class, args);
+        SpringApplication.run(RoomscapeBackendApplication.class, args);
     }
 }
