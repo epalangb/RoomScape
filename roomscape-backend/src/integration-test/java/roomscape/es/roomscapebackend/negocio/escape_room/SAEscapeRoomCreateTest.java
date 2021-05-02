@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class SAEscapeRoomAltaTest {
+public class SAEscapeRoomCreateTest {
 
     @Autowired
     SAEscapeRoom saEscapeRoom;
 
     @Test
     @DisplayName("Comprobación de que un escape room se da de alta correctamente")
-    public void altaEscapeRoomExito() {
+    public void CreateEscapeRoom() {
 
         TEscapeRoom tEscapeRoom = new TEscapeRoom();
         tEscapeRoom.setCapacidadPersonas(5);
