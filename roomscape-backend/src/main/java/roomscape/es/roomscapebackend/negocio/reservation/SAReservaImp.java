@@ -90,9 +90,9 @@ public class SAReservaImp implements SAReserva {
         List<TReserva> tReservations = new ArrayList<>();
         List<EntityReserva> reservations = repositoryReserva.findAll();
         reservations.stream()
-                .filter(reservation -> reservation.getFechaIni().compareTo(reservationDate.getTime()) == 1)
+                .filter(reservation -> reservation.getFechaIni().compareTo(reservationDate.getTime()) >= 0)
                 .forEach(reservation -> tReservations.add(reservation.toTransfer()));
-        if(tReservations.isEmpty())
+        if (tReservations.isEmpty())
             throw new NoReservationsAvailableException();
         Collections.sort(tReservations);
         return tReservations;

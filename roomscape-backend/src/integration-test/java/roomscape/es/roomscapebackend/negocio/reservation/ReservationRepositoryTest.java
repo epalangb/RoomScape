@@ -23,15 +23,14 @@ public class ReservationRepositoryTest {
         repositoryReservation.deleteAll();
     }
 
-
     @Test
     @DisplayName("Check if the database returns a reservation correctly")
-    public void listarEscapeRoomsSinResultados() {
+    public void listReservationsOK() {
 
         Calendar calIni = Calendar.getInstance();
-        calIni.set(2020, 05, 22, 20, 10);
+        calIni.set(2020, 05, 30, 20, 10);
         Calendar calFin = Calendar.getInstance();
-        calFin.set(2020, 05, 22, 21, 00);
+        calFin.set(2020, 05, 30, 21, 00);
 
         EntityReserva reservation = new EntityReserva();
         reservation.setActivo(true);
@@ -59,10 +58,10 @@ public class ReservationRepositoryTest {
 
     @Test
     @DisplayName("Check if the database does not return any reservation")
-    public void listarEscapeRoomsConUnEscapeRoom() {
+    public void listEmptyReservations() {
         try {
             List<EntityReserva> reservationsList = repositoryReservation.findAll();
-            Assertions.assertEquals(reservationsList.size(), 0);
+            Assertions.assertTrue(reservationsList.isEmpty());
         } catch (Exception e) {
             Assertions.assertNull(e);
         }

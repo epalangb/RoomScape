@@ -1,6 +1,6 @@
 package roomscape.es.roomscapebackend.negocio.reservation;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +35,9 @@ public class SAReservationListTest {
         reservation.setNombreEscapeRoom("Escape Room");
         reservation.setParticipantes(10);
         Calendar calIni = Calendar.getInstance();
-        calIni.set(2020, 05, 22, 20, 10);
+        calIni.set(2020, 05, 30, 20, 10);
         Calendar calFin = Calendar.getInstance();
-        calFin.set(2020, 05, 22, 21, 00);
+        calFin.set(2020, 05, 30, 21, 00);
         reservation.setFechaIni(calIni);
         reservation.setFechaFin(calFin);
 
@@ -45,7 +45,7 @@ public class SAReservationListTest {
             saEscapeRoom.createEscapeRoom(escapeRoom);
             saReservation.crearReserva(reservation);
             Calendar c = Calendar.getInstance();
-            c.set(2020, 05, 21, 20, 10);
+            c.set(2020, 05, 30, 20, 10);
             List<TReserva> l = saReservation.listByDateAndHour(c);
             Assertions.assertEquals(l.size(), 1);
         } catch (Exception e) {
