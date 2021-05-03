@@ -1,7 +1,7 @@
 package roomscape.es.roomscapebackend.negocio.entity;
 
 import lombok.Data;
-import roomscape.es.roomscapebackend.negocio.reserva.TReserva;
+import roomscape.es.roomscapebackend.negocio.reservation.TReserva;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

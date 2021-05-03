@@ -1,4 +1,4 @@
-package roomscape.es.roomscapebackend.negocio.reserva;
+package roomscape.es.roomscapebackend.negocio.reservation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import roomscape.es.roomscapebackend.negocio.entity.EntityEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.entity.EntityReserva;
+import roomscape.es.roomscapebackend.negocio.exceptions.list.NoReservationsAvailableException;
 import roomscape.es.roomscapebackend.negocio.exceptions.validations.*;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryReserva;
@@ -89,8 +90,10 @@ public class SAReservaImp implements SAReserva {
         List<TReserva> tReservations = new ArrayList<>();
         List<EntityReserva> reservations = repositoryReserva.findAll();
         reservations.stream()
-                .filter(reservation -> reservation.getFechaIni().compareTo(reservationDate.getTime()) == 1)
+                .filter(reservation -> reservation.getFechaIni().compareTo(reservationDate.getTime()) >= 0)
                 .forEach(reservation -> tReservations.add(reservation.toTransfer()));
+        if (tReservations.isEmpty())
+            throw new NoReservationsAvailableException();
         Collections.sort(tReservations);
         return tReservations;
     }
