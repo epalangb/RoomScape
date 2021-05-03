@@ -28,6 +28,7 @@ public class EntityEscapeRoom {
         this.activo = tEscapeRoom.isActivo();
         this.capacidadPersonas = tEscapeRoom.getCapacidadPersonas();
         this.duracion = tEscapeRoom.getDuracion();
+        this.id = tEscapeRoom.getId();
         this.nombre = tEscapeRoom.getNombre();
         this.precio = tEscapeRoom.getPrecio();
     }

@@ -9,14 +9,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest
-public class SAEscapeRoomListarTest {
+public class SAEscapeRoomListTest {
 
     @Autowired
     SAEscapeRoom saEscapeRoom;
 
     @Test
     @DisplayName("Comprobación de que los escape rooms se listan correctamente")
-    public void listarEscapeRooms() {
+    public void listEscapeRooms() {
 
         TEscapeRoom escapeRoom = new TEscapeRoom();
         escapeRoom.setActivo(true);
