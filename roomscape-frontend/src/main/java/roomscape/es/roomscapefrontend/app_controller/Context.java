@@ -1,5 +1,8 @@
 package roomscape.es.roomscapefrontend.app_controller;
 
+import lombok.Data;
+
+@Data
 public class Context {
 
     private Object data;
@@ -10,19 +13,6 @@ public class Context {
         this.event = event;
     }
 
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object datos) {
-        this.data = datos;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
+    public Context() {
     }
 }
