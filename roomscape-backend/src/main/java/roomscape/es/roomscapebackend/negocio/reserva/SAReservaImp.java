@@ -27,7 +27,6 @@ public class SAReservaImp implements SAReserva {
     @Autowired
     private RepositoryEscapeRoom repositoryEscapeRoom;
 
-    @Transactional
     public TReserva crearReserva(TReserva tReserva) throws Exception {
 
         Optional<EntityEscapeRoom> auxEscapeRoomOpt = repositoryEscapeRoom.findEntityEscapeRoomByNombre(tReserva.getNombreEscapeRoom());
