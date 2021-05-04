@@ -140,7 +140,7 @@ public class SAEscapeRoomImpUpdateTest {
             saEscapeRoom.updateEscapeRoom(tEscapeRoom);
         } catch (Exception e) {
             Assertions.assertEquals(e.getClass(), NonExistentEscapeRoom.class);
-            Assertions.assertEquals(e.getMessage(), "El escape room que se quiere actualizar no existe");
+            Assertions.assertEquals(e.getMessage(), "No se puede realizar la operación porque el escape room con id: 1 no existe");
         }
     }
 
