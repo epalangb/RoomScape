@@ -4,27 +4,26 @@ import roomscape.es.roomscapefrontend.models.TEscapeRoom;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class TableModelListarEscapeRoom extends AbstractTableModel {
 
-    private List<TEscapeRoom> scapeRooms;
-    private String[] columnNames = {"Nombre", "Capacidad", "Duración", "Precio"};
+    private ArrayList<TEscapeRoom> scapeRooms;
+    private String[] columnNames = {"ID", "Nombre", "Capacidad", "Duración", "Precio", "Estado"};
 
     public TableModelListarEscapeRoom() {
         scapeRooms = new ArrayList<TEscapeRoom>();
     }
 
-    public void update(ArrayList<TEscapeRoom> scaperooms) {
-        this.scapeRooms = new ArrayList<TEscapeRoom>();
-        Iterator<TEscapeRoom> it = scaperooms.iterator();
-        while (it.hasNext()) {
-            TEscapeRoom next = it.next();
-            this.scapeRooms.add(next);
-        }
-        fireTableStructureChanged();
+    public void update(ArrayList<TEscapeRoom> scapeRooms) {
+        this.scapeRooms = scapeRooms;
         fireTableDataChanged();
+    }
+
+    public TEscapeRoom getEscapeRoom(int id) {
+        for (TEscapeRoom tEscapeRoom : scapeRooms) {
+            if (tEscapeRoom.getId() == id) return tEscapeRoom;
+        }
+        return new TEscapeRoom();
     }
 
     @Override
@@ -43,18 +42,50 @@ public class TableModelListarEscapeRoom extends AbstractTableModel {
     }
 
     @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
+    public Class<?> getColumnClass(int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return scapeRooms.get(rowIndex).getNombre();
+                return Integer.class;
             case 1:
-                return scapeRooms.get(rowIndex).getCapacidadPersonas();
+                return String.class;
             case 2:
-                return scapeRooms.get(rowIndex).getDuracion();
+                return Integer.class;
             case 3:
-                return scapeRooms.get(rowIndex).getPrecio();
+                return Integer.class;
+            case 4:
+                return Double.class;
+            case 5:
+                return String.class;
             default:
-                return "ERROR";
+                return String.class;
         }
+    }
+
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+
+        Object object = null;
+
+        switch (columnIndex) {
+            case 0:
+                object = scapeRooms.get(rowIndex).getId();
+                break;
+            case 1:
+                object = scapeRooms.get(rowIndex).getNombre();
+                break;
+            case 2:
+                object = scapeRooms.get(rowIndex).getCapacidadPersonas();
+                break;
+            case 3:
+                object = scapeRooms.get(rowIndex).getDuracion();
+                break;
+            case 4:
+                object = scapeRooms.get(rowIndex).getPrecio();
+                break;
+            case 5:
+                object = scapeRooms.get(rowIndex).isActivo() ? "Activo" : "Inactivo";
+                break;
+        }
+        return object;
     }
 }

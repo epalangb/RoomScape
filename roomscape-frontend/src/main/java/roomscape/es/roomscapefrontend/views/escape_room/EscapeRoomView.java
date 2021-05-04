@@ -94,13 +94,11 @@ public class EscapeRoomView extends JFrame {
         });
 
         buttonListarScapeRoom.setText("Listar Escape Rooms");
-        buttonListarScapeRoom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Context c = new Context(null, Event.AbrirListarEscapeRoomView);
-                Controller control = Controller.getInstance();
-                control.action(c);
-                dispose();
-            }
+        buttonListarScapeRoom.addActionListener(e -> {
+            Context c = new Context(null, Event.ListEscapeRoom);
+            Controller control = Controller.getInstance();
+            control.action(c);
+            dispose();
         });
 
 
