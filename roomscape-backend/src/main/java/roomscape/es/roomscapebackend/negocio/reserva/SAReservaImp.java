@@ -13,6 +13,7 @@ import roomscape.es.roomscapebackend.negocio.repository.RepositoryReserva;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -40,7 +41,9 @@ public class SAReservaImp implements SAReserva {
         EntityReserva auxReserva = repositoryReserva.findEntityReservaByNombreEscapeRoomAndFechaIni(tReserva.getNombreEscapeRoom(), tReserva.getFechaIni().getTime());
         Optional<EntityReserva> optional = Optional.ofNullable(auxReserva);
 
-        Calendar fechaFin = tReserva.getFechaIni();
+        Date dateIni = tReserva.getFechaIni().getTime();
+        Calendar fechaFin = new Calendar.Builder().setInstant(dateIni).build();
+
         fechaFin.add(Calendar.MINUTE, duration);
         tReserva.setFechaFin(fechaFin); //añadimos la duracion del escape room a la reserva
 /*
@@ -66,7 +69,7 @@ public class SAReservaImp implements SAReserva {
             e = new InvalidReservationOverlapsException();
         } else if (auxEscapeRoom.getCapacidadPersonas() < tReserva.getParticipantes()) { //Mayor numero de participantes que capacidad de escape rooom
             e = new InvalidParticipantException();
-        } else if (tReserva.getParticipantes() <= 0){
+        } else if (tReserva.getParticipantes() <= 0) {
             e = new InvalidNumberOfParticipantsException();
         }
 

@@ -12,8 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import roomscape.es.roomscapebackend.negocio.entity.EntityEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.entity.EntityReserva;
-import roomscape.es.roomscapebackend.negocio.escape_room.SAEscapeRoom;
-import roomscape.es.roomscapebackend.negocio.escape_room.SAEscapeRoomImp;
 import roomscape.es.roomscapebackend.negocio.escape_room.TEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.exceptions.validations.*;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
@@ -34,16 +32,13 @@ public class SACreateReservationImpTest {
 
     @Mock
     RepositoryReserva repositoryReserva;
+
     @Mock
     RepositoryEscapeRoom repositoryEscapeRoom;
 
     @InjectMocks
     SAReserva saReserva = new SAReservaImp();
-    @InjectMocks
-    SAEscapeRoom saEscapeRoom = new SAEscapeRoomImp();
 
-    private Calendar calIni, calIni2;
-    private Calendar calFin, calFin2;
 
     private TEscapeRoom tEscapeRoom;
     private EntityEscapeRoom entityEscapeRoomIn;
@@ -69,45 +64,34 @@ public class SACreateReservationImpTest {
         entityEscapeRoomIn.setNombre("Test EscapeRoom");
         entityEscapeRoomIn.setPrecio(20);
 
-        calIni = Calendar.getInstance();
-        calIni.set(2021,1,1,20,20,20);
-        calFin = Calendar.getInstance();
-        calFin.set(2021,10,10,20,20,20);
-
-        calIni2 = Calendar.getInstance();
-        calIni2.set(2021,2,1,20,20,20);
-        calFin2 = Calendar.getInstance();
-        calFin2.set(2021,10,10,20,20,20);
-
         tReservation = new TReserva();
         tReservation.setParticipantes(10);
         tReservation.setNombreEscapeRoom("Test EscapeRoom");
-        tReservation.setFechaIni(calIni);
-        tReservation.setFechaFin(calFin);
+        tReservation.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build());
+        tReservation.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build());
 
         entityReservationIn = new EntityReserva();
         entityReservationIn.setActivo(true);
         entityReservationIn.setParticipantes(10);
         entityReservationIn.setNombreEscapeRoom("Test EscapeRoom");
         entityReservationIn.setActivo(true);
-        entityReservationIn.setFechaIni(calIni.getTime());
-        entityReservationIn.setFechaFin(calFin.getTime());
+        entityReservationIn.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build().getTime());
+        entityReservationIn.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build().getTime());
 
         entityReservationOut = new EntityReserva();
         entityReservationOut.setActivo(true);
         entityReservationOut.setParticipantes(10);
         entityReservationOut.setNombreEscapeRoom("Test EscapeRoom");
         entityReservationOut.setActivo(true);
-        entityReservationOut.setFechaIni(calIni.getTime());
-        entityReservationOut.setFechaFin(calFin.getTime());
+        entityReservationOut.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build().getTime());
+        entityReservationOut.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build().getTime());
         entityReservationOut.setId(1);
-
 
         tReservation2 = new TReserva();
         tReservation2.setParticipantes(10);
         tReservation2.setNombreEscapeRoom("Test EscapeRoom");
-        tReservation2.setFechaIni(calIni2);
-        tReservation2.setFechaFin(calFin2);
+        tReservation2.setFechaIni(new Calendar.Builder().setInstant(1612207300000L).build());
+        tReservation2.setFechaFin(new Calendar.Builder().setInstant(1612208500000L).build());
 
         reservationList = new ArrayList<>();
     }
@@ -115,13 +99,36 @@ public class SACreateReservationImpTest {
     @Test
     @DisplayName("Comprobación de que una reserva se da de alta correctamente")
     public void createEscapeRoom() {
+
+        tReservation = new TReserva();
+        tReservation.setParticipantes(10);
+        tReservation.setNombreEscapeRoom("Test EscapeRoom");
+        tReservation.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build());
+
+        entityReservationIn = new EntityReserva();
+        entityReservationIn.setActivo(true);
+        entityReservationIn.setParticipantes(10);
+        entityReservationIn.setNombreEscapeRoom("Test EscapeRoom");
+        entityReservationIn.setActivo(true);
+        entityReservationIn.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build().getTime());
+        entityReservationIn.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build().getTime());
+
+        entityReservationOut = new EntityReserva();
+        entityReservationOut.setActivo(true);
+        entityReservationOut.setId(1);
+        entityReservationOut.setParticipantes(10);
+        entityReservationOut.setNombreEscapeRoom("Test EscapeRoom");
+        entityReservationOut.setActivo(true);
+        entityReservationOut.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build().getTime());
+        entityReservationOut.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build().getTime());
+
         Calendar calIni = Calendar.getInstance();
-        calIni.set(2021,1,1,20,20,20);
+        calIni.set(2021, 1, 1, 20, 20, 20);
         Calendar calFin = Calendar.getInstance();
-        calFin.set(2021,10,10,20,20,20);
+        calFin.set(2021, 10, 10, 20, 20, 20);
 
         Mockito.when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(entityEscapeRoomIn);
-        Mockito.when(repositoryReserva.findEntityReservaByNombreEscapeRoomAndFechaIni("Test EscapeRoom",calIni.getTime())).thenReturn(null);
+        Mockito.when(repositoryReserva.findEntityReservaByNombreEscapeRoomAndFechaIni("Test EscapeRoom", new Calendar.Builder().setInstant(1612207200000L).build().getTime())).thenReturn(null);
         when(repositoryReserva.save(entityReservationIn)).thenReturn(entityReservationOut);
 
         try {
@@ -130,8 +137,8 @@ public class SACreateReservationImpTest {
             Assertions.assertEquals(testReservation.getNombreEscapeRoom(), "Test EscapeRoom");
             Assertions.assertTrue(testReservation.isActivo());
             Assertions.assertEquals(testReservation.getParticipantes(), 10);
-            Assertions.assertEquals(testReservation.getFechaIni(), calIni);
-            Assertions.assertEquals(testReservation.getFechaFin(), calFin);
+            Assertions.assertEquals(testReservation.getFechaIni(), new Calendar.Builder().setInstant(1612207200000L).build());
+            Assertions.assertEquals(testReservation.getFechaFin(), new Calendar.Builder().setInstant(1612208400000L).build());
         } catch (Exception e) {
             Assertions.assertNull(e);
         }
@@ -141,8 +148,6 @@ public class SACreateReservationImpTest {
     @DisplayName("Comprobación de que se lanza una exepción al intentar dar de alta una reserva con un numero invalido de participantes")
     public void CreateReservationWithInvalidNumberOfParticipants() {
         Mockito.when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(entityEscapeRoomIn);
-        //calIni.set(2021,1,1,20,20,20);
-        //when(repositoryReserva.findEntityReservaByNombreEscapeRoomAndFechaIni("Test EscapeRoom",calIni.getTime() )).thenReturn(null);
 
         tReservation.setParticipantes(-1);
         try {
@@ -152,12 +157,11 @@ public class SACreateReservationImpTest {
             Assertions.assertEquals(e.getMessage(), "El numero de participantes tiene que ser mayor que cero");
         }
     }
+
     @Test
     @DisplayName("Comprobación de que se lanza una exepción al intentar dar de alta una reserva con un numero de participantes mayor que la capacidad de la escape room")
     public void CreateReservationWithTooManyParticipants() {
         Mockito.when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(entityEscapeRoomIn);
-        //calIni.set(2021,1,1,20,20,20);
-        //when(repositoryReserva.findEntityReservaByNombreEscapeRoomAndFechaIni("Test EscapeRoom",calIni.getTime() )).thenReturn(null);
 
         tReservation.setParticipantes(100);
         try {
@@ -171,8 +175,6 @@ public class SACreateReservationImpTest {
     @Test
     @DisplayName("Comprobación de que se lanza una exepción al intentar dar de alta una reserva en un escape room que no existe")
     public void CreateReservationWithNonexistantEscapeRoom() {
-        calIni.set(2021,1,1,20,20,20);
-        //when(repositoryReserva.findEntityReservaByNombreEscapeRoomAndFechaIni("Test EscapeRoom",calIni.getTime() )).thenReturn(null);
 
         Mockito.when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("EscapeRoom no existente")).thenReturn(null);
         tReservation.setNombreEscapeRoom("EscapeRoom no existente");
@@ -185,12 +187,12 @@ public class SACreateReservationImpTest {
             Assertions.assertEquals(e.getMessage(), "La Escape Room seleccionada no existe");
         }
     }
+
     @Test
     @DisplayName("Comprobación de que se lanza una exepción al intentar dar de alta una reserva que coincide con otra existente")
     public void CreateReservationOverlappingOtherReservation() {
 
         reservationList.add(entityReservationIn);
-        //when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(null);
         Mockito.when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(entityEscapeRoomIn);
         Mockito.when(repositoryReserva.findEntityReservaByNombreEscapeRoom("Test EscapeRoom")).thenReturn(reservationList);
 
@@ -202,12 +204,12 @@ public class SACreateReservationImpTest {
             Assertions.assertEquals(e.getMessage(), "Ya existe una reserva para la Escape Room en el rango horario seleccionado");
         }
     }
+
     @Test
     @DisplayName("Comprobación de que se lanza una exepción al intentar dar de alta una reserva que coincide con otra existente")
     public void CreateReservationThatAlreadyExists() {
-        calIni.set(2021,1,1,20,20,20);
         Mockito.when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(entityEscapeRoomIn);
-        Mockito.when(repositoryReserva.findEntityReservaByNombreEscapeRoomAndFechaIni("Test EscapeRoom",calIni.getTime() )).thenReturn(entityReservationOut);
+        Mockito.when(repositoryReserva.findEntityReservaByNombreEscapeRoomAndFechaIni("Test EscapeRoom", new Calendar.Builder().setInstant(1612207200000L).build().getTime())).thenReturn(entityReservationOut);
         try {
             saReserva.crearReserva(tReservation);
         } catch (Exception e) {
