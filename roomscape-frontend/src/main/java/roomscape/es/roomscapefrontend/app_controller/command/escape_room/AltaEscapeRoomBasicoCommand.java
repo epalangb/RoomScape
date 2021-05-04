@@ -19,7 +19,7 @@ import java.time.Duration;
 public class AltaEscapeRoomBasicoCommand extends Command {
 
     private static final String CONNECTION_ERROR_MSG = "Ha ocurrido un error de comunicación con el servicio";
-    private static final String PATH = "/escape-room";
+    private static final String PATH = "/escape-room/create";
     private static final String CONTENT_TYPE_HEADER = "Content-Type";
     private static final String CONTENT_TYPE_HEADER_VALUE = "application/json";
 

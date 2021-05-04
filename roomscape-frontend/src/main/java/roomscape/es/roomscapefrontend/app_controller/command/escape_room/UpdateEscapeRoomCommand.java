@@ -2,7 +2,6 @@ package roomscape.es.roomscapefrontend.app_controller.command.escape_room;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import roomscape.es.roomscapefrontend.app_controller.Context;
 import roomscape.es.roomscapefrontend.app_controller.Event;
 import roomscape.es.roomscapefrontend.app_controller.command.Command;
@@ -11,29 +10,31 @@ import roomscape.es.roomscapefrontend.models.TEscapeRoom;
 import roomscape.es.roomscapefrontend.utils.Configuration;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.ArrayList;
 
-public class ListarEscapeRoomCommand extends Command {
+public class UpdateEscapeRoomCommand extends Command {
 
     private static final String CONNECTION_ERROR_MSG = "Ha ocurrido un error de comunicación con el servicio";
-    private static final String PATH = "/escape-room/list";
+    private static final String PATH = "/escape-room/update";
+    private static final String CONTENT_TYPE_HEADER = "Content-Type";
+    private static final String CONTENT_TYPE_HEADER_VALUE = "application/json";
 
     @Override
     public Context execute(Object data) {
 
+        String body = new Gson().toJson(data);
+
         Configuration config = Controller.getInstance().getConfiguration();
 
         HttpClient client = HttpClient.newHttpClient();
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(config.getBackendURL() + PATH))
-                .GET()
+                .headers(CONTENT_TYPE_HEADER, CONTENT_TYPE_HEADER_VALUE)
+                .PUT(HttpRequest.BodyPublishers.ofString(body))
                 .timeout(Duration.ofSeconds(config.getTimeOut()))
                 .build();
 
@@ -42,15 +43,13 @@ public class ListarEscapeRoomCommand extends Command {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
-                Type scapeRoomT = new TypeToken<ArrayList<TEscapeRoom>>() {
-                }.getType();
-                ArrayList<TEscapeRoom> scapeRooms = new Gson().fromJson(response.body(), scapeRoomT);
-                context = new Context(scapeRooms, Event.ListEscapeRoom);
+                TEscapeRoom tEscapeRoom = new Gson().fromJson(response.body(), TEscapeRoom.class);
+                context = new Context(tEscapeRoom, Event.UpdateEscapeRoomOK);
             } else {
-                context = new Context(response.body(), Event.ListEscapeRoomError);
+                context = new Context(response.body(), Event.UpdateEscapeRoomError);
             }
         } catch (IOException | InterruptedException | JsonSyntaxException e) {
-            context = new Context(CONNECTION_ERROR_MSG, Event.ListEscapeRoomError);
+            context = new Context(CONNECTION_ERROR_MSG, Event.UpdateEscapeRoomError);
         }
 
         return context;
