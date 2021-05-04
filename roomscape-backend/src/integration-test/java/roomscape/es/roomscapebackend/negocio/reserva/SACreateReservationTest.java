@@ -45,7 +45,7 @@ public class SACreateReservationTest {
                 List<EntityReserva> reservationSaved = repositoryReservation.findAll();
                 Assertions.assertEquals(reservationSaved.get(0).getParticipantes(), 10);
                 Assertions.assertEquals(reservationSaved.get(0).getNombreEscapeRoom(), "Test EscapeRoom");
-                Assertions.assertEquals(reservationSaved.get(0).getId(), 1);
+                Assertions.assertEquals(reservationSaved.get(0).getId(), 2);
                 Assertions.assertEquals(reservationSaved.get(0).getFechaIni().compareTo(calIni.getTime()), -1);
                 Assertions.assertEquals(reservationSaved.get(0).getFechaFin().compareTo(calIni.getTime()), -1);
                 Assertions.assertTrue(reservationSaved.get(0).isActivo());
