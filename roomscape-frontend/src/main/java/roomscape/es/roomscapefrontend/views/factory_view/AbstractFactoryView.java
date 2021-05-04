@@ -3,7 +3,8 @@ package roomscape.es.roomscapefrontend.views.factory_view;
 import roomscape.es.roomscapefrontend.views.MainView;
 import roomscape.es.roomscapefrontend.views.escape_room.AltaEscapeRoomBasicoView;
 import roomscape.es.roomscapefrontend.views.escape_room.EscapeRoomView;
-import roomscape.es.roomscapefrontend.views.escape_room.ListarEscapeRoomView;
+import roomscape.es.roomscapefrontend.views.escape_room.ListEscapeRoomView;
+import roomscape.es.roomscapefrontend.views.escape_room.UpdateEscapeRoomView;
 
 import javax.swing.*;
 
@@ -25,7 +26,9 @@ public abstract class AbstractFactoryView {
 
     public abstract AltaEscapeRoomBasicoView createAltaEscapeRoomBasicoView();
 
-    public abstract ListarEscapeRoomView createListarEscapeRoomBasicoView();
+    public abstract UpdateEscapeRoomView createUpdateEscapeRoomView();
+
+    public abstract ListEscapeRoomView createListarEscapeRoomBasicoView();
 
     public abstract JFrame createVistaError(String s);
 }

@@ -27,15 +27,16 @@ public class SAReservaImp implements SAReserva {
     @Autowired
     private RepositoryEscapeRoom repositoryEscapeRoom;
 
-
+    @Transactional
     public TReserva crearReserva(TReserva tReserva) throws Exception {
 
-        EntityEscapeRoom auxEscapeRoom = repositoryEscapeRoom.findEntityEscapeRoomByNombre(tReserva.getNombreEscapeRoom());
-        ValidationException e = null;
-        if (auxEscapeRoom == null) { //Miramos si existe escape room a reservar
-            e = new InvalidEscapeRoomException();
-            throw e;
+        Optional<EntityEscapeRoom> auxEscapeRoomOpt = repositoryEscapeRoom.findEntityEscapeRoomByNombre(tReserva.getNombreEscapeRoom());
+        if (!auxEscapeRoomOpt.isPresent()) { //Miramos si existe escape room a reservar
+            throw new InvalidEscapeRoomException();
         }
+
+        EntityEscapeRoom auxEscapeRoom = auxEscapeRoomOpt.get();
+
         int duration = auxEscapeRoom.getDuracion(); //Miramos duracion de escape room elegida
 
         EntityReserva auxReserva = repositoryReserva.findEntityReservaByNombreEscapeRoomAndFechaIni(tReserva.getNombreEscapeRoom(), tReserva.getFechaIni().getTime());
@@ -46,11 +47,6 @@ public class SAReservaImp implements SAReserva {
 
         fechaFin.add(Calendar.MINUTE, duration);
         tReserva.setFechaFin(fechaFin); //añadimos la duracion del escape room a la reserva
-/*
-        EntityReserva overlappingReservation = repositoryReserva.findOverlappingReservations(tReserva.getNombreEscapeRoom(), tReserva.getFechaIni().getTime(), tReserva.getFechaFin().getTime());
-        boolean ocupado = true;
-        if (overlappingReservation == null) ocupado = false;
-*/
 
         ArrayList<EntityReserva> escapeRoomList = repositoryReserva.findEntityReservaByNombreEscapeRoom(tReserva.getNombreEscapeRoom());
 
@@ -62,6 +58,7 @@ public class SAReservaImp implements SAReserva {
             } //(StartA <= EndB) and (EndA >= StartB)  https://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap
         }
 
+        ValidationException e = null;
 
         if (optional.isPresent() && optional.get().isActivo()) { //Ya existe reserva a escape room a esa hora
             e = new InvalidReservationException();
