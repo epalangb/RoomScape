@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import roomscape.es.roomscapebackend.negocio.entity.EntityEscapeRoom;
+import roomscape.es.roomscapebackend.negocio.entity.EntityReserva;
 import roomscape.es.roomscapebackend.negocio.exceptions.list.EmptyListException;
 import roomscape.es.roomscapebackend.negocio.exceptions.list.NoRoomEscapesException;
 import roomscape.es.roomscapebackend.negocio.exceptions.validations.*;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
+import roomscape.es.roomscapebackend.negocio.repository.RepositoryReserva;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -25,6 +28,9 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
 
     @Autowired
     private RepositoryEscapeRoom repositoryEscapeRoom;
+
+    @Autowired
+    private RepositoryReserva repositoryReserva;
 
     private Pattern pattern = Pattern.compile("[^a-zA-Z0-9á-üÁ-Ü-_. ]");
 
@@ -124,10 +130,30 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
             log.debug("Escape room: {} has passed the validation rules", tEscapeRoom.getNombre());
 
         } else {
-            throw new NonExistentEscapeRoom();
+            throw new NonExistentEscapeRoom(tEscapeRoom.getId());
         }
 
         return escapeRoomUpdated;
+    }
+
+    @Override
+    public int deleteEscapeRoom(int id) throws Exception {
+
+        Optional<EntityEscapeRoom> optional = repositoryEscapeRoom.findById(id);
+        if (!optional.isPresent() || !optional.get().isActivo()) {
+            throw new NonExistentEscapeRoom(id);
+        }
+
+        List<EntityReserva> reservations = repositoryReserva.findReservationsAfterDate(new Date());
+        if (reservations.size() > 0) {
+            throw new InvalidReservationPendingException();
+        }
+
+        EntityEscapeRoom entityEscapeRoom = optional.get();
+        entityEscapeRoom.setActivo(false);
+        repositoryEscapeRoom.save(entityEscapeRoom);
+
+        return entityEscapeRoom.getId();
     }
 
     private ValidationException validationRulesToEscapeRooms(TEscapeRoom tEscapeRoom) {

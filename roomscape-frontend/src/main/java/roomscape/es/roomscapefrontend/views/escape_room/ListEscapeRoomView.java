@@ -53,11 +53,40 @@ public class ListEscapeRoomView extends GenericView implements View {
 
         tModelEscapeRooms = new TableModelListarEscapeRoom();
         tableEscapeRooms = new JTable(tModelEscapeRooms);
-        tableEscapeRooms.getTableHeader().setReorderingAllowed(true);
-        tableEscapeRooms.setAutoCreateRowSorter(true);
+
 
         JButton editButton = ComponentBuilder.BuildButton(BUTTON_EDIT, EDIT_ICON);
         editButton.setEnabled(false);
+        editButton.setEnabled(true);
+        editButton.addActionListener(event -> {
+            int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
+            Context context = new Context(tModelEscapeRooms.getEscapeRoom(escapeRoomId), Event.UpdateEscapeRoomView);
+            Controller.getInstance().action(context);
+            close();
+        });
+
+        tableEscapeRooms.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int row = tableEscapeRooms.rowAtPoint(e.getPoint());
+                if (row > -1) {
+                    selectedRow = row;
+                    editButton.setEnabled(true);
+                }
+            }
+
+            public void mousePressed(MouseEvent e) {
+                int row = tableEscapeRooms.rowAtPoint(e.getPoint());
+                if (row > -1) {
+                    selectedRow = row;
+                    editButton.setEnabled(true);
+                }
+            }
+        });
+
+        JToolBar toolbar = new JToolBar();
+        toolbar.setFloatable(false);
+        toolbar.setOrientation(SwingConstants.VERTICAL);
+        toolbar.add(editButton);
         editButton.addActionListener(event -> {
             int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
             Context context = new Context(tModelEscapeRooms.getEscapeRoom(escapeRoomId), Event.UpdateEscapeRoomView);
