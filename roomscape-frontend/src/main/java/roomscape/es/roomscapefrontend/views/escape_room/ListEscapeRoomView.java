@@ -12,6 +12,8 @@ import roomscape.es.roomscapefrontend.views.table_models.TableModelListarEscapeR
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class ListEscapeRoomView extends GenericView implements View {
@@ -24,6 +26,7 @@ public class ListEscapeRoomView extends GenericView implements View {
 
     private TableModelListarEscapeRoom tModelEscapeRooms;
     private JTable tableEscapeRooms;
+    private int selectedRow;
 
     public ListEscapeRoomView() {
         initComponents();
@@ -55,35 +58,50 @@ public class ListEscapeRoomView extends GenericView implements View {
 
         JButton editButton = ComponentBuilder.BuildButton(BUTTON_EDIT, EDIT_ICON);
         editButton.setEnabled(false);
+        editButton.addActionListener(event -> {
+            int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
+            Context context = new Context(tModelEscapeRooms.getEscapeRoom(escapeRoomId), Event.UpdateEscapeRoomView);
+            Controller.getInstance().action(context);
+            close();
+        });
 
-        JButton bajaButton = ComponentBuilder.BuildButton(BUTTON_BAJA, BAJA_ICON);
-        bajaButton.setEnabled(false);
+        JButton deleteButton = ComponentBuilder.BuildButton(BUTTON_BAJA, BAJA_ICON);
+        deleteButton.setEnabled(false);
+        deleteButton.addActionListener(event -> {
+            int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
+            int response = ShowConfirmationMessage(CONFIRMATION_MESSAGE + escapeRoomId + "?");
+            if (response == 0) {
+                Context context = new Context(escapeRoomId, Event.BajaEscapeRoom);
+                Controller.getInstance().action(context);
+                close();
+            }
+        });
+
+        tableEscapeRooms.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int row = tableEscapeRooms.rowAtPoint(e.getPoint());
+                if (row > -1) {
+                    selectedRow = row;
+                    editButton.setEnabled(true);
+                    deleteButton.setEnabled(true);
+                }
+            }
+
+            public void mousePressed(MouseEvent e) {
+                int row = tableEscapeRooms.rowAtPoint(e.getPoint());
+                if (row > -1) {
+                    selectedRow = row;
+                    editButton.setEnabled(true);
+                    deleteButton.setEnabled(true);
+                }
+            }
+        });
 
         JToolBar toolbar = new JToolBar();
         toolbar.setFloatable(false);
         toolbar.setOrientation(SwingConstants.VERTICAL);
         toolbar.add(editButton);
-        toolbar.add(bajaButton);
-
-        tableEscapeRooms.getSelectionModel().addListSelectionListener(e -> {
-            bajaButton.setEnabled(true);
-            bajaButton.addActionListener(event -> {
-                int id = (int) tableEscapeRooms.getValueAt(e.getFirstIndex(), 0);
-                int response = ShowConfirmationMessage(CONFIRMATION_MESSAGE + id + "?");
-                if (response == 0) {
-                    Context context = new Context(id, Event.BajaEscapeRoom);
-                    Controller.getInstance().action(context);
-                    close();
-                }
-            });
-            editButton.setEnabled(true);
-            editButton.addActionListener(event -> {
-                int id = (int) tableEscapeRooms.getValueAt(e.getFirstIndex(), 0);
-                Context context = new Context(tModelEscapeRooms.getEscapeRoom(id), Event.UpdateEscapeRoomView);
-                Controller.getInstance().action(context);
-                close();
-            });
-        });
+        toolbar.add(deleteButton);
 
         centralPanel.add(BuildTitle(TITLE), BorderLayout.NORTH);
         centralPanel.add(new JScrollPane(tableEscapeRooms), BorderLayout.CENTER);
@@ -98,7 +116,7 @@ public class ListEscapeRoomView extends GenericView implements View {
             tModelEscapeRooms.update((ArrayList<TEscapeRoom>) context.getData());
         else if (context.getEvent() == Event.BajaEscapeRoomOK)
             ShowSuccessMessage(SUCCESS_MESSAGE);
-        else if(context.getEvent() == Event.BajaEScapeRoomError)
+        else if (context.getEvent() == Event.BajaEScapeRoomError)
             ShowErrorMessage(context.getData().toString());
         else
             ShowAlertMessage(context.getData().toString());
