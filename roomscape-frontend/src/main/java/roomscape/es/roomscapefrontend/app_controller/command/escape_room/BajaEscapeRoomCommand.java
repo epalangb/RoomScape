@@ -29,7 +29,7 @@ public class BajaEscapeRoomCommand extends Command {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(config.getBackendURL() + PATH + data))
-                .GET()
+                .DELETE()
                 .timeout(Duration.ofSeconds(config.getTimeOut()))
                 .build();
 

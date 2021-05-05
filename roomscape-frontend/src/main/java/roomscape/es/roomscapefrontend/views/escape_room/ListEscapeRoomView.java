@@ -22,7 +22,6 @@ public class ListEscapeRoomView extends GenericView implements View {
     private static final String BUTTON_EDIT = "editar";
     private static final String BUTTON_BAJA = "Dar de baja";
     private static final String CONFIRMATION_MESSAGE = "¿Estás seguro de dar de baja el escape room con id ";
-    private static final String SUCCESS_MESSAGE = "Se ha dado de baja correctamente el escape room:";
 
     private TableModelListarEscapeRoom tModelEscapeRooms;
     private JTable tableEscapeRooms;
@@ -54,10 +53,8 @@ public class ListEscapeRoomView extends GenericView implements View {
         tModelEscapeRooms = new TableModelListarEscapeRoom();
         tableEscapeRooms = new JTable(tModelEscapeRooms);
 
-
         JButton editButton = ComponentBuilder.BuildButton(BUTTON_EDIT, EDIT_ICON);
         editButton.setEnabled(false);
-        editButton.setEnabled(true);
         editButton.addActionListener(event -> {
             int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
             Context context = new Context(tModelEscapeRooms.getEscapeRoom(escapeRoomId), Event.UpdateEscapeRoomView);
@@ -65,28 +62,6 @@ public class ListEscapeRoomView extends GenericView implements View {
             close();
         });
 
-        tableEscapeRooms.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                int row = tableEscapeRooms.rowAtPoint(e.getPoint());
-                if (row > -1) {
-                    selectedRow = row;
-                    editButton.setEnabled(true);
-                }
-            }
-
-            public void mousePressed(MouseEvent e) {
-                int row = tableEscapeRooms.rowAtPoint(e.getPoint());
-                if (row > -1) {
-                    selectedRow = row;
-                    editButton.setEnabled(true);
-                }
-            }
-        });
-
-        JToolBar toolbar = new JToolBar();
-        toolbar.setFloatable(false);
-        toolbar.setOrientation(SwingConstants.VERTICAL);
-        toolbar.add(editButton);
         editButton.addActionListener(event -> {
             int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
             Context context = new Context(tModelEscapeRooms.getEscapeRoom(escapeRoomId), Event.UpdateEscapeRoomView);
@@ -143,10 +118,6 @@ public class ListEscapeRoomView extends GenericView implements View {
     public void update(Context context) {
         if (context.getEvent() == Event.ListEscapeRoom)
             tModelEscapeRooms.update((ArrayList<TEscapeRoom>) context.getData());
-        else if (context.getEvent() == Event.BajaEscapeRoomOK)
-            ShowSuccessMessage(SUCCESS_MESSAGE);
-        else if (context.getEvent() == Event.BajaEScapeRoomError)
-            ShowErrorMessage(context.getData().toString());
         else
             ShowAlertMessage(context.getData().toString());
     }
