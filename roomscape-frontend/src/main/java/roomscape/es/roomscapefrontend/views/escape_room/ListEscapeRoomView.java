@@ -12,6 +12,8 @@ import roomscape.es.roomscapefrontend.views.table_models.TableModelListarEscapeR
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class ListEscapeRoomView extends GenericView implements View {
@@ -21,6 +23,7 @@ public class ListEscapeRoomView extends GenericView implements View {
 
     private TableModelListarEscapeRoom tModelEscapeRooms;
     private JTable tableEscapeRooms;
+    private int selectedRow;
 
     public ListEscapeRoomView() {
         initComponents();
@@ -47,26 +50,40 @@ public class ListEscapeRoomView extends GenericView implements View {
 
         tModelEscapeRooms = new TableModelListarEscapeRoom();
         tableEscapeRooms = new JTable(tModelEscapeRooms);
-        tableEscapeRooms.getTableHeader().setReorderingAllowed(true);
-        tableEscapeRooms.setAutoCreateRowSorter(true);
+
 
         JButton editButton = ComponentBuilder.BuildButton(BUTTON_EDIT, EDIT_ICON);
         editButton.setEnabled(false);
+        editButton.setEnabled(true);
+        editButton.addActionListener(event -> {
+            int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
+            Context context = new Context(tModelEscapeRooms.getEscapeRoom(escapeRoomId), Event.UpdateEscapeRoomView);
+            Controller.getInstance().action(context);
+            close();
+        });
+
+        tableEscapeRooms.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int row = tableEscapeRooms.rowAtPoint(e.getPoint());
+                if (row > -1) {
+                    selectedRow = row;
+                    editButton.setEnabled(true);
+                }
+            }
+
+            public void mousePressed(MouseEvent e) {
+                int row = tableEscapeRooms.rowAtPoint(e.getPoint());
+                if (row > -1) {
+                    selectedRow = row;
+                    editButton.setEnabled(true);
+                }
+            }
+        });
 
         JToolBar toolbar = new JToolBar();
         toolbar.setFloatable(false);
         toolbar.setOrientation(SwingConstants.VERTICAL);
         toolbar.add(editButton);
-
-        tableEscapeRooms.getSelectionModel().addListSelectionListener(e -> {
-            editButton.setEnabled(true);
-            editButton.addActionListener(event -> {
-                int x = (int) tableEscapeRooms.getValueAt(e.getFirstIndex(), 0);
-                Context context = new Context(tModelEscapeRooms.getEscapeRoom(x), Event.UpdateEscapeRoomView);
-                Controller.getInstance().action(context);
-                close();
-            });
-        });
 
         centralPanel.add(BuildTitle(TITLE), BorderLayout.NORTH);
         centralPanel.add(new JScrollPane(tableEscapeRooms), BorderLayout.CENTER);
