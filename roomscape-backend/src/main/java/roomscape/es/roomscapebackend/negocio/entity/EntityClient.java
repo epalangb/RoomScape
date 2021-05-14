@@ -28,7 +28,7 @@ public class EntityClient {
         this.active = tClient.isActive();
         this.dni = tClient.getDni();
         this.user = tClient.getUser();
-        this.user = tClient.getPassword();
+        this.password = tClient.getPassword();
     }
 
     public TClient toTransfer(){
