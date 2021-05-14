@@ -14,6 +14,12 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+import java.util.Base64.Decoder;
+import java.util.Base64;
+
+
+
 @Service
 @Transactional
 public class SAClientImp implements SAClient {
@@ -35,8 +41,10 @@ public class SAClientImp implements SAClient {
             e = new InvalidNameException();
         } else if (validateDni(tClient.getDni())) {
             e = new InvalidDniException();
-        } else if (validateUser(tClient.getUser())){
+        } else if (validateUser(tClient.getUser())) {
             e = new InvalidUserFormatException();
+        } else if (validatePassword(tClient.getPassword())) {
+            e = new InvalidPasswordFormatException();
         }
         if (Optional.ofNullable(e).isPresent()) {
             log.warn("La creacion del cliente no ha superado las reglas de validación: {}",
@@ -84,9 +92,21 @@ public class SAClientImp implements SAClient {
     public boolean validateUser(String user) {
         Pattern pattern = Pattern.compile("[^a-zA-Z0-9á-üÁ-Ü-_. ]");
         Matcher matcher = pattern.matcher(user);
-        if(matcher.find()) {
+        if (matcher.find()) {
             return true;
         }
         return false;
     }
+     public boolean validatePassword(String password) {
+         byte[] decodedBytes = Base64.getDecoder().decode(password);
+         String decodedString = new String(decodedBytes);
+         String decryptedPassword = decodedString.substring(0, decodedString.length() - 9);
+         if (decryptedPassword.length() < 8) {
+             return false;
+         }
+         Pattern pattern = Pattern.compile("/^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$/i");
+         Matcher matcher = pattern.matcher(decryptedPassword);
+         if (matcher.find()) return true;
+         return false;
+     }
 }
