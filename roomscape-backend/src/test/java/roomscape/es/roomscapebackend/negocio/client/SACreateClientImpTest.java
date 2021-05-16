@@ -35,20 +35,20 @@ public class SACreateClientImpTest {
         tClient = new TClient();
         tClient.setDni("15978534C");
         tClient.setUser("Test1");
-        tClient.setPassword("password123roomscape");
+        tClient.setPassword("cGFzc3dvcmQxMjNyb29tc2NhcGU="); //password123roomscape
 
         entityClientIn = new EntityClient();
         entityClientIn.setDni("15978534C");
         entityClientIn.setUser("Test1");
         entityClientIn.setActive(true);
-        entityClientIn.setPassword("password123roomscape");
+        entityClientIn.setPassword("cGFzc3dvcmQxMjNyb29tc2NhcGU=");
 
         entityClientOut = new EntityClient();
         entityClientOut.setDni("15978534C");
         entityClientOut.setUser("Test1");
         entityClientOut.setActive(true);
         entityClientOut.setId(1);
-        entityClientOut.setPassword("password123roomscape");
+        entityClientOut.setPassword("cGFzc3dvcmQxMjNyb29tc2NhcGU=");
     }
 
     @Test
@@ -65,7 +65,7 @@ public class SACreateClientImpTest {
             Assertions.assertEquals(tClientSaved.getDni(), "15978534C");
             Assertions.assertTrue(tClientSaved.isActive());
             Assertions.assertEquals(tClientSaved.getUser(), "Test1");
-            Assertions.assertEquals(tClientSaved.getPassword(), "password123roomscape");
+            Assertions.assertEquals(tClientSaved.getPassword(), "cGFzc3dvcmQxMjNyb29tc2NhcGU=");
         } catch (Exception e) {
             Assertions.assertNull(e);
         }
@@ -205,7 +205,7 @@ public class SACreateClientImpTest {
         when(repositoryClient.findEntityClientByUser("Test1")).thenReturn(Optional.ofNullable(null));
 
         try {
-            tClient.setPassword("password*roomscape");
+            tClient.setPassword("cGFzc3dvcmQqcm9vbXNjYXBl"); //cGFzc3dvcmQqcm9vbXNjYXBl = password*roomscape
             saClient.createClient(tClient);
         } catch (Exception e) {
             Assertions.assertEquals(e.getClass(), InvalidPasswordFormatException.class);

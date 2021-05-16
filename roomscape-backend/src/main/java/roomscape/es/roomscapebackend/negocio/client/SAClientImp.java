@@ -98,14 +98,17 @@ public class SAClientImp implements SAClient {
     }
 
     public boolean validatePassword(String password) {
+        if(password.isEmpty()) {
+            return true;
+        }
         byte[] decodedBytes = Base64.getDecoder().decode(password);
         String decodedString = new String(decodedBytes);
         String decryptedPassword = decodedString.substring(0, decodedString.length() - 9);
         if (decryptedPassword.length() < 8) {
-            return false;
+            return true;
         }
-        Pattern pattern = Pattern.compile("/^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$/i");
+        Pattern pattern = Pattern.compile("^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$");
         Matcher matcher = pattern.matcher(decryptedPassword);
-        return matcher.find();
+        return !matcher.find();
     }
 }

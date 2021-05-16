@@ -19,7 +19,7 @@ public class SACreateClientTest {
         TClient tClient = new TClient();
         tClient.setDni("15978534C");
         tClient.setUser("Test1");
-        tClient.setPassword("password123roomscape");
+        tClient.setPassword("cGFzc3dvcmQxMjNyb29tc2NhcGU="); //password123roomscape
 
         try {
             TClient tClientSaved = saClient.createClient(tClient);
