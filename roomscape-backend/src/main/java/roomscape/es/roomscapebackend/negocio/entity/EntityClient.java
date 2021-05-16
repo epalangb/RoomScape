@@ -37,6 +37,7 @@ public class EntityClient {
         tClient.setActive(this.active);
         tClient.setPassword(this.password);
         tClient.setUser(this.user);
+        tClient.setDni(this.dni);
         return tClient;
     }
 }
