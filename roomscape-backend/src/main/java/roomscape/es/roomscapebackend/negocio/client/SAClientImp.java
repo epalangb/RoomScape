@@ -35,7 +35,9 @@ public class SAClientImp implements SAClient {
         Optional<EntityClient> auxClient2 = repositoryClient.findEntityClientByUser(tClient.getUser());
 
         ValidationException e = null;
-        if (auxClient.isPresent() && auxClient.get().isActive()) {
+        if(tClient.getUser().equals("")) {
+            e = new InvalidEmptyNameException();
+        } else if (auxClient.isPresent() && auxClient.get().isActive()) {
             e = new InvalidDniExistsException();
         } else if (auxClient2.isPresent() && auxClient2.get().isActive()) {
             e = new InvalidNameException();
