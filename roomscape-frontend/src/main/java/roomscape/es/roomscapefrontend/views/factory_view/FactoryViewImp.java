@@ -6,6 +6,7 @@ import roomscape.es.roomscapefrontend.views.escape_room.AltaEscapeRoomBasicoView
 import roomscape.es.roomscapefrontend.views.escape_room.EscapeRoomView;
 import roomscape.es.roomscapefrontend.views.escape_room.ListEscapeRoomView;
 import roomscape.es.roomscapefrontend.views.escape_room.UpdateEscapeRoomView;
+import roomscape.es.roomscapefrontend.views.reservas.ListReservationByHourDateView;
 
 import javax.swing.*;
 
@@ -49,6 +50,13 @@ public class FactoryViewImp extends AbstractFactoryView {
         }
         return (ListEscapeRoomView) v;
     }
+
+    @Override
+    public ListReservationByHourDateView createListarReservasHourDateView() {
+        if (v == null || !(v instanceof ListReservationByHourDateView)) {
+            v = new ListReservationByHourDateView();
+        }
+        return (ListReservationByHourDateView) v;    }
 
     public MainView createMainView() {
         if (v == null || !(v instanceof MainView)) {
