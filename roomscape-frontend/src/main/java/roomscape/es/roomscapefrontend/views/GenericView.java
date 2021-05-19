@@ -11,6 +11,7 @@ import java.awt.*;
 public abstract class GenericView extends JFrame {
 
     protected static final String EDIT_ICON = "edit";
+    protected static final String BAJA_ICON = "baja";
 
     protected static final String ALERT_TITLE = "¡Atención!";
     protected static final String SUCCESS_TITLE = "¡Operación Exitosa!";

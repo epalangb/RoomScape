@@ -81,7 +81,7 @@ public class WebController {
         return new Gson().toJson(tEscapeRoomUpdated);
     }
 
-    @DeleteMapping(path = "/escape-room/delete/{id}", consumes = "application/json")
+    @DeleteMapping(path = "/escape-room/delete/{id}")
     public String DeleteEscapeRoom(@PathVariable(value = "id") int escapeRoomId, HttpServletResponse response) {
 
         log.debug("Iniciando la operación DELETE:DeleteEscapeRoom para el escape room con id: {}", escapeRoomId);
