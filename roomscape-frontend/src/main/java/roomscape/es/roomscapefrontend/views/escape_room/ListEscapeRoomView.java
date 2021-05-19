@@ -20,6 +20,7 @@ public class ListEscapeRoomView extends GenericView implements View {
 
     private static final String TITLE = "Listado de Escape Rooms";
     private static final String BUTTON_EDIT = "editar";
+    private static final String BUTTON_RESERVATION = "reservar";
 
     private TableModelListarEscapeRoom tModelEscapeRooms;
     private JTable tableEscapeRooms;
@@ -62,12 +63,23 @@ public class ListEscapeRoomView extends GenericView implements View {
             close();
         });
 
+        JButton reserButton = ComponentBuilder.BuildButton(BUTTON_RESERVATION, RESERVATION_ICON);
+        reserButton.setEnabled(false);
+        reserButton.setEnabled(true);
+        reserButton.addActionListener(event -> {
+            int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
+            Context context = new Context(tModelEscapeRooms.getEscapeRoom(escapeRoomId), Event.AbrirAltaReservaView);
+            Controller.getInstance().action(context);
+            close();
+        });
+
         tableEscapeRooms.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 int row = tableEscapeRooms.rowAtPoint(e.getPoint());
                 if (row > -1) {
                     selectedRow = row;
                     editButton.setEnabled(true);
+                    reserButton.setEnabled(true);
                 }
             }
 
@@ -76,6 +88,7 @@ public class ListEscapeRoomView extends GenericView implements View {
                 if (row > -1) {
                     selectedRow = row;
                     editButton.setEnabled(true);
+                    reserButton.setEnabled(true);
                 }
             }
         });
@@ -84,6 +97,7 @@ public class ListEscapeRoomView extends GenericView implements View {
         toolbar.setFloatable(false);
         toolbar.setOrientation(SwingConstants.VERTICAL);
         toolbar.add(editButton);
+        toolbar.add(reserButton);
 
         centralPanel.add(BuildTitle(TITLE), BorderLayout.NORTH);
         centralPanel.add(new JScrollPane(tableEscapeRooms), BorderLayout.CENTER);
@@ -95,7 +109,7 @@ public class ListEscapeRoomView extends GenericView implements View {
     @Override
     public void update(Context context) {
         if (context.getEvent() == Event.ListEscapeRoom)
-            tModelEscapeRooms.update((ArrayList<TEscapeRoom>) context.getData());
+             tModelEscapeRooms.update((ArrayList<TEscapeRoom>) context.getData());
         else
             ShowAlertMessage(context.getData().toString());
     }

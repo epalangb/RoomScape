@@ -2,6 +2,7 @@ package roomscape.es.roomscapefrontend.app_controller.command;
 
 import roomscape.es.roomscapefrontend.app_controller.Event;
 import roomscape.es.roomscapefrontend.app_controller.command.escape_room.AltaEscapeRoomBasicoCommand;
+import roomscape.es.roomscapefrontend.app_controller.command.reserva.AltaReservaCommand;
 import roomscape.es.roomscapefrontend.app_controller.command.escape_room.ListarEscapeRoomCommand;
 import roomscape.es.roomscapefrontend.app_controller.command.escape_room.UpdateEscapeRoomCommand;
 
@@ -17,6 +18,7 @@ public class CommandFactoryImp extends CommandFactory {
         availableCommands.put(Event.ListEscapeRoom, new ListarEscapeRoomCommand());
         availableCommands.put(Event.UpdateEscapeRoom, new UpdateEscapeRoomCommand());
         availableCommands.put(Event.UpdateEscapeRoom, new UpdateEscapeRoomCommand());
+        availableCommands.put(Event.AltaReserva, new AltaReservaCommand());
     }
 
     @Override

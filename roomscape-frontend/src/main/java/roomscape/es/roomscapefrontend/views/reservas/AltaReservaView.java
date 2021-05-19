@@ -1,18 +1,20 @@
-package roomscape.es.roomscapefrontend.views.escape_room;
+package roomscape.es.roomscapefrontend.views.reservas;
 
 import roomscape.es.roomscapefrontend.app_controller.Context;
 import roomscape.es.roomscapefrontend.app_controller.Event;
 import roomscape.es.roomscapefrontend.app_controller.controller.Controller;
 import roomscape.es.roomscapefrontend.models.TEscapeRoom;
+import roomscape.es.roomscapefrontend.models.TReserva;
 import roomscape.es.roomscapefrontend.utils.Configuration;
 import roomscape.es.roomscapefrontend.utils.Validator;
 import roomscape.es.roomscapefrontend.views.View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
-public class AltaEscapeRoomBasicoView extends JFrame implements View {
-
+public class AltaReservaView  extends JFrame implements View {
     /**
      * Creates new form AltaEscapeRoomBasicoView
      */
@@ -37,11 +39,13 @@ public class AltaEscapeRoomBasicoView extends JFrame implements View {
     private JPanel jPanel2;
     private JPanel jPanel3;
     private JTextField nombreTextField;
-    private JTextField capacidadTextField;
+    private JTextField fecha_iniTextField;
+    private JTextField n_personasTextField;
     private JTextField duracionTextField;
     private JTextField precioTextField;
+    private String nombreEscapeRoom;
 
-    public AltaEscapeRoomBasicoView() {
+    public AltaReservaView() {
 
         initComponents();
         setSize(744, 454);
@@ -70,13 +74,14 @@ public class AltaEscapeRoomBasicoView extends JFrame implements View {
         jLabel1 = new JLabel();
         jLabel3 = new JLabel();
         jLabel4 = new JLabel();
-        nombreTextField = new JTextField();
+        n_personasTextField = new JTextField();
         jLabel5 = new JLabel();
-        capacidadTextField = new JTextField();
+        fecha_iniTextField = new JTextField();
         jLabel6 = new JLabel();
         duracionTextField = new JTextField();
         jLabel7 = new JLabel();
         precioTextField = new JTextField();
+        nombreTextField = new JTextField();
         jPanel3 = new JPanel();
         jButton4 = new JButton();
         jButton5 = new JButton();
@@ -148,37 +153,31 @@ public class AltaEscapeRoomBasicoView extends JFrame implements View {
         jPanel2.setBorder(BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Crear Escape Room Basico");
+        //TODO -> Falta acceder al transfer de EscapeRoom para guardar su nombre, duración y precio
+        jLabel1.setText("Crear Reserva de:  " + nombreEscapeRoom);
 
         jLabel3.setText("Formulario: ");
 
-        jLabel4.setText("Nombre: ");
+        jLabel4.setText("Duración: ");
 
-        nombreTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+        duracionTextField.setBackground(Color.YELLOW);
+        duracionTextField.setEditable(false);
 
-        jLabel5.setText("Capacidad en personas:");
+        jLabel5.setText("Precio:");
+        precioTextField.setBackground(Color.YELLOW);
+        precioTextField.setEditable(false);
 
-        capacidadTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
+        jLabel6.setText("Fecha_ini:");
 
-        jLabel6.setText("Duración:");
-
-        duracionTextField.addActionListener(new java.awt.event.ActionListener() {
+        fecha_iniTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
             }
         });
 
-        jLabel7.setText("Precio:");
+        jLabel7.setText("N_personas:");
 
-        precioTextField.addActionListener(new java.awt.event.ActionListener() {
+        n_personasTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
             }
@@ -249,8 +248,8 @@ public class AltaEscapeRoomBasicoView extends JFrame implements View {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(capacidadTextField)
                                         .addComponent(duracionTextField)
+                                        .addComponent(precioTextField)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addComponent(jLabel4)
@@ -258,7 +257,7 @@ public class AltaEscapeRoomBasicoView extends JFrame implements View {
                                                         .addComponent(jLabel6)
                                                         .addComponent(jLabel7))
                                                 .addGap(0, 0, Short.MAX_VALUE))
-                                        .addComponent(precioTextField)
+                                        .addComponent(fecha_iniTextField)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addGroup(jPanel2Layout.createSequentialGroup()
@@ -267,7 +266,7 @@ public class AltaEscapeRoomBasicoView extends JFrame implements View {
                                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                                                 .addComponent(jLabel3)
                                                                 .addGap(0, 0, Short.MAX_VALUE))
-                                                        .addComponent(nombreTextField))
+                                                        .addComponent(n_personasTextField))
                                                 .addContainerGap())))
                         .addComponent(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -281,19 +280,19 @@ public class AltaEscapeRoomBasicoView extends JFrame implements View {
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nombreTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(duracionTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(capacidadTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(precioTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(duracionTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fecha_iniTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(precioTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(n_personasTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                                 .addComponent(jPanel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         );
@@ -317,7 +316,7 @@ public class AltaEscapeRoomBasicoView extends JFrame implements View {
     }// </editor-fold>
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        Context c = new Context(null, Event.AbrirEscapeRoomView);
+        Context c = new Context(null, roomscape.es.roomscapefrontend.app_controller.Event.AbrirAltaReservaView);
         Controller control = Controller.getInstance();
         control.action(c);
         this.dispose();
@@ -337,24 +336,27 @@ public class AltaEscapeRoomBasicoView extends JFrame implements View {
     }
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
-        Context c = new Context(null, Event.AbrirEscapeRoomView);
+        Context c = new Context(null, roomscape.es.roomscapefrontend.app_controller.Event.AbrirAltaReservaView);
         Controller control = Controller.getInstance();
         control.action(c);
         this.dispose();
     }
 
     private void registrarActionPerformed(java.awt.event.ActionEvent evt) {
-        TEscapeRoom tEscapeRoom = new TEscapeRoom();
+        TReserva tReserva = new TReserva();
         try {
-            tEscapeRoom.setNombre(Validator.EmptyFieldValidator(nombreTextField.getText(), "nombre"));
-            tEscapeRoom.setCapacidadPersonas(Validator.NumericFieldValidator(capacidadTextField.getText(), "capacidad"));
-            tEscapeRoom.setDuracion(Validator.NumericFieldValidator(duracionTextField.getText(), "duración"));
-            tEscapeRoom.setPrecio(Validator.DoubleFieldValidator(precioTextField.getText(), "precio"));
+            tReserva.setNombreEscapeRoom(Validator.EmptyFieldValidator(nombreTextField.getText(), "nombre"));
+            tReserva.setDuracion(Validator.NumericFieldValidator(duracionTextField.getText(), "duración"));
+            tReserva.setPrecio(Validator.DoubleFieldValidator(precioTextField.getText(), "precio"));
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            //tReserva.setFechaIni(cal.setTime(sdf.parse(fecha_iniTextField.getText())));
+            tReserva.setParticipantes(Validator.NumericFieldValidator(n_personasTextField.getText(), "participantes"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Atención", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Context c = new Context(tEscapeRoom, Event.AltaEscapeRoomBasicoOK);
+        Context c = new Context(tReserva, Event.AltaReservaOK);
         Controller.getInstance().action(c);
     }
 
@@ -385,13 +387,16 @@ public class AltaEscapeRoomBasicoView extends JFrame implements View {
     @Override
     public void update(Context context) {
         switch (context.getEvent()) {
-            case AltaReservaView:
-                TEscapeRoom escaperoom = (TEscapeRoom) context.getData();
-
-            case AltaEscapeRoomBasicoOK:
+            case AbrirAltaReservaView:
+                TEscapeRoom escapeRoom = (TEscapeRoom) context.getData();
+                this.nombreEscapeRoom = escapeRoom.getNombre();
+                this.duracionTextField.setText(String.valueOf(escapeRoom.getDuracion()));
+                this.precioTextField.setText(String.valueOf(escapeRoom.getPrecio()));
+                break;
+            case AltaReservaOK:
                 JOptionPane.showMessageDialog(null, (context.getData()).toString(), "Confirmación", JOptionPane.INFORMATION_MESSAGE);
                 break;
-            case AltaEscapeRoomBasicoError:
+            case AltaReservaError:
                 JOptionPane.showMessageDialog(null, (context.getData()).toString(), "Error", JOptionPane.ERROR_MESSAGE);
                 break;
         }

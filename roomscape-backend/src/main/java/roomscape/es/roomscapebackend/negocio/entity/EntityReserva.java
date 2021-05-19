@@ -19,6 +19,9 @@ public class EntityReserva {
     private int id;
     private boolean activo;
     private int participantes;
+    private String cliente;
+    private double precio;
+    private int duracion;
     private String nombreEscapeRoom;
     private Date fechaIni;
     private Date fechaFin;
@@ -32,6 +35,7 @@ public class EntityReserva {
         this.nombreEscapeRoom = tReserva.getNombreEscapeRoom();
         this.fechaIni = tReserva.getFechaIni().getTime();
         this.fechaFin = tReserva.getFechaFin().getTime();
+        this.duracion = tReserva.getDuracion();
         this.activo = tReserva.isActivo();
     }
 
@@ -40,6 +44,8 @@ public class EntityReserva {
         tReserva.setId(this.id);
         tReserva.setActivo(this.activo);
         tReserva.setParticipantes(this.participantes);
+        tReserva.setPrecio(this.precio);
+        tReserva.setDuracion(this.duracion);
         tReserva.setNombreEscapeRoom(this.nombreEscapeRoom);
         tReserva.setFechaIni(new Calendar.Builder().setInstant(this.fechaIni).build());
         tReserva.setFechaFin(new Calendar.Builder().setInstant(this.fechaFin).build());
