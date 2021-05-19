@@ -20,6 +20,8 @@ public class ListEscapeRoomView extends GenericView implements View {
 
     private static final String TITLE = "Listado de Escape Rooms";
     private static final String BUTTON_EDIT = "editar";
+    private static final String BUTTON_BAJA = "Dar de baja";
+    private static final String CONFIRMATION_MESSAGE = "¿Estás seguro de dar de baja el escape room con id ";
 
     private TableModelListarEscapeRoom tModelEscapeRooms;
     private JTable tableEscapeRooms;
@@ -51,15 +53,32 @@ public class ListEscapeRoomView extends GenericView implements View {
         tModelEscapeRooms = new TableModelListarEscapeRoom();
         tableEscapeRooms = new JTable(tModelEscapeRooms);
 
-
         JButton editButton = ComponentBuilder.BuildButton(BUTTON_EDIT, EDIT_ICON);
         editButton.setEnabled(false);
-        editButton.setEnabled(true);
         editButton.addActionListener(event -> {
             int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
             Context context = new Context(tModelEscapeRooms.getEscapeRoom(escapeRoomId), Event.UpdateEscapeRoomView);
             Controller.getInstance().action(context);
             close();
+        });
+
+        editButton.addActionListener(event -> {
+            int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
+            Context context = new Context(tModelEscapeRooms.getEscapeRoom(escapeRoomId), Event.UpdateEscapeRoomView);
+            Controller.getInstance().action(context);
+            close();
+        });
+
+        JButton deleteButton = ComponentBuilder.BuildButton(BUTTON_BAJA, BAJA_ICON);
+        deleteButton.setEnabled(false);
+        deleteButton.addActionListener(event -> {
+            int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
+            int response = ShowConfirmationMessage(CONFIRMATION_MESSAGE + escapeRoomId + "?");
+            if (response == 0) {
+                Context context = new Context(escapeRoomId, Event.BajaEscapeRoom);
+                Controller.getInstance().action(context);
+                close();
+            }
         });
 
         tableEscapeRooms.addMouseListener(new MouseAdapter() {
@@ -68,6 +87,7 @@ public class ListEscapeRoomView extends GenericView implements View {
                 if (row > -1) {
                     selectedRow = row;
                     editButton.setEnabled(true);
+                    deleteButton.setEnabled(true);
                 }
             }
 
@@ -76,6 +96,7 @@ public class ListEscapeRoomView extends GenericView implements View {
                 if (row > -1) {
                     selectedRow = row;
                     editButton.setEnabled(true);
+                    deleteButton.setEnabled(true);
                 }
             }
         });
@@ -84,6 +105,7 @@ public class ListEscapeRoomView extends GenericView implements View {
         toolbar.setFloatable(false);
         toolbar.setOrientation(SwingConstants.VERTICAL);
         toolbar.add(editButton);
+        toolbar.add(deleteButton);
 
         centralPanel.add(BuildTitle(TITLE), BorderLayout.NORTH);
         centralPanel.add(new JScrollPane(tableEscapeRooms), BorderLayout.CENTER);

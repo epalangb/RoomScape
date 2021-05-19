@@ -85,6 +85,32 @@ public class WebController {
         return new Gson().toJson(tEscapeRoomUpdated);
     }
 
+    @DeleteMapping(path = "/escape-room/delete/{id}")
+    public String DeleteEscapeRoom(@PathVariable(value = "id") int escapeRoomId, HttpServletResponse response) {
+
+        log.debug("Iniciando la operación DELETE:DeleteEscapeRoom para el escape room con id: {}", escapeRoomId);
+
+        int idRemoved;
+        try {
+            idRemoved = saEscapeRoom.deleteEscapeRoom(escapeRoomId);
+        } catch (Exception e) {
+            log.error("El servicio ha respondido con el siguiente error: {}", e.getMessage());
+            response.setStatus(400);
+            return e.getMessage();
+        }
+        if (idRemoved > 0) {
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            log.error("El servicio no ha respondido correctamente");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return INTERNAL_SERVER_ERROR;
+        }
+
+        log.debug("Se ha eliminado correctamente el escape room con id: {}", idRemoved);
+
+        return new Gson().toJson(idRemoved);
+    }
+
     @GetMapping(path = "/escape-room/list")
     public String ListEscapeRoom(HttpServletResponse response) {
 

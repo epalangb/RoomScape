@@ -3,12 +3,16 @@ package roomscape.es.roomscapefrontend.views.escape_room;
 import roomscape.es.roomscapefrontend.app_controller.Context;
 import roomscape.es.roomscapefrontend.app_controller.Event;
 import roomscape.es.roomscapefrontend.app_controller.controller.Controller;
+import roomscape.es.roomscapefrontend.models.TEscapeRoom;
 import roomscape.es.roomscapefrontend.utils.Configuration;
+import roomscape.es.roomscapefrontend.views.GenericView;
+import roomscape.es.roomscapefrontend.views.View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
-public class EscapeRoomView extends JFrame {
+public class EscapeRoomView extends GenericView implements View {
 
     /**
      * Creates new form EscapeRoomView
@@ -28,6 +32,9 @@ public class EscapeRoomView extends JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
 
+
+    private static final String SUCCESS_MESSAGE = "Se ha dado de baja correctamente el escape room:";
+
     public EscapeRoomView() {
         initComponents();
         setSize(744, 454);
@@ -46,7 +53,8 @@ public class EscapeRoomView extends JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    @Override
+    protected void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         buttonScapeRooms = new javax.swing.JButton();
@@ -217,6 +225,11 @@ public class EscapeRoomView extends JFrame {
         pack();
     }// </editor-fold>
 
+    @Override
+    protected JPanel buildCentralPanel() {
+        return null;
+    }
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
@@ -249,6 +262,14 @@ public class EscapeRoomView extends JFrame {
 
     public void setLast(JFrame last) {
         this.last = last;
+    }
+
+    @Override
+    public void update(Context context) {
+        if (context.getEvent() == Event.BajaEscapeRoomOK)
+            ShowSuccessMessage(SUCCESS_MESSAGE + context.getData().toString());
+        else if (context.getEvent() == Event.BajaEScapeRoomError)
+            ShowErrorMessage(context.getData().toString());
     }
     // End of variables declaration
 
