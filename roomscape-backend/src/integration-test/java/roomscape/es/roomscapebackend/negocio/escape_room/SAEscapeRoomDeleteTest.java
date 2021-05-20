@@ -5,13 +5,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import roomscape.es.roomscapebackend.negocio.reserva.SAReserva;
-import roomscape.es.roomscapebackend.negocio.reserva.TReserva;
+import org.springframework.test.annotation.DirtiesContext;
+import roomscape.es.roomscapebackend.negocio.reservation.SAReserva;
+import roomscape.es.roomscapebackend.negocio.reservation.TReserva;
 
 import java.util.Calendar;
 import java.util.List;
 
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class SAEscapeRoomDeleteTest {
 
     @Autowired
