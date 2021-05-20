@@ -9,8 +9,12 @@ import roomscape.es.roomscapebackend.negocio.client.SAClient;
 import roomscape.es.roomscapebackend.negocio.client.TClient;
 import roomscape.es.roomscapebackend.negocio.escape_room.SAEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.escape_room.TEscapeRoom;
+import roomscape.es.roomscapebackend.negocio.login.SALogin;
+import roomscape.es.roomscapebackend.negocio.login.TLogin;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +31,11 @@ public class WebController {
     SAEscapeRoom saEscapeRoom;
     @Autowired
     SAClient saClient;
+    @Autowired
+    SALogin saLogin;
+
+    private static final String USER_ROLE = "user";
+    private static final String ROLE_ATTRIBUTE = "role";
 
     @PostMapping(path = "/escape-room/create", consumes = "application/json")
     public String CreateEscapeRoom(@RequestBody TEscapeRoom tEscapeRoom, HttpServletResponse response) {
@@ -139,5 +148,17 @@ public class WebController {
         log.debug("Se ha creado correctamente el cliente: {}", newClient);
 
         return new Gson().toJson(newClient);
+    }
+    @PostMapping("/login")
+    public String login(@RequestBody TLogin tLogin, HttpServletRequest request) {
+        try {
+            boolean isUser = saLogin.login(tLogin);
+            request.getSession().setAttribute(ROLE_ATTRIBUTE, USER_ROLE);
+        }
+        catch (Exception e){
+            log.error("El servicio ha respondido con el siguiente error: {}", e.getMessage());
+            return e.getMessage();
+        }
+        return "Logged in";
     }
 }

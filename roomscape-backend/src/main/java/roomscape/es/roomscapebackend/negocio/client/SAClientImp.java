@@ -74,22 +74,6 @@ public class SAClientImp implements SAClient {
         return entityClientSaved.toTransfer();
     }
 
-    public boolean clientLogin (Object loginData) throws Exception {
-        Optional<EntityClient> auxClient = repositoryClient.findEntityClientByUser(loginData.getUser());
-        ValidationException e = null;
-        if(!auxClient.isPresent()){
-            e = new InvalidUserNotExistsException();
-        } else if (auxClient.get().getPassword() != loginData.getPassword()){
-            e = new InvalidPasswordException();
-        }
-        if (Optional.ofNullable(e).isPresent()) {
-            log.warn("El login del cliente ha fallado: {}",
-                    e.getMessage());
-            throw e;
-        }
-        return true;
-    }
-
     public boolean validateDni(String dni) {
         if (dni == null)
             return false;
