@@ -152,6 +152,7 @@ public class WebController {
     @PostMapping(path = "/login", consumes = "application/json")
     public String login(@RequestBody TLogin tLogin, HttpServletRequest request) {
         try {
+            saLogin.login(tLogin);
             request.getSession().setAttribute(ROLE_ATTRIBUTE, USER_ROLE);
         }
         catch (Exception e){
