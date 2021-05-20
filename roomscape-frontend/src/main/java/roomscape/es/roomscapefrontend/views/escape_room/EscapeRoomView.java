@@ -33,7 +33,6 @@ public class EscapeRoomView extends GenericView implements View {
     private javax.swing.JPanel jPanel3;
 
 
-    private static final String SUCCESS_MESSAGE = "Se ha dado de baja correctamente el escape room:";
 
     public EscapeRoomView() {
         initComponents();
@@ -266,10 +265,7 @@ public class EscapeRoomView extends GenericView implements View {
 
     @Override
     public void update(Context context) {
-        if (context.getEvent() == Event.BajaEscapeRoomOK)
-            ShowSuccessMessage(SUCCESS_MESSAGE + context.getData().toString());
-        else if (context.getEvent() == Event.BajaEScapeRoomError)
-            ShowErrorMessage(context.getData().toString());
+
     }
     // End of variables declaration
 

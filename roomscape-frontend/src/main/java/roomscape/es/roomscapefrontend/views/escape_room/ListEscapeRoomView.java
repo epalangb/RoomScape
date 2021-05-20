@@ -22,6 +22,8 @@ public class ListEscapeRoomView extends GenericView implements View {
     private static final String BUTTON_EDIT = "editar";
     private static final String BUTTON_BAJA = "Dar de baja";
     private static final String CONFIRMATION_MESSAGE = "¿Estás seguro de dar de baja el escape room con id ";
+    private static final String SUCCESS_MESSAGE = "Se ha dado de baja correctamente el escape room:";
+
 
     private TableModelListarEscapeRoom tModelEscapeRooms;
     private JTable tableEscapeRooms;
@@ -77,7 +79,6 @@ public class ListEscapeRoomView extends GenericView implements View {
             if (response == 0) {
                 Context context = new Context(escapeRoomId, Event.BajaEscapeRoom);
                 Controller.getInstance().action(context);
-                close();
             }
         });
 
@@ -116,9 +117,22 @@ public class ListEscapeRoomView extends GenericView implements View {
 
     @Override
     public void update(Context context) {
-        if (context.getEvent() == Event.ListEscapeRoom)
-            tModelEscapeRooms.update((ArrayList<TEscapeRoom>) context.getData());
-        else
-            ShowAlertMessage(context.getData().toString());
+        switch (context.getEvent()) {
+            case ListEscapeRoom:
+                tModelEscapeRooms.update((ArrayList<TEscapeRoom>) context.getData());
+                break;
+            case BajaEscapeRoomOK:
+                ShowSuccessMessage(SUCCESS_MESSAGE + context.getData().toString());
+                Context c = new Context(null, Event.ListEscapeRoom);
+                Controller control = Controller.getInstance();
+                control.action(c);
+                break;
+            case BajaEScapeRoomError:
+                ShowErrorMessage(context.getData().toString());
+                break;
+            default:
+                ShowAlertMessage(context.getData().toString());
+                break;
+        }
     }
 }
