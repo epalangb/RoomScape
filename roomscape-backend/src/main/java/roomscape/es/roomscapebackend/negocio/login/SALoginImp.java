@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import roomscape.es.roomscapebackend.negocio.client.TClient;
 import roomscape.es.roomscapebackend.negocio.entity.EntityClient;
 import roomscape.es.roomscapebackend.negocio.exceptions.validations.InvalidPasswordException;
 import roomscape.es.roomscapebackend.negocio.exceptions.validations.InvalidUserNotExistsException;
@@ -21,7 +22,7 @@ public class SALoginImp implements SALogin{
     private static final Logger log = LoggerFactory.getLogger(SALogin.class);
 
     @Override
-    public boolean login(TLogin loginData) throws Exception {
+    public TClient login(TLogin loginData) throws Exception {
         Optional<EntityClient> auxClient = repositoryClient.findEntityClientByUser(loginData.getUser());
         ValidationException e = null;
         if(!auxClient.isPresent()){
@@ -34,6 +35,6 @@ public class SALoginImp implements SALogin{
                     e.getMessage());
             throw e;
         }
-        return true;
+        return auxClient.get().toTransfer();
     }
 }

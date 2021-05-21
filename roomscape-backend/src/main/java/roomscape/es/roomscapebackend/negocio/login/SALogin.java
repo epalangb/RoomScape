@@ -1,5 +1,7 @@
 package roomscape.es.roomscapebackend.negocio.login;
 
+import roomscape.es.roomscapebackend.negocio.client.TClient;
+
 public interface SALogin {
-    boolean login (TLogin loginData) throws Exception;
+    TClient login (TLogin loginData) throws Exception;
 }
