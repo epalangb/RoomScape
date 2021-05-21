@@ -10,8 +10,9 @@ public enum Event {
     AltaEscapeRoomBasicoError,
     ListEscapeRoom,
     ListEscapeRoomError,
-
-
+    BajaEscapeRoom,
+    BajaEscapeRoomOK,
+    BajaEScapeRoomError,
     UpdateEscapeRoomView,
     UpdateEscapeRoom,
     UpdateEscapeRoomOK,
@@ -22,5 +23,4 @@ public enum Event {
     AltaReservaError,
 
     CommandError,
-
 }

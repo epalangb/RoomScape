@@ -2,7 +2,7 @@ package roomscape.es.roomscapefrontend.views.factory_view;
 
 import roomscape.es.roomscapefrontend.views.MainView;
 import roomscape.es.roomscapefrontend.views.escape_room.AltaEscapeRoomBasicoView;
-import roomscape.es.roomscapefrontend.views.escape_room.EscapeRoomView;
+import roomscape.es.roomscapefrontend.views.escape_room.*;
 import roomscape.es.roomscapefrontend.views.escape_room.ListEscapeRoomView;
 import roomscape.es.roomscapefrontend.views.escape_room.UpdateEscapeRoomView;
 import roomscape.es.roomscapefrontend.views.reservas.AltaReservaView;
@@ -21,7 +21,6 @@ public abstract class AbstractFactoryView {
         return instance;
     }
 
-
     public abstract MainView createMainView();
 
     public abstract EscapeRoomView createViewEscapeRoomBasico();
@@ -35,5 +34,4 @@ public abstract class AbstractFactoryView {
     public abstract AltaReservaView createAltaReservaView();
 
     public abstract JFrame createVistaError(String s);
-
 }

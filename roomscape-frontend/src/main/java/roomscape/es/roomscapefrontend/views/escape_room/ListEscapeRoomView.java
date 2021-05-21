@@ -21,6 +21,10 @@ public class ListEscapeRoomView extends GenericView implements View {
     private static final String TITLE = "Listado de Escape Rooms";
     private static final String BUTTON_EDIT = "editar";
     private static final String BUTTON_RESERVATION = "reservar";
+    private static final String BUTTON_BAJA = "Dar de baja";
+    private static final String CONFIRMATION_MESSAGE = "¿Estás seguro de dar de baja el escape room con id ";
+    private static final String SUCCESS_MESSAGE = "Se ha dado de baja correctamente el escape room:";
+
 
     private TableModelListarEscapeRoom tModelEscapeRooms;
     private JTable tableEscapeRooms;
@@ -62,6 +66,13 @@ public class ListEscapeRoomView extends GenericView implements View {
             close();
         });
 
+        editButton.addActionListener(event -> {
+            int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
+            Context context = new Context(tModelEscapeRooms.getEscapeRoom(escapeRoomId), Event.UpdateEscapeRoomView);
+            Controller.getInstance().action(context);
+            close();
+        });
+
         JButton reserButton = ComponentBuilder.BuildButton(BUTTON_RESERVATION, RESERVATION_ICON);
         reserButton.setEnabled(false);
         reserButton.addActionListener(event -> {
@@ -71,6 +82,17 @@ public class ListEscapeRoomView extends GenericView implements View {
             close();
         });
 
+        JButton deleteButton = ComponentBuilder.BuildButton(BUTTON_BAJA, BAJA_ICON);
+        deleteButton.setEnabled(false);
+        deleteButton.addActionListener(event -> {
+            int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
+            int response = ShowConfirmationMessage(CONFIRMATION_MESSAGE + escapeRoomId + "?");
+            if (response == 0) {
+                Context context = new Context(escapeRoomId, Event.BajaEscapeRoom);
+                Controller.getInstance().action(context);
+            }
+        });
+
         tableEscapeRooms.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 int row = tableEscapeRooms.rowAtPoint(e.getPoint());
@@ -78,6 +100,7 @@ public class ListEscapeRoomView extends GenericView implements View {
                     selectedRow = row;
                     editButton.setEnabled(true);
                     reserButton.setEnabled(true);
+                    deleteButton.setEnabled(true);
                 }
             }
 
@@ -87,6 +110,7 @@ public class ListEscapeRoomView extends GenericView implements View {
                     selectedRow = row;
                     editButton.setEnabled(true);
                     reserButton.setEnabled(true);
+                    deleteButton.setEnabled(true);
                 }
             }
         });
@@ -95,6 +119,7 @@ public class ListEscapeRoomView extends GenericView implements View {
         toolbar.setFloatable(false);
         toolbar.setOrientation(SwingConstants.VERTICAL);
         toolbar.add(editButton);
+        toolbar.add(deleteButton);
         toolbar.add(reserButton);
 
         centralPanel.add(BuildTitle(TITLE), BorderLayout.NORTH);
@@ -106,9 +131,25 @@ public class ListEscapeRoomView extends GenericView implements View {
 
     @Override
     public void update(Context context) {
-        if (context.getEvent() == Event.ListEscapeRoom)
-             tModelEscapeRooms.update((ArrayList<TEscapeRoom>) context.getData());
-        else
-            ShowAlertMessage(context.getData().toString());
+        switch (context.getEvent()) {
+            case ListEscapeRoom:
+                tModelEscapeRooms.update((ArrayList<TEscapeRoom>) context.getData());
+                break;
+            case BajaEscapeRoomOK:
+                ShowSuccessMessage(SUCCESS_MESSAGE + context.getData().toString());
+                Context c = new Context(null, Event.ListEscapeRoom);
+                Controller control = Controller.getInstance();
+                control.action(c);
+                break;
+            case BajaEScapeRoomError:
+                ShowErrorMessage(context.getData().toString());
+                break;
+            case AltaReservaOK:
+                tModelEscapeRooms.update((ArrayList<TEscapeRoom>) context.getData());
+                break;
+            default:
+                ShowAlertMessage(context.getData().toString());
+                break;
+        }
     }
 }

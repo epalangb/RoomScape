@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import roomscape.es.roomscapebackend.negocio.client.SAClient;
+import roomscape.es.roomscapebackend.negocio.client.TClient;
 import roomscape.es.roomscapebackend.negocio.escape_room.SAEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.escape_room.TEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.reserva.SAReserva;
@@ -25,6 +27,8 @@ public class WebController {
 
     @Autowired
     SAEscapeRoom saEscapeRoom;
+    @Autowired
+    SAClient saClient;
 
     @Autowired
     SAReserva saReserva;
@@ -86,6 +90,32 @@ public class WebController {
         return new Gson().toJson(tEscapeRoomUpdated);
     }
 
+    @DeleteMapping(path = "/escape-room/delete/{id}")
+    public String DeleteEscapeRoom(@PathVariable(value = "id") int escapeRoomId, HttpServletResponse response) {
+
+        log.debug("Iniciando la operación DELETE:DeleteEscapeRoom para el escape room con id: {}", escapeRoomId);
+
+        int idRemoved;
+        try {
+            idRemoved = saEscapeRoom.deleteEscapeRoom(escapeRoomId);
+        } catch (Exception e) {
+            log.error("El servicio ha respondido con el siguiente error: {}", e.getMessage());
+            response.setStatus(400);
+            return e.getMessage();
+        }
+        if (idRemoved > 0) {
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            log.error("El servicio no ha respondido correctamente");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return INTERNAL_SERVER_ERROR;
+        }
+
+        log.debug("Se ha eliminado correctamente el escape room con id: {}", idRemoved);
+
+        return new Gson().toJson(idRemoved);
+    }
+
     @GetMapping(path = "/escape-room/list")
     public String ListEscapeRoom(HttpServletResponse response) {
 
@@ -141,5 +171,32 @@ public class WebController {
         log.debug("Se ha creado correctamente el escape room: {}", newReservation);
 
         return new Gson().toJson(newReservation);
+    }
+    @PostMapping(path = "/client/create", consumes = "application/json")
+    public String CreateClient(@RequestBody TClient tClient, HttpServletResponse response) {
+
+        log.debug("Iniciando la operación POST:CreateClient para el escape room: {}", tClient);
+
+        TClient newClient;
+
+        Optional<TClient> optional = null;
+        try {
+            optional = Optional.ofNullable(saClient.createClient(tClient));
+        } catch (Exception e) {
+            log.error("El servicio ha respondido con el siguiente error: {}", e.getMessage());
+            response.setStatus(400);
+            return e.getMessage();
+        }
+        if (optional.isPresent()) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            newClient = optional.get();
+        } else {
+            log.error("El servicio no ha respondido correctamente");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            newClient = new TClient();
+        }
+        log.debug("Se ha creado correctamente el cliente: {}", newClient);
+
+        return new Gson().toJson(newClient);
     }
 }

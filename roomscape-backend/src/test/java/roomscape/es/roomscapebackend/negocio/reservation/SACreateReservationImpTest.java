@@ -16,9 +16,6 @@ import roomscape.es.roomscapebackend.negocio.escape_room.TEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.exceptions.validations.*;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryReserva;
-import roomscape.es.roomscapebackend.negocio.reserva.SAReserva;
-import roomscape.es.roomscapebackend.negocio.reserva.SAReservaImp;
-import roomscape.es.roomscapebackend.negocio.reserva.TReserva;
 
 import java.util.ArrayList;
 import java.util.Calendar;
