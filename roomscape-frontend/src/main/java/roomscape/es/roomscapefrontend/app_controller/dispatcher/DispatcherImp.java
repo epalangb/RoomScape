@@ -17,10 +17,14 @@ public class DispatcherImp extends Dispatcher {
             case AbrirAltaEscapeRoomBasicoView:
                 AbstractFactoryView.getInstance().createAltaEscapeRoomBasicoView();
                 break;
+            //Alta Reserva
             case AbrirAltaReservaView:
                 AbstractFactoryView.getInstance().createAltaReservaView().update(context);
                 break;
+            case AltaReservaOK:
             case AltaReservaError:
+                AbstractFactoryView.getInstance().createAltaReservaView().update(context);
+
             case AltaEscapeRoomBasicoOK:
             case AltaEscapeRoomBasicoError:
                 AbstractFactoryView.getInstance().createAltaEscapeRoomBasicoView().update(context);

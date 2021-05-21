@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import roomscape.es.roomscapebackend.negocio.escape_room.SAEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.escape_room.TEscapeRoom;
+import roomscape.es.roomscapebackend.negocio.reserva.SAReserva;
+import roomscape.es.roomscapebackend.negocio.reserva.TReserva;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class WebController {
 
     @Autowired
     SAEscapeRoom saEscapeRoom;
+    SAReserva saReserva;
 
     @PostMapping(path = "/escape-room/create", consumes = "application/json")
     public String CreateEscapeRoom(@RequestBody TEscapeRoom tEscapeRoom, HttpServletResponse response) {
@@ -108,5 +111,33 @@ public class WebController {
         log.debug("Se han recuperado correctamente los siguientes escape rooms: {}", escapeRoomList);
 
         return new Gson().toJson(escapeRoomList);
+    }
+
+    @PostMapping(path = "/reservation/create", consumes = "application/json")
+    public String CreateReservation(@RequestBody TReserva tReserva, HttpServletResponse response) {
+
+        log.debug("Iniciando la operación POST:CreateReservation para la reserva: {}", tReserva);
+
+        TReserva newReservation;
+
+        Optional<TReserva> optional = null;
+        try {
+            optional = Optional.ofNullable(saReserva.crearReserva(tReserva));
+        } catch (Exception e) {
+            log.error("El servicio ha respondido con el siguiente error: {}", e.getMessage());
+            response.setStatus(400);
+            return e.getMessage();
+        }
+        if (optional.isPresent()) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            newReservation = optional.get();
+        } else {
+            log.error("El servicio no ha respondido correctamente");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            newReservation = new TReserva();
+        }
+        log.debug("Se ha creado correctamente el escape room: {}", newReservation);
+
+        return new Gson().toJson(newReservation);
     }
 }

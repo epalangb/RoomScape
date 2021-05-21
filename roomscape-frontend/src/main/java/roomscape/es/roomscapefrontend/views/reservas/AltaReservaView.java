@@ -154,7 +154,7 @@ public class AltaReservaView  extends JFrame implements View {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         //TODO -> Falta acceder al transfer de EscapeRoom para guardar su nombre, duración y precio
-        jLabel1.setText("Crear Reserva de:  " + nombreEscapeRoom);
+
 
         jLabel3.setText("Formulario: ");
 
@@ -167,7 +167,7 @@ public class AltaReservaView  extends JFrame implements View {
         precioTextField.setBackground(Color.YELLOW);
         precioTextField.setEditable(false);
 
-        jLabel6.setText("Fecha_ini:");
+        jLabel6.setText("Fecha_ini: (dd/MM/yyyy HH:mm)");
 
         fecha_iniTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,7 +261,7 @@ public class AltaReservaView  extends JFrame implements View {
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addGroup(jPanel2Layout.createSequentialGroup()
-                                                                .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(0, 0, Short.MAX_VALUE))
                                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                                                 .addComponent(jLabel3)
@@ -336,7 +336,7 @@ public class AltaReservaView  extends JFrame implements View {
     }
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
-        Context c = new Context(null, roomscape.es.roomscapefrontend.app_controller.Event.AbrirAltaReservaView);
+        Context c = new Context(null, Event.AbrirEscapeRoomView);
         Controller control = Controller.getInstance();
         control.action(c);
         this.dispose();
@@ -345,18 +345,19 @@ public class AltaReservaView  extends JFrame implements View {
     private void registrarActionPerformed(java.awt.event.ActionEvent evt) {
         TReserva tReserva = new TReserva();
         try {
-            tReserva.setNombreEscapeRoom(Validator.EmptyFieldValidator(nombreTextField.getText(), "nombre"));
+            tReserva.setNombreEscapeRoom(Validator.EmptyFieldValidator(nombreEscapeRoom, "nombre"));
             tReserva.setDuracion(Validator.NumericFieldValidator(duracionTextField.getText(), "duración"));
             tReserva.setPrecio(Validator.DoubleFieldValidator(precioTextField.getText(), "precio"));
             Calendar cal = Calendar.getInstance();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            //tReserva.setFechaIni(cal.setTime(sdf.parse(fecha_iniTextField.getText())));
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            cal.setTime(sdf.parse(fecha_iniTextField.getText()));
+            tReserva.setFechaIni(cal);
             tReserva.setParticipantes(Validator.NumericFieldValidator(n_personasTextField.getText(), "participantes"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Atención", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        Context c = new Context(tReserva, Event.AltaReservaOK);
+        Context c = new Context(tReserva, Event.AltaReserva);
         Controller.getInstance().action(c);
     }
 
@@ -390,6 +391,7 @@ public class AltaReservaView  extends JFrame implements View {
             case AbrirAltaReservaView:
                 TEscapeRoom escapeRoom = (TEscapeRoom) context.getData();
                 this.nombreEscapeRoom = escapeRoom.getNombre();
+                jLabel1.setText("Crear Reserva de:  " + nombreEscapeRoom);
                 this.duracionTextField.setText(String.valueOf(escapeRoom.getDuracion()));
                 this.precioTextField.setText(String.valueOf(escapeRoom.getPrecio()));
                 break;

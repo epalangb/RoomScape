@@ -7,6 +7,7 @@ import roomscape.es.roomscapefrontend.app_controller.Event;
 import roomscape.es.roomscapefrontend.app_controller.command.Command;
 import roomscape.es.roomscapefrontend.app_controller.controller.Controller;
 import roomscape.es.roomscapefrontend.models.TEscapeRoom;
+import roomscape.es.roomscapefrontend.models.TReserva;
 import roomscape.es.roomscapefrontend.utils.Configuration;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ import java.time.Duration;
 public class AltaReservaCommand extends Command {
 
     private static final String CONNECTION_ERROR_MSG = "Ha ocurrido un error de comunicación con el servicio";
-    private static final String PATH = "/escape-room/create";
+    private static final String PATH = "/reservation/create";
     private static final String CONTENT_TYPE_HEADER = "Content-Type";
     private static final String CONTENT_TYPE_HEADER_VALUE = "application/json";
 
@@ -42,8 +43,8 @@ public class AltaReservaCommand extends Command {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
-                TEscapeRoom tEscapeRoom = new Gson().fromJson(response.body(), TEscapeRoom.class);
-                context = new Context(tEscapeRoom, Event.AltaReservaOK);
+                TReserva tReserva = new Gson().fromJson(response.body(), TReserva.class);
+                context = new Context(tReserva, Event.AltaReservaOK);
             } else {
                 context = new Context(response.body(), Event.AltaReservaError);
             }

@@ -25,8 +25,8 @@ public class TReserva {
         sb.append("Participantes: " + participantes + System.lineSeparator());
         sb.append("Duración: " + duracion + System.lineSeparator());
         sb.append("Precio: " + precio + System.lineSeparator());
-        sb.append("FechaIni:" + fechaIni + System.lineSeparator());
-        sb.append("FechaFin:" + fechaFin + System.lineSeparator());
+        sb.append("FechaIni:" + fechaIni.getTime().toString() + System.lineSeparator());
+        sb.append("FechaFin:" + fechaFin.getTime().toString() + System.lineSeparator());
         sb.append(System.lineSeparator());
 
         return sb.toString();

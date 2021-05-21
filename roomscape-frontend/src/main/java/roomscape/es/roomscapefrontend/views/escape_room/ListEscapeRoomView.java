@@ -55,7 +55,6 @@ public class ListEscapeRoomView extends GenericView implements View {
 
         JButton editButton = ComponentBuilder.BuildButton(BUTTON_EDIT, EDIT_ICON);
         editButton.setEnabled(false);
-        editButton.setEnabled(true);
         editButton.addActionListener(event -> {
             int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
             Context context = new Context(tModelEscapeRooms.getEscapeRoom(escapeRoomId), Event.UpdateEscapeRoomView);
@@ -65,7 +64,6 @@ public class ListEscapeRoomView extends GenericView implements View {
 
         JButton reserButton = ComponentBuilder.BuildButton(BUTTON_RESERVATION, RESERVATION_ICON);
         reserButton.setEnabled(false);
-        reserButton.setEnabled(true);
         reserButton.addActionListener(event -> {
             int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
             Context context = new Context(tModelEscapeRooms.getEscapeRoom(escapeRoomId), Event.AbrirAltaReservaView);
