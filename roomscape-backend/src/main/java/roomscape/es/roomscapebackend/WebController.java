@@ -25,6 +25,8 @@ public class WebController {
 
     @Autowired
     SAEscapeRoom saEscapeRoom;
+
+    @Autowired
     SAReserva saReserva;
 
     @PostMapping(path = "/escape-room/create", consumes = "application/json")

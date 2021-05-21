@@ -68,8 +68,8 @@ public class SACreateReservationImpTest {
         tReservation = new TReserva();
         tReservation.setParticipantes(10);
         tReservation.setNombreEscapeRoom("Test EscapeRoom");
-        tReservation.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build());
-        tReservation.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build());
+        tReservation.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build().toString());
+        tReservation.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build().toString());
 
         entityReservationIn = new EntityReserva();
         entityReservationIn.setActivo(true);
@@ -91,8 +91,8 @@ public class SACreateReservationImpTest {
         tReservation2 = new TReserva();
         tReservation2.setParticipantes(10);
         tReservation2.setNombreEscapeRoom("Test EscapeRoom");
-        tReservation2.setFechaIni(new Calendar.Builder().setInstant(1612207300000L).build());
-        tReservation2.setFechaFin(new Calendar.Builder().setInstant(1612208500000L).build());
+        tReservation2.setFechaIni(new Calendar.Builder().setInstant(1612207300000L).build().toString());
+        tReservation2.setFechaFin(new Calendar.Builder().setInstant(1612208500000L).build().toString());
 
         reservationList = new ArrayList<>();
     }
@@ -104,7 +104,7 @@ public class SACreateReservationImpTest {
         tReservation = new TReserva();
         tReservation.setParticipantes(10);
         tReservation.setNombreEscapeRoom("Test EscapeRoom");
-        tReservation.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build());
+        tReservation.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build().toString());
 
         entityReservationIn = new EntityReserva();
         entityReservationIn.setActivo(true);

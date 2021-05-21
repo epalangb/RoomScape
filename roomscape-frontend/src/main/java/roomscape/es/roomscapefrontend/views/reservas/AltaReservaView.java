@@ -351,7 +351,7 @@ public class AltaReservaView  extends JFrame implements View {
             Calendar cal = Calendar.getInstance();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             cal.setTime(sdf.parse(fecha_iniTextField.getText()));
-            tReserva.setFechaIni(cal);
+            tReserva.setFechaIni(fecha_iniTextField.getText());
             tReserva.setParticipantes(Validator.NumericFieldValidator(n_personasTextField.getText(), "participantes"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Atención", JOptionPane.WARNING_MESSAGE);
