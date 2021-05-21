@@ -336,7 +336,7 @@ public class AltaReservaView  extends JFrame implements View {
     }
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
-        Context c = new Context(null, Event.AbrirEscapeRoomView);
+        Context c = new Context(null, Event.ListEscapeRoom);
         Controller control = Controller.getInstance();
         control.action(c);
         this.dispose();
