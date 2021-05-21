@@ -5,10 +5,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class SAEscapeRoomListTest {
 
     @Autowired
@@ -28,7 +30,7 @@ public class SAEscapeRoomListTest {
         try {
             saEscapeRoom.createEscapeRoom(escapeRoom);
             List<TEscapeRoom> listaEscapeRooms = saEscapeRoom.listEscapeRooms();
-            Assertions.assertEquals(listaEscapeRooms.size(), 2);
+            Assertions.assertEquals(listaEscapeRooms.size(), 1);
         } catch (Exception e) {
             Assertions.assertNull(e);
         }
