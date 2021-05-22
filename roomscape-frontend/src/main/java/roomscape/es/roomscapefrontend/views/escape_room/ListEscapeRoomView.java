@@ -111,7 +111,6 @@ public class ListEscapeRoomView extends GenericView implements View {
                 editButton.setEnabled(enable);
                 reserButton.setEnabled(enable);
                 deleteButton.setEnabled(enable);
-                
             }
         });
 
