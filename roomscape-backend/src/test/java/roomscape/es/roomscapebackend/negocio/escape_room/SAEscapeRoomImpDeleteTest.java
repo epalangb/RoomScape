@@ -77,7 +77,7 @@ public class SAEscapeRoomImpDeleteTest {
     public void DeleteEscapeRoom() {
 
         when(repositoryEscapeRoom.findById(1)).thenReturn(Optional.ofNullable(entityEscapeRoom));
-        when(repositoryReserva.findReservationsAfterDate(any())).thenReturn(reservations);
+        when(repositoryReserva.findReservationsByEscapeRoomAfterDate(any(), any())).thenReturn(reservations);
         when(repositoryEscapeRoom.save(entityEscapeRoomToDelete)).thenReturn(entityEscapeRoomToDelete);
 
         try {
@@ -108,7 +108,7 @@ public class SAEscapeRoomImpDeleteTest {
         reservations.add(entityReserva);
 
         when(repositoryEscapeRoom.findById(1)).thenReturn(Optional.ofNullable(entityEscapeRoom));
-        when(repositoryReserva.findReservationsAfterDate(any())).thenReturn(reservations);
+        when(repositoryReserva.findReservationsByEscapeRoomAfterDate(any(), any())).thenReturn(reservations);
 
         try {
             saEscapeRoom.deleteEscapeRoom(1);

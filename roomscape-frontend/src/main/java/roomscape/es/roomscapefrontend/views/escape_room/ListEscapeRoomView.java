@@ -96,22 +96,22 @@ public class ListEscapeRoomView extends GenericView implements View {
         tableEscapeRooms.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 int row = tableEscapeRooms.rowAtPoint(e.getPoint());
-                if (row > -1) {
-                    selectedRow = row;
-                    editButton.setEnabled(true);
-                    reserButton.setEnabled(true);
-                    deleteButton.setEnabled(true);
-                }
+                boolean enable = (row > -1 && tableEscapeRooms.getValueAt(row, 5).toString() == "Activo");
+                selectedRow = row;
+                editButton.setEnabled(enable);
+                reserButton.setEnabled(enable);
+                deleteButton.setEnabled(enable);
+
             }
 
             public void mousePressed(MouseEvent e) {
                 int row = tableEscapeRooms.rowAtPoint(e.getPoint());
-                if (row > -1) {
-                    selectedRow = row;
-                    editButton.setEnabled(true);
-                    reserButton.setEnabled(true);
-                    deleteButton.setEnabled(true);
-                }
+                boolean enable = (row > -1 && tableEscapeRooms.getValueAt(row, 5).toString() == "Activo");
+                selectedRow = row;
+                editButton.setEnabled(enable);
+                reserButton.setEnabled(enable);
+                deleteButton.setEnabled(enable);
+                
             }
         });
 
