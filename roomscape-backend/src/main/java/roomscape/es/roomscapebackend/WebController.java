@@ -9,9 +9,16 @@ import roomscape.es.roomscapebackend.negocio.client.SAClient;
 import roomscape.es.roomscapebackend.negocio.client.TClient;
 import roomscape.es.roomscapebackend.negocio.escape_room.SAEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.escape_room.TEscapeRoom;
+import roomscape.es.roomscapebackend.negocio.login.SALogin;
+import roomscape.es.roomscapebackend.negocio.login.TLogin;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +34,11 @@ public class WebController {
     SAEscapeRoom saEscapeRoom;
     @Autowired
     SAClient saClient;
+    @Autowired
+    SALogin saLogin;
+
+    private static final String USER_ROLE = "user";
+    private static final String ROLE_ATTRIBUTE = "role";
 
     @PostMapping(path = "/escape-room/create", consumes = "application/json")
     public String CreateEscapeRoom(@RequestBody TEscapeRoom tEscapeRoom, HttpServletResponse response) {
@@ -86,10 +98,9 @@ public class WebController {
     }
 
     @GetMapping(path = "/escape-room/list")
-    public String ListEscapeRoom(HttpServletResponse response) {
+    public String ListEscapeRoom(HttpServletResponse response, HttpServletRequest request) {
 
         log.debug("Iniciando la operación GET:ListEscapeRoom para listar todos los escape rooms");
-
         List<TEscapeRoom> escapeRoomList;
 
         Optional<List<TEscapeRoom>> optional;
@@ -139,5 +150,18 @@ public class WebController {
         log.debug("Se ha creado correctamente el cliente: {}", newClient);
 
         return new Gson().toJson(newClient);
+    }
+    @PostMapping(path = "/login", consumes = "application/json")
+    public String login(@RequestBody TLogin tLogin, HttpServletResponse response, HttpServletRequest request) {
+        try {
+            TClient client = saLogin.login(tLogin);
+            String data = client.getDni() + client.getUser();
+            return Base64.getEncoder().encode(data.getBytes(StandardCharsets.UTF_8)).toString();
+        }
+        catch (Exception e){
+            log.error("El servicio ha respondido con el siguiente error: {}", e.getMessage());
+            response.setStatus(400);
+            return e.getMessage();
+        }
     }
 }
