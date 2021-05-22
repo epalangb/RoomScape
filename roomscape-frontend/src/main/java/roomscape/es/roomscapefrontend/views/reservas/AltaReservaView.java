@@ -83,7 +83,6 @@ public class AltaReservaView  extends JFrame implements View {
         precioTextField = new JTextField();
         nombreTextField = new JTextField();
         jPanel3 = new JPanel();
-        jButton4 = new JButton();
         jButton5 = new JButton();
         registrarButton = new JButton();
 
@@ -185,16 +184,6 @@ public class AltaReservaView  extends JFrame implements View {
 
         jPanel3.setBorder(BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
-        jButton4.setBackground(new java.awt.Color(153, 153, 153));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Atrás");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
 
         jButton5.setBackground(new java.awt.Color(0, 0, 0));
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -225,7 +214,6 @@ public class AltaReservaView  extends JFrame implements View {
                                 .addContainerGap(113, Short.MAX_VALUE)
                                 .addComponent(jButton5)
                                 .addGap(79, 79, 79)
-                                .addComponent(jButton4)
                                 .addGap(18, 18, 18)
                                 .addComponent(registrarButton)
                                 .addGap(123, 123, 123))
@@ -236,7 +224,6 @@ public class AltaReservaView  extends JFrame implements View {
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(jButton5)
-                                        .addComponent(jButton4)
                                         .addComponent(registrarButton))
                                 .addContainerGap())
         );
@@ -328,11 +315,6 @@ public class AltaReservaView  extends JFrame implements View {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }
-
-    //boton ATRAS
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
-
     }
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {

@@ -3,14 +3,12 @@ package roomscape.es.roomscapefrontend.views.escape_room;
 import roomscape.es.roomscapefrontend.app_controller.Context;
 import roomscape.es.roomscapefrontend.app_controller.Event;
 import roomscape.es.roomscapefrontend.app_controller.controller.Controller;
-import roomscape.es.roomscapefrontend.models.TEscapeRoom;
 import roomscape.es.roomscapefrontend.utils.Configuration;
 import roomscape.es.roomscapefrontend.views.GenericView;
 import roomscape.es.roomscapefrontend.views.View;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class EscapeRoomView extends GenericView implements View {
 
@@ -20,6 +18,9 @@ public class EscapeRoomView extends GenericView implements View {
     private JFrame last;
 
     private Configuration config = Controller.getInstance().getConfiguration();
+
+    private static final String RESERVATION_CONFIRMATION_MSG = "La reserva se ha registrado correctamente: ";
+
     // Variables declaration - do not modify
     private javax.swing.JButton buttonScapeRooms;
     private javax.swing.JButton buttonClose;
@@ -31,7 +32,6 @@ public class EscapeRoomView extends GenericView implements View {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-
 
 
     public EscapeRoomView() {
@@ -266,6 +266,11 @@ public class EscapeRoomView extends GenericView implements View {
     @Override
     public void update(Context context) {
 
+        switch (context.getEvent()) {
+            case AltaReservaOK:
+                this.ShowSuccessMessage(RESERVATION_CONFIRMATION_MSG + context.getData().toString());
+                break;
+        }
     }
     // End of variables declaration
 

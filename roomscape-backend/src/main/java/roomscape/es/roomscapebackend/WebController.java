@@ -9,8 +9,8 @@ import roomscape.es.roomscapebackend.negocio.client.SAClient;
 import roomscape.es.roomscapebackend.negocio.client.TClient;
 import roomscape.es.roomscapebackend.negocio.escape_room.SAEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.escape_room.TEscapeRoom;
-import roomscape.es.roomscapebackend.negocio.reserva.SAReserva;
-import roomscape.es.roomscapebackend.negocio.reserva.TReserva;
+import roomscape.es.roomscapebackend.negocio.reservation.SAReserva;
+import roomscape.es.roomscapebackend.negocio.reservation.TReserva;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;

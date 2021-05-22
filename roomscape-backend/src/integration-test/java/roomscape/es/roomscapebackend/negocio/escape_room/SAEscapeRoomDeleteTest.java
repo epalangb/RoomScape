@@ -37,8 +37,8 @@ public class SAEscapeRoomDeleteTest {
         TReserva tReserva = new TReserva();
         tReserva.setNombreEscapeRoom("ORIGINAL_NAME");
         tReserva.setParticipantes(4);
-        tReserva.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build());
-        tReserva.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build());
+        tReserva.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build().toString());
+        tReserva.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build().toString());
 
         try {
             saEscapeRoom.createEscapeRoom(tEscapeRoom);

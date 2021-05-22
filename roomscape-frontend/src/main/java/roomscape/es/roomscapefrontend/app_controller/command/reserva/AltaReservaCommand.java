@@ -6,7 +6,6 @@ import roomscape.es.roomscapefrontend.app_controller.Context;
 import roomscape.es.roomscapefrontend.app_controller.Event;
 import roomscape.es.roomscapefrontend.app_controller.command.Command;
 import roomscape.es.roomscapefrontend.app_controller.controller.Controller;
-import roomscape.es.roomscapefrontend.models.TEscapeRoom;
 import roomscape.es.roomscapefrontend.models.TReserva;
 import roomscape.es.roomscapefrontend.utils.Configuration;
 
@@ -26,7 +25,6 @@ public class AltaReservaCommand extends Command {
 
     @Override
     public Context execute(Object data) {
-        String body = new Gson().toJson(data);
 
         Configuration config = Controller.getInstance().getConfiguration();
 
@@ -34,7 +32,7 @@ public class AltaReservaCommand extends Command {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(config.getBackendURL() + PATH))
                 .headers(CONTENT_TYPE_HEADER, CONTENT_TYPE_HEADER_VALUE)
-                .POST(HttpRequest.BodyPublishers.ofString(body))
+                .POST(HttpRequest.BodyPublishers.ofString(new Gson().toJson(data)))
                 .timeout(Duration.ofSeconds(config.getTimeOut()))
                 .build();
 
