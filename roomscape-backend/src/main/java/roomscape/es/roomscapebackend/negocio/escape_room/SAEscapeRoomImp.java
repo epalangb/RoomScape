@@ -144,7 +144,7 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
             throw new NonExistentEscapeRoom(id);
         }
 
-        List<EntityReserva> reservations = repositoryReserva.findReservationsAfterDate(new Date());
+        List<EntityReserva> reservations = repositoryReserva.findReservationsByEscapeRoomAfterDate(optional.get().getNombre(), new Date());
         if (reservations.size() > 0) {
             throw new InvalidReservationPendingException();
         }

@@ -20,6 +20,7 @@ public class ListEscapeRoomView extends GenericView implements View {
 
     private static final String TITLE = "Listado de Escape Rooms";
     private static final String BUTTON_EDIT = "editar";
+    private static final String BUTTON_RESERVATION = "reservar";
     private static final String BUTTON_BAJA = "Dar de baja";
     private static final String CONFIRMATION_MESSAGE = "¿Estás seguro de dar de baja el escape room con id ";
     private static final String SUCCESS_MESSAGE = "Se ha dado de baja correctamente el escape room:";
@@ -55,6 +56,7 @@ public class ListEscapeRoomView extends GenericView implements View {
         tModelEscapeRooms = new TableModelListarEscapeRoom();
         tableEscapeRooms = new JTable(tModelEscapeRooms);
 
+
         JButton editButton = ComponentBuilder.BuildButton(BUTTON_EDIT, EDIT_ICON);
         editButton.setEnabled(false);
         editButton.addActionListener(event -> {
@@ -67,6 +69,15 @@ public class ListEscapeRoomView extends GenericView implements View {
         editButton.addActionListener(event -> {
             int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
             Context context = new Context(tModelEscapeRooms.getEscapeRoom(escapeRoomId), Event.UpdateEscapeRoomView);
+            Controller.getInstance().action(context);
+            close();
+        });
+
+        JButton reserButton = ComponentBuilder.BuildButton(BUTTON_RESERVATION, RESERVATION_ICON);
+        reserButton.setEnabled(false);
+        reserButton.addActionListener(event -> {
+            int escapeRoomId = (int) tableEscapeRooms.getValueAt(selectedRow, 0);
+            Context context = new Context(tModelEscapeRooms.getEscapeRoom(escapeRoomId), Event.AbrirAltaReservaView);
             Controller.getInstance().action(context);
             close();
         });
@@ -85,20 +96,21 @@ public class ListEscapeRoomView extends GenericView implements View {
         tableEscapeRooms.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 int row = tableEscapeRooms.rowAtPoint(e.getPoint());
-                if (row > -1) {
-                    selectedRow = row;
-                    editButton.setEnabled(true);
-                    deleteButton.setEnabled(true);
-                }
+                boolean enable = (row > -1 && tableEscapeRooms.getValueAt(row, 5).toString() == "Activo");
+                selectedRow = row;
+                editButton.setEnabled(enable);
+                reserButton.setEnabled(enable);
+                deleteButton.setEnabled(enable);
+
             }
 
             public void mousePressed(MouseEvent e) {
                 int row = tableEscapeRooms.rowAtPoint(e.getPoint());
-                if (row > -1) {
-                    selectedRow = row;
-                    editButton.setEnabled(true);
-                    deleteButton.setEnabled(true);
-                }
+                boolean enable = (row > -1 && tableEscapeRooms.getValueAt(row, 5).toString() == "Activo");
+                selectedRow = row;
+                editButton.setEnabled(enable);
+                reserButton.setEnabled(enable);
+                deleteButton.setEnabled(enable);
             }
         });
 
@@ -107,6 +119,7 @@ public class ListEscapeRoomView extends GenericView implements View {
         toolbar.setOrientation(SwingConstants.VERTICAL);
         toolbar.add(editButton);
         toolbar.add(deleteButton);
+        toolbar.add(reserButton);
 
         centralPanel.add(BuildTitle(TITLE), BorderLayout.NORTH);
         centralPanel.add(new JScrollPane(tableEscapeRooms), BorderLayout.CENTER);
@@ -129,6 +142,9 @@ public class ListEscapeRoomView extends GenericView implements View {
                 break;
             case BajaEScapeRoomError:
                 ShowErrorMessage(context.getData().toString());
+                break;
+            case AltaReservaOK:
+                tModelEscapeRooms.update((ArrayList<TEscapeRoom>) context.getData());
                 break;
             default:
                 ShowAlertMessage(context.getData().toString());

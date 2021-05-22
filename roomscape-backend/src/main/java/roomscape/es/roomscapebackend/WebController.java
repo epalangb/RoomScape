@@ -9,6 +9,8 @@ import roomscape.es.roomscapebackend.negocio.client.SAClient;
 import roomscape.es.roomscapebackend.negocio.client.TClient;
 import roomscape.es.roomscapebackend.negocio.escape_room.SAEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.escape_room.TEscapeRoom;
+import roomscape.es.roomscapebackend.negocio.reservation.SAReserva;
+import roomscape.es.roomscapebackend.negocio.reservation.TReserva;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -27,6 +29,9 @@ public class WebController {
     SAEscapeRoom saEscapeRoom;
     @Autowired
     SAClient saClient;
+
+    @Autowired
+    SAReserva saReserva;
 
     @PostMapping(path = "/escape-room/create", consumes = "application/json")
     public String CreateEscapeRoom(@RequestBody TEscapeRoom tEscapeRoom, HttpServletResponse response) {
@@ -138,6 +143,34 @@ public class WebController {
         log.debug("Se han recuperado correctamente los siguientes escape rooms: {}", escapeRoomList);
 
         return new Gson().toJson(escapeRoomList);
+    }
+
+    @PostMapping(path = "/reservation/create", consumes = "application/json")
+    public String CreateReservation(@RequestBody TReserva tReserva, HttpServletResponse response) {
+
+        log.debug("Iniciando la operación POST:CreateReservation para la reserva: {}", tReserva);
+
+        TReserva newReservation;
+
+        Optional<TReserva> optional = null;
+        try {
+            optional = Optional.ofNullable(saReserva.crearReserva(tReserva));
+        } catch (Exception e) {
+            log.error("El servicio ha respondido con el siguiente error: {}", e.getMessage());
+            response.setStatus(400);
+            return e.getMessage();
+        }
+        if (optional.isPresent()) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            newReservation = optional.get();
+        } else {
+            log.error("El servicio no ha respondido correctamente");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            newReservation = new TReserva();
+        }
+        log.debug("Se ha creado correctamente el escape room: {}", newReservation);
+
+        return new Gson().toJson(newReservation);
     }
     @PostMapping(path = "/client/create", consumes = "application/json")
     public String CreateClient(@RequestBody TClient tClient, HttpServletResponse response) {

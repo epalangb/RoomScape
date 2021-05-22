@@ -5,6 +5,7 @@ public enum Event {
     AbrirMainView,
     AbrirEscapeRoomView,
     AbrirAltaEscapeRoomBasicoView,
+    AbrirAltaReservaView,
     AltaEscapeRoomBasicoOK,
     AltaEscapeRoomBasicoError,
     ListEscapeRoom,
@@ -16,5 +17,10 @@ public enum Event {
     UpdateEscapeRoom,
     UpdateEscapeRoomOK,
     UpdateEscapeRoomError,
+    AltaReservaView,
+    AltaReserva,
+    AltaReservaOK,
+    AltaReservaError,
+
     CommandError,
 }

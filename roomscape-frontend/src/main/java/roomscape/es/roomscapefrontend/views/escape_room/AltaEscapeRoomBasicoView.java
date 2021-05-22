@@ -385,6 +385,9 @@ public class AltaEscapeRoomBasicoView extends JFrame implements View {
     @Override
     public void update(Context context) {
         switch (context.getEvent()) {
+            case AltaReservaView:
+                TEscapeRoom escaperoom = (TEscapeRoom) context.getData();
+
             case AltaEscapeRoomBasicoOK:
                 JOptionPane.showMessageDialog(null, (context.getData()).toString(), "Confirmación", JOptionPane.INFORMATION_MESSAGE);
                 break;

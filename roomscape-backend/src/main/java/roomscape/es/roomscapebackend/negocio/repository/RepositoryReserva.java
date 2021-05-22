@@ -15,6 +15,6 @@ public interface RepositoryReserva extends JpaRepository<EntityReserva, Integer>
 
     ArrayList<EntityReserva> findEntityReservaByNombreEscapeRoom(String nombreEscapeRoom);
 
-    @Query("SELECT er FROM EntityReserva er WHERE er.fechaFin  >= :endDate")
-    List<EntityReserva> findReservationsAfterDate(Date endDate);
+    @Query("SELECT er FROM EntityReserva er WHERE er.nombreEscapeRoom=:escapeRoom AND er.fechaFin  >= :endDate")
+    List<EntityReserva> findReservationsByEscapeRoomAfterDate(String escapeRoom, Date endDate);
 }

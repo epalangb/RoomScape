@@ -17,6 +17,7 @@ import roomscape.es.roomscapebackend.negocio.exceptions.validations.*;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryReserva;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Optional;
@@ -46,9 +47,11 @@ public class SACreateReservationImpTest {
     private EntityReserva entityReservationOut;
 
     private ArrayList<EntityReserva> reservationList;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
     @BeforeEach
     void setMockOutput() {
+
         tEscapeRoom = new TEscapeRoom();
         tEscapeRoom.setCapacidadPersonas(5);
         tEscapeRoom.setDuracion(20);
@@ -65,8 +68,10 @@ public class SACreateReservationImpTest {
         tReservation = new TReserva();
         tReservation.setParticipantes(10);
         tReservation.setNombreEscapeRoom("Test EscapeRoom");
-        tReservation.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build());
-        tReservation.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build());
+
+
+        tReservation.setFechaIni(sdf.format(new Calendar.Builder().setInstant(1612207200000L).build().getTime()));
+        tReservation.setFechaFin(sdf.format(new Calendar.Builder().setInstant(1612208400000L).build().getTime()));
 
         entityReservationIn = new EntityReserva();
         entityReservationIn.setActivo(true);
@@ -88,20 +93,20 @@ public class SACreateReservationImpTest {
         tReservation2 = new TReserva();
         tReservation2.setParticipantes(10);
         tReservation2.setNombreEscapeRoom("Test EscapeRoom");
-        tReservation2.setFechaIni(new Calendar.Builder().setInstant(1612207300000L).build());
-        tReservation2.setFechaFin(new Calendar.Builder().setInstant(1612208500000L).build());
+        tReservation2.setFechaIni(sdf.format(new Calendar.Builder().setInstant(1612207300000L).build().getTime()));
+        tReservation2.setFechaFin(sdf.format(new Calendar.Builder().setInstant(1612208500000L).build().getTime()));
 
         reservationList = new ArrayList<>();
     }
 
     @Test
     @DisplayName("Comprobación de que una reserva se da de alta correctamente")
-    public void createEscapeRoom() {
+    public void createReservation() {
 
         tReservation = new TReserva();
         tReservation.setParticipantes(10);
         tReservation.setNombreEscapeRoom("Test EscapeRoom");
-        tReservation.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build());
+        tReservation.setFechaIni(sdf.format(new Calendar.Builder().setInstant(1612207200000L).build().getTime()));
 
         entityReservationIn = new EntityReserva();
         entityReservationIn.setActivo(true);
@@ -135,8 +140,8 @@ public class SACreateReservationImpTest {
             Assertions.assertEquals(testReservation.getNombreEscapeRoom(), "Test EscapeRoom");
             Assertions.assertTrue(testReservation.isActivo());
             Assertions.assertEquals(testReservation.getParticipantes(), 10);
-            Assertions.assertEquals(testReservation.getFechaIni(), new Calendar.Builder().setInstant(1612207200000L).build());
-            Assertions.assertEquals(testReservation.getFechaFin(), new Calendar.Builder().setInstant(1612208400000L).build());
+            Assertions.assertEquals(testReservation.getFechaIni(), sdf.format(new Calendar.Builder().setInstant(1612207200000L).build().getTime()));
+            Assertions.assertEquals(testReservation.getFechaFin(), sdf.format(new Calendar.Builder().setInstant(1612208400000L).build().getTime()));
         } catch (Exception e) {
             Assertions.assertNull(e);
         }
@@ -211,7 +216,7 @@ public class SACreateReservationImpTest {
             saReserva.crearReserva(tReservation);
         } catch (Exception e) {
             Assertions.assertEquals(e.getClass(), InvalidReservationException.class);
-            Assertions.assertEquals(e.getMessage(), "Ya existe una reserva para la Escape Room y hora seleccionadas");
+            Assertions.assertEquals(e.getMessage(), "Ya existe una reserva para el Escape Room en la fecha y hora seleccionadas");
         }
     }
 }

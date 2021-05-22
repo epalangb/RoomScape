@@ -9,6 +9,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import roomscape.es.roomscapebackend.negocio.reservation.SAReserva;
 import roomscape.es.roomscapebackend.negocio.reservation.TReserva;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -21,6 +22,8 @@ public class SAEscapeRoomDeleteTest {
 
     @Autowired
     SAReserva saReserva;
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
     @Test
     @DisplayName("Comprobación de que un escape room se da de baja correctamente")
@@ -37,8 +40,8 @@ public class SAEscapeRoomDeleteTest {
         TReserva tReserva = new TReserva();
         tReserva.setNombreEscapeRoom("ORIGINAL_NAME");
         tReserva.setParticipantes(4);
-        tReserva.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build());
-        tReserva.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build());
+        tReserva.setFechaIni(sdf.format(new Calendar.Builder().setInstant(1612207200000L).build().getTime()));
+        tReserva.setFechaFin(sdf.format(new Calendar.Builder().setInstant(1612208400000L).build().getTime()));
 
         try {
             saEscapeRoom.createEscapeRoom(tEscapeRoom);
