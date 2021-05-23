@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class ListReservationByHourDateView extends GenericView implements View {
 
     private static final String TITLE = "Listado de Reservas por Hora y fecha";
-    private static final String BUTTON_EDIT = "editar";
 
     private TableModelListarReservas tModelReservas;
     private JTable tableReservas;
@@ -58,34 +57,6 @@ public class ListReservationByHourDateView extends GenericView implements View {
         tModelReservas = new TableModelListarReservas();
         tableReservas = new JTable(tModelReservas);
 
-
-        /*JButton editButton = ComponentBuilder.BuildButton(BUTTON_EDIT, EDIT_ICON);
-        editButton.setEnabled(false);
-        editButton.setEnabled(true);
-        editButton.addActionListener(event -> {
-            int reservaID = (int) tableReservas.getValueAt(selectedRow, 0);
-            Context context = new Context(tModelReservas.getReserva(reservaID), roomscape.es.roomscapefrontend.app_controller.Event.UpdateEscapeRoomView);
-            Controller.getInstance().action(context);
-            close();
-        });*/
-
-        /*tableReservas.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                int row = tableReservas.rowAtPoint(e.getPoint());
-                if (row > -1) {
-                    selectedRow = row;
-                    editButton.setEnabled(true);
-                }
-            }
-
-            public void mousePressed(MouseEvent e) {
-                int row = tableReservas.rowAtPoint(e.getPoint());
-                if (row > -1) {
-                    selectedRow = row;
-                    editButton.setEnabled(true);
-                }
-            }
-        });*/
         jpanelBusqeda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         listarButton.setBackground(new java.awt.Color(0, 0, 0));

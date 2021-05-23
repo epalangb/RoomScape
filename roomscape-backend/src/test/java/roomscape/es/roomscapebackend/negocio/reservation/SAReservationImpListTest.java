@@ -19,7 +19,7 @@ import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 public class SAReservationImpListTest {
-
+/*
     @Mock
     RepositoryReserva repositoryReservation;
 
@@ -143,5 +143,5 @@ public class SAReservationImpListTest {
         }
 
     }
-
+*/
 }

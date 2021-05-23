@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Data
-public class TReserva {
+public class TReserva implements Comparable<TReserva>{
     private int id;
     private int participantes;
     private double precio;
@@ -39,5 +39,12 @@ public class TReserva {
             e.printStackTrace();
         }
         return cal;
+    }
+
+    @Override
+    public int compareTo(TReserva o) {
+        if(getFechaIni() == null || o.getFechaIni() == null)
+            return 0;
+        return getFechaIni().compareTo(o.getFechaIni());
     }
 }

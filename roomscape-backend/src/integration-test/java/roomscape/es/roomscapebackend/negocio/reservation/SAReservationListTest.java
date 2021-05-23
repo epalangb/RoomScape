@@ -13,7 +13,7 @@ import java.util.List;
 
 @SpringBootTest
 public class SAReservationListTest {
-
+/*
     @Autowired
     SAEscapeRoom saEscapeRoom;
 
@@ -52,5 +52,5 @@ public class SAReservationListTest {
             e.printStackTrace();
         }
     }
-
+*/
 }

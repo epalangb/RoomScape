@@ -12,9 +12,6 @@ import java.awt.*;
 
 public class EscapeRoomView extends GenericView implements View {
 
-    /**
-     * Creates new form EscapeRoomView
-     */
     private JFrame last;
 
     private Configuration config = Controller.getInstance().getConfiguration();
@@ -272,6 +269,4 @@ public class EscapeRoomView extends GenericView implements View {
                 break;
         }
     }
-    // End of variables declaration
-
 }
