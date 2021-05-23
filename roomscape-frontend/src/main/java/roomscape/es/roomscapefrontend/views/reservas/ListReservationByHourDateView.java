@@ -6,6 +6,7 @@ import roomscape.es.roomscapefrontend.app_controller.controller.Controller;
 import roomscape.es.roomscapefrontend.models.TEscapeRoom;
 import roomscape.es.roomscapefrontend.models.TReserva;
 import roomscape.es.roomscapefrontend.utils.ComponentBuilder;
+import roomscape.es.roomscapefrontend.utils.Validator;
 import roomscape.es.roomscapefrontend.views.GenericView;
 import roomscape.es.roomscapefrontend.views.View;
 import roomscape.es.roomscapefrontend.views.table_models.TableModelListarEscapeRoom;
@@ -16,7 +17,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ListReservationByHourDateView extends GenericView implements View {
 
@@ -108,7 +112,15 @@ public class ListReservationByHourDateView extends GenericView implements View {
     }
 
     private void listarButtonActionPerfomed(java.awt.event.ActionEvent evt) {
-        Context c = new Context(null, Event.ListReservas);
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        try {
+            cal.setTime(sdf.parse(Validator.DateFieldValidator(fechaTextField.getText(), "fecha de la reserva")));
+        } catch (Exception e) {
+            ShowAlertMessage(e.getMessage());
+            return;
+        }
+        Context c = new Context(cal, Event.ListReservas);
         Controller control = Controller.getInstance();
         control.action(c);
         this.dispose();
