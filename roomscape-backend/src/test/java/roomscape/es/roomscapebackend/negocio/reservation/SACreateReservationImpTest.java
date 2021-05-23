@@ -115,6 +115,7 @@ public class SACreateReservationImpTest {
         entityReservationIn.setActivo(true);
         entityReservationIn.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build().getTime());
         entityReservationIn.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build().getTime());
+        entityReservationIn.setEscapeRoom(entityEscapeRoomIn);
 
         entityReservationOut = new EntityReserva();
         entityReservationOut.setActivo(true);
@@ -124,6 +125,8 @@ public class SACreateReservationImpTest {
         entityReservationOut.setActivo(true);
         entityReservationOut.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build().getTime());
         entityReservationOut.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build().getTime());
+        entityReservationOut.setEscapeRoom(entityEscapeRoomIn);
+
 
         Calendar calIni = Calendar.getInstance();
         calIni.set(2021, 1, 1, 20, 20, 20);

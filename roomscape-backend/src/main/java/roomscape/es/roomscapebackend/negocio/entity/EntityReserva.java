@@ -3,13 +3,9 @@ package roomscape.es.roomscapebackend.negocio.entity;
 import lombok.Data;
 import roomscape.es.roomscapebackend.negocio.reservation.TReserva;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 @Entity
 @Data
@@ -25,12 +21,14 @@ public class EntityReserva {
     private String nombreEscapeRoom;
     private Date fechaIni;
     private Date fechaFin;
+    @OneToOne
+    private EntityEscapeRoom escapeRoom;
 
     public EntityReserva() {
 
     }
 
-    public EntityReserva(TReserva tReserva) {
+    public EntityReserva(TReserva tReserva, EntityEscapeRoom escapeRoom) {
         this.participantes = tReserva.getParticipantes();
         this.nombreEscapeRoom = tReserva.getNombreEscapeRoom();
         this.fechaIni = tReserva.getFechaIniInDateFormat().getTime();
@@ -38,6 +36,8 @@ public class EntityReserva {
         this.duracion = tReserva.getDuracion();
         this.activo = tReserva.isActivo();
         this.precio = tReserva.getPrecio();
+        this.escapeRoom = escapeRoom;
+        this.cliente = tReserva.getCliente();
     }
 
     public TReserva toTransfer() {

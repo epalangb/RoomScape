@@ -12,10 +12,7 @@ import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryReserva;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -86,14 +83,34 @@ public class SAReservaImp implements SAReserva {
             entityReserva.setParticipantes(tReserva.getParticipantes());
             entityReserva.setNombreEscapeRoom(tReserva.getNombreEscapeRoom());
             entityReserva.setFechaFin(tReserva.getFechaFinInDateFormat().getTime());
+            entityReserva.setCliente(tReserva.getCliente());
         } else {
             tReserva.setActivo(true);
-            entityReserva = new EntityReserva(tReserva);
+            entityReserva = new EntityReserva(tReserva, auxEscapeRoom);
         }
         log.debug("La reserva ha superado las reglas de validación");
 
         EntityReserva entityReservaSaved = repositoryReserva.save(entityReserva);
 
         return entityReservaSaved.toTransfer();
+    }
+
+    @Override
+    public List<TReserva> getReservationsByEscapeRoomId(int id) throws Exception {
+
+        Optional<EntityEscapeRoom> optEntityEscapeRoom = repositoryEscapeRoom.findById(id);
+        if (!optEntityEscapeRoom.isPresent() || !optEntityEscapeRoom.get().isActivo()){
+            throw new InvalidEscapeRoomException();
+        }
+
+        Optional<List<EntityReserva>> optional = repositoryReserva.findReservationsByEscapeRoomAfterDate(optEntityEscapeRoom.get(), new Date());
+        if (!optional.isPresent()) {
+            throw new InvalidEscapeRoomException();
+        }
+
+        List<TReserva> reservations = new ArrayList<>();
+        optional.get().forEach(r -> reservations.add(r.toTransfer()));
+
+        return reservations;
     }
 }

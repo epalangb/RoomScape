@@ -12,4 +12,5 @@ public interface SAEscapeRoom {
 
     int deleteEscapeRoom(int id) throws Exception;
 
+    TEscapeRoom getEscapeRoom(int id) throws Exception;
 }

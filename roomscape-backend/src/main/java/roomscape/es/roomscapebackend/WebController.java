@@ -27,6 +27,7 @@ public class WebController {
 
     @Autowired
     SAEscapeRoom saEscapeRoom;
+
     @Autowired
     SAClient saClient;
 
@@ -172,6 +173,7 @@ public class WebController {
 
         return new Gson().toJson(newReservation);
     }
+
     @PostMapping(path = "/client/create", consumes = "application/json")
     public String CreateClient(@RequestBody TClient tClient, HttpServletResponse response) {
 
@@ -198,5 +200,63 @@ public class WebController {
         log.debug("Se ha creado correctamente el cliente: {}", newClient);
 
         return new Gson().toJson(newClient);
+    }
+
+    @GetMapping(path = "/escape-room/{id}")
+    public String GetEscapeRoom(@PathVariable(value = "id") int escapeRoomId, HttpServletResponse response) {
+
+        log.debug("Iniciando la operación GET:GetEscapeRoom para obtener el escape room: {}", escapeRoomId);
+
+        TEscapeRoom escapeRoom;
+
+        Optional<TEscapeRoom> optional;
+        try {
+            optional = Optional.ofNullable(saEscapeRoom.getEscapeRoom(escapeRoomId));
+        } catch (Exception e) {
+            log.error("El servicio ha respondido con el siguiente error: {}", e.getMessage());
+            response.setStatus(400);
+            return e.getMessage();
+        }
+        if (optional.isPresent()) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            escapeRoom = optional.get();
+        } else {
+            log.error("El servicio no ha respondido correctamente");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            escapeRoom = new TEscapeRoom();
+        }
+
+        log.debug("Se ha recuperado correctamente el siguiente escape room: {}", escapeRoom);
+
+        return new Gson().toJson(escapeRoom);
+    }
+
+    @GetMapping(path = "/reservation/list")
+    public String ListReservationByEscapeRoomId(@RequestParam(value = "escapeRoomId") int escapeRoomId, HttpServletResponse response) {
+
+        log.debug("Iniciando la operación GET:ListReservationByEscapeRoomId para listar todos las reservas del escape room: {}", escapeRoomId);
+
+        List<TReserva> reservationList;
+
+        Optional<List<TReserva>> optional;
+        try {
+            optional = Optional.ofNullable(saReserva.getReservationsByEscapeRoomId(escapeRoomId));
+        } catch (Exception e) {
+            log.error("El servicio ha respondido con el siguiente error: {}", e.getMessage());
+            response.setStatus(400);
+            return e.getMessage();
+        }
+        if (optional.isPresent()) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            reservationList = optional.get();
+        } else {
+            log.error("El servicio no ha respondido correctamente");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            reservationList = new ArrayList<>();
+        }
+
+        log.debug("Se han recuperado correctamente las siguientes reservas: {}", reservationList);
+
+        return new Gson().toJson(reservationList);
     }
 }

@@ -144,8 +144,8 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
             throw new NonExistentEscapeRoom(id);
         }
 
-        List<EntityReserva> reservations = repositoryReserva.findReservationsByEscapeRoomAfterDate(optional.get().getNombre(), new Date());
-        if (reservations.size() > 0) {
+        Optional<List<EntityReserva>> reservations = repositoryReserva.findReservationsByEscapeRoomAfterDate(optional.get(), new Date());
+        if (reservations.isPresent() && reservations.get().size() > 0) {
             throw new InvalidReservationPendingException();
         }
 
@@ -155,6 +155,17 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
 
         return entityEscapeRoom.getId();
     }
+
+    @Override
+    public TEscapeRoom getEscapeRoom(int id) throws Exception {
+
+        Optional<EntityEscapeRoom> optional = repositoryEscapeRoom.findById(id);
+        if (!optional.isPresent() || !optional.get().isActivo()) {
+            throw new InvalidEscapeRoomException();
+        }
+        return optional.get().toTransfer();
+    }
+
 
     private ValidationException validationRulesToEscapeRooms(TEscapeRoom tEscapeRoom) {
 
