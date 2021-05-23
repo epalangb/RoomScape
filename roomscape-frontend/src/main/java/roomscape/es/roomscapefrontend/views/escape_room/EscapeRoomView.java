@@ -4,11 +4,13 @@ import roomscape.es.roomscapefrontend.app_controller.Context;
 import roomscape.es.roomscapefrontend.app_controller.Event;
 import roomscape.es.roomscapefrontend.app_controller.controller.Controller;
 import roomscape.es.roomscapefrontend.utils.Configuration;
+import roomscape.es.roomscapefrontend.views.GenericView;
+import roomscape.es.roomscapefrontend.views.View;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class EscapeRoomView extends JFrame {
+public class EscapeRoomView extends GenericView implements View {
 
     /**
      * Creates new form EscapeRoomView
@@ -16,6 +18,9 @@ public class EscapeRoomView extends JFrame {
     private JFrame last;
 
     private Configuration config = Controller.getInstance().getConfiguration();
+
+    private static final String RESERVATION_CONFIRMATION_MSG = "La reserva se ha registrado correctamente: ";
+
     // Variables declaration - do not modify
     private javax.swing.JButton buttonScapeRooms;
     private javax.swing.JButton buttonClose;
@@ -27,6 +32,7 @@ public class EscapeRoomView extends JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+
 
     public EscapeRoomView() {
         initComponents();
@@ -46,7 +52,8 @@ public class EscapeRoomView extends JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    @Override
+    protected void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         buttonScapeRooms = new javax.swing.JButton();
@@ -217,6 +224,11 @@ public class EscapeRoomView extends JFrame {
         pack();
     }// </editor-fold>
 
+    @Override
+    protected JPanel buildCentralPanel() {
+        return null;
+    }
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
@@ -249,6 +261,16 @@ public class EscapeRoomView extends JFrame {
 
     public void setLast(JFrame last) {
         this.last = last;
+    }
+
+    @Override
+    public void update(Context context) {
+
+        switch (context.getEvent()) {
+            case AltaReservaOK:
+                this.ShowSuccessMessage(RESERVATION_CONFIRMATION_MSG + context.getData().toString());
+                break;
+        }
     }
     // End of variables declaration
 

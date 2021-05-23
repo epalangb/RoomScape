@@ -1,7 +1,11 @@
 package roomscape.es.roomscapefrontend.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class Validator {
 
+    private static final String DATE_FIELD_ERROR_MESSAGE = "El campo %s debe tener el formato: dd/MM/yyyy HH:mm.";
     private static final String NUMBER_FIELD_ERROR_MESSAGE = "El campo %s debe ser numérico.";
     private static final String EMPTY_FIELD_ERROR_MESSAGE = "El campo %s no debe estar vacío.";
 
@@ -28,6 +32,18 @@ public class Validator {
             result = Double.parseDouble(value.trim());
         } catch (NumberFormatException e) {
             throw new Exception(String.format(NUMBER_FIELD_ERROR_MESSAGE, fieldName));
+        }
+        return result;
+    }
+
+    public static String DateFieldValidator(String value, String fieldName) throws Exception {
+        String result;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            sdf.parse(value);
+            result = value;
+        } catch (Exception e) {
+            throw new Exception(String.format(DATE_FIELD_ERROR_MESSAGE, fieldName));
         }
         return result;
     }

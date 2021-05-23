@@ -7,14 +7,14 @@ import roomscape.es.roomscapebackend.negocio.entity.EntityReserva;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public interface RepositoryReserva extends JpaRepository<EntityReserva, Integer>, JpaSpecificationExecutor<EntityReserva> {
 
     EntityReserva findEntityReservaByNombreEscapeRoomAndFechaIni(String nombreEscapeRoom, Date fecha);
 
     ArrayList<EntityReserva> findEntityReservaByNombreEscapeRoom(String nombreEscapeRoom);
-    /*
-    @Query("SELECT reserva FROM Reserva WHERE reserva.nombreEscapeRoom = ?1 AND ?2 <= reserva.fechaFin AND ?3  >= reserva.fechaIni")
-    EntityReserva findOverlappingReservations(String nombreEscapeRoom, Date fechaIni, Date fechaFin);
-    */
+
+    @Query("SELECT er FROM EntityReserva er WHERE er.nombreEscapeRoom=:escapeRoom AND er.fechaFin  >= :endDate")
+    List<EntityReserva> findReservationsByEscapeRoomAfterDate(String escapeRoom, Date endDate);
 }
