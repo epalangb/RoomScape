@@ -12,11 +12,13 @@ import roomscape.es.roomscapebackend.negocio.entity.EntityEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.exceptions.validations.*;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
 
+import java.util.Optional;
+
 import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class SAEscapeRoomImpAltaTest {
+public class SAEscapeRoomImpCreateTest {
 
     @Mock
     RepositoryEscapeRoom repositoryEscapeRoom;
@@ -57,7 +59,7 @@ public class SAEscapeRoomImpAltaTest {
     @DisplayName("Comprobación de que un escape room se da de alta correctamente")
     public void createEscapeRoom() {
 
-        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(null);
+        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(Optional.ofNullable(null));
         when(repositoryEscapeRoom.save(entityEscapeRoomIn)).thenReturn(entityEscapeRoomOut);
 
         try {
@@ -77,7 +79,7 @@ public class SAEscapeRoomImpAltaTest {
     @DisplayName("Comprobación de que se lanza una exepción al intentar dar de alta un escape room existente en la BDD")
     public void CreateEscapeRoomAlreadyExists() {
 
-        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(entityEscapeRoomOut);
+        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(Optional.ofNullable(entityEscapeRoomOut));
 
         try {
             saEscapeRoom.createEscapeRoom(tEscapeRoom);
@@ -91,7 +93,7 @@ public class SAEscapeRoomImpAltaTest {
     @DisplayName("Comprobación de que se lanza una exepción al intentar dar de alta un escape room con un nombre inválido")
     public void CreateEscapeRoomWithInvalidName() {
 
-        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("*[Nombre Inválido+?")).thenReturn(null);
+        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("*[Nombre Inválido+?")).thenReturn(Optional.ofNullable(null));
 
         tEscapeRoom.setNombre("*[Nombre Inválido+?");
         try {
@@ -106,7 +108,7 @@ public class SAEscapeRoomImpAltaTest {
     @DisplayName("Comprobación de que se lanza una exepción al intentar dar de alta un escape room con un nombre vacío")
     public void CreateEscapeRoomWithEmptyName() {
 
-        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("")).thenReturn(null);
+        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("")).thenReturn(Optional.ofNullable(null));
 
         tEscapeRoom.setNombre("");
         try {
@@ -121,7 +123,7 @@ public class SAEscapeRoomImpAltaTest {
     @DisplayName("Comprobación de que se lanza una exepción al intentar dar de alta un escape room con un precio inválido")
     public void CreateEscapeRoomWithInvalidPrice() {
 
-        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(null);
+        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(Optional.ofNullable(null));
 
         tEscapeRoom.setPrecio(-1);
         try {
@@ -136,7 +138,7 @@ public class SAEscapeRoomImpAltaTest {
     @DisplayName("Comprobación de que se lanza una exepción al intentar dar de alta un escape room con una duración inválida")
     public void CreateEscapeRoomWithInvalidDuration() {
 
-        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(null);
+        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(Optional.ofNullable(null));
 
         tEscapeRoom.setDuracion(-1);
         try {
@@ -151,7 +153,7 @@ public class SAEscapeRoomImpAltaTest {
     @DisplayName("Comprobación de que se lanza una exepción al intentar dar de alta un escape room con una capacidad de personas inválida")
     public void CreateEscapeRoomWithInvalidCapacity() {
 
-        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(null);
+        when(repositoryEscapeRoom.findEntityEscapeRoomByNombre("Test EscapeRoom")).thenReturn(Optional.ofNullable(null));
 
         tEscapeRoom.setCapacidadPersonas(0);
         try {

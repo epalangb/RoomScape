@@ -1,4 +1,4 @@
-package roomscape.es.roomscapefrontend.app_controller.command.escape_room;
+package roomscape.es.roomscapefrontend.app_controller.command.reservas;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -8,6 +8,7 @@ import roomscape.es.roomscapefrontend.app_controller.Event;
 import roomscape.es.roomscapefrontend.app_controller.command.Command;
 import roomscape.es.roomscapefrontend.app_controller.controller.Controller;
 import roomscape.es.roomscapefrontend.models.TEscapeRoom;
+import roomscape.es.roomscapefrontend.models.TReserva;
 import roomscape.es.roomscapefrontend.utils.Configuration;
 
 import java.io.IOException;
@@ -19,10 +20,10 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
 
-public class ListarEscapeRoomCommand extends Command {
+public class ListResevationHourDateCommand extends Command {
 
     private static final String CONNECTION_ERROR_MSG = "Ha ocurrido un error de comunicación con el servicio";
-    private static final String PATH = "/escape-room/list";
+    private static final String PATH = "/reservation/list";
 
     @Override
     public Context execute(Object data) {
@@ -42,15 +43,15 @@ public class ListarEscapeRoomCommand extends Command {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
-                Type scapeRoomT = new TypeToken<ArrayList<TEscapeRoom>>() {
+                Type reservaT = new TypeToken<ArrayList<TReserva>>() {
                 }.getType();
-                ArrayList<TEscapeRoom> scapeRooms = new Gson().fromJson(response.body(), scapeRoomT);
-                context = new Context(scapeRooms, Event.ListEscapeRoom);
+                ArrayList<TEscapeRoom> scapeRooms = new Gson().fromJson(response.body(), reservaT);
+                context = new Context(scapeRooms, Event.ListReservas);
             } else {
-                context = new Context(response.body(), Event.ListEscapeRoomError);
+                context = new Context(response.body(), Event.ListReservasError);
             }
         } catch (IOException | InterruptedException | JsonSyntaxException e) {
-            context = new Context(CONNECTION_ERROR_MSG, Event.ListEscapeRoomError);
+            context = new Context(CONNECTION_ERROR_MSG, Event.ListReservasError);
         }
 
         return context;

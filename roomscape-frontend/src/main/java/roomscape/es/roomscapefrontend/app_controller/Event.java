@@ -7,8 +7,16 @@ public enum Event {
     AbrirAltaEscapeRoomBasicoView,
     AltaEscapeRoomBasicoOK,
     AltaEscapeRoomBasicoError,
-    AbrirListarEscapeRoomView,
-    ListarEscapeRoomOK,
-    ListarEscapeRoomError,
+    ListEscapeRoom,
+    ListEscapeRoomError,
+    AbrirListReservasView,
+    ListReservas,
+    ListReservasError,
+
+    UpdateEscapeRoomView,
+    UpdateEscapeRoom,
+    UpdateEscapeRoomOK,
+    UpdateEscapeRoomError,
+
     CommandError,
 }

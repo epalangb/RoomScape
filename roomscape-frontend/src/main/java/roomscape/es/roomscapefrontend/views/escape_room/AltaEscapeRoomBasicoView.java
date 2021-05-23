@@ -6,12 +6,12 @@ import roomscape.es.roomscapefrontend.app_controller.controller.Controller;
 import roomscape.es.roomscapefrontend.models.TEscapeRoom;
 import roomscape.es.roomscapefrontend.utils.Configuration;
 import roomscape.es.roomscapefrontend.utils.Validator;
-import roomscape.es.roomscapefrontend.views.Vista;
+import roomscape.es.roomscapefrontend.views.View;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class AltaEscapeRoomBasicoView extends JFrame implements Vista {
+public class AltaEscapeRoomBasicoView extends JFrame implements View {
 
     /**
      * Creates new form AltaEscapeRoomBasicoView

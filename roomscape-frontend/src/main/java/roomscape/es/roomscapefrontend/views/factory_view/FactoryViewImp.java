@@ -4,7 +4,9 @@ import roomscape.es.roomscapefrontend.views.ErrorView;
 import roomscape.es.roomscapefrontend.views.MainView;
 import roomscape.es.roomscapefrontend.views.escape_room.AltaEscapeRoomBasicoView;
 import roomscape.es.roomscapefrontend.views.escape_room.EscapeRoomView;
-import roomscape.es.roomscapefrontend.views.escape_room.ListarEscapeRoomView;
+import roomscape.es.roomscapefrontend.views.escape_room.ListEscapeRoomView;
+import roomscape.es.roomscapefrontend.views.escape_room.UpdateEscapeRoomView;
+import roomscape.es.roomscapefrontend.views.reservas.ListReservationByHourDateView;
 
 import javax.swing.*;
 
@@ -34,12 +36,27 @@ public class FactoryViewImp extends AbstractFactoryView {
     }
 
     @Override
-    public ListarEscapeRoomView createListarEscapeRoomBasicoView() {
-        if (v == null || !(v instanceof ListarEscapeRoomView)) {
-            v = new ListarEscapeRoomView();
+    public UpdateEscapeRoomView createUpdateEscapeRoomView() {
+        if (v == null || !(v instanceof UpdateEscapeRoomView)) {
+            v = new UpdateEscapeRoomView();
         }
-        return (ListarEscapeRoomView) v;
+        return (UpdateEscapeRoomView) v;
     }
+
+    @Override
+    public ListEscapeRoomView createListarEscapeRoomBasicoView() {
+        if (v == null || !(v instanceof ListEscapeRoomView)) {
+            v = new ListEscapeRoomView();
+        }
+        return (ListEscapeRoomView) v;
+    }
+
+    @Override
+    public ListReservationByHourDateView createListarReservasHourDateView() {
+        if (v == null || !(v instanceof ListReservationByHourDateView)) {
+            v = new ListReservationByHourDateView();
+        }
+        return (ListReservationByHourDateView) v;    }
 
     public MainView createMainView() {
         if (v == null || !(v instanceof MainView)) {
