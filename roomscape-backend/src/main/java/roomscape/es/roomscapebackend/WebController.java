@@ -9,16 +9,13 @@ import roomscape.es.roomscapebackend.negocio.client.SAClient;
 import roomscape.es.roomscapebackend.negocio.client.TClient;
 import roomscape.es.roomscapebackend.negocio.escape_room.SAEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.escape_room.TEscapeRoom;
-import roomscape.es.roomscapebackend.negocio.reservation.SAReserva;
-import roomscape.es.roomscapebackend.negocio.reservation.TReserva;
 import roomscape.es.roomscapebackend.negocio.login.SALogin;
 import roomscape.es.roomscapebackend.negocio.login.TLogin;
+import roomscape.es.roomscapebackend.negocio.reservation.SAReserva;
+import roomscape.es.roomscapebackend.negocio.reservation.TReserva;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -43,9 +40,6 @@ public class WebController {
 
     @Autowired
     SAReserva saReserva;
-
-    private static final String USER_ROLE = "user";
-    private static final String ROLE_ATTRIBUTE = "role";
 
     @PostMapping(path = "/escape-room/create", consumes = "application/json")
     public String CreateEscapeRoom(@RequestBody TEscapeRoom tEscapeRoom, HttpServletResponse response) {
@@ -218,10 +212,9 @@ public class WebController {
     public String login(@RequestBody TLogin tLogin, HttpServletResponse response, HttpServletRequest request) {
         try {
             TClient client = saLogin.login(tLogin);
-            String data = client.getDni() + client.getUser();
-            return Base64.getEncoder().encode(data.getBytes(StandardCharsets.UTF_8)).toString();
-        }
-        catch (Exception e){
+            String data = client.getDni() + "-" + client.getUser();
+            return Base64.getEncoder().encodeToString(data.getBytes());
+        } catch (Exception e) {
             log.error("El servicio ha respondido con el siguiente error: {}", e.getMessage());
             response.setStatus(400);
             return e.getMessage();
