@@ -103,7 +103,9 @@ public class SAReservaImp implements SAReserva {
             throw new InvalidEscapeRoomException();
         }
 
-        Optional<List<EntityReserva>> optional = repositoryReserva.findReservationsByEscapeRoomAfterDate(optEntityEscapeRoom.get(), new Date());
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2021-01-01");
+
+        Optional<List<EntityReserva>> optional = repositoryReserva.findReservationsByEscapeRoomAfterDate(optEntityEscapeRoom.get(), date);
         if (!optional.isPresent()) {
             throw new InvalidEscapeRoomException();
         }
