@@ -13,18 +13,20 @@ import roomscape.es.roomscapebackend.negocio.entity.EntityReserva;
 import roomscape.es.roomscapebackend.negocio.exceptions.list.NoReservationsAvailableException;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryReserva;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 public class SAReservationImpListTest {
-/*
     @Mock
     RepositoryReserva repositoryReservation;
 
     @InjectMocks
     SAReserva saReservation = new SAReservaImp();
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
 
     private EntityReserva reservation;
     private List<EntityReserva> reservationList;
@@ -38,16 +40,14 @@ public class SAReservationImpListTest {
         reservation.setId(1);
         reservation.setNombreEscapeRoom("Escape room de prueba");
         calIni = Calendar.getInstance();
-        calIni.set(2020, 05, 30, 20, 10);
+        calIni.setTime(new Calendar.Builder().setInstant(1612207200000L).build().getTime());
         calFin = Calendar.getInstance();
-        calFin.set(2020, 05, 30, 21, 00);
-        reservation.setFechaIni(calIni.getTime());
-        reservation.setFechaFin(calFin.getTime());
+        calFin.setTime(new Calendar.Builder().setInstant(1612208400000L).build().getTime());
+        reservation.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build().getTime());
+        reservation.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build().getTime());
 
         reservationList = new ArrayList<>();
-
     }
-
 
     @Test
     @DisplayName("Check that reservations are listed correctly")
@@ -64,8 +64,8 @@ public class SAReservationImpListTest {
             Assertions.assertEquals(reservations.get(0).getParticipantes(), 10);
             Assertions.assertEquals(reservations.get(0).getId(), 1);
             Assertions.assertEquals(reservations.get(0).getNombreEscapeRoom(), "Escape room de prueba");
-            Assertions.assertEquals(reservations.get(0).getFechaIni().compareTo(calIni), 0);
-            Assertions.assertEquals(reservations.get(0).getFechaFin().compareTo(calFin), 0);
+            Assertions.assertEquals(reservation.getFechaIni(), new Calendar.Builder().setInstant(1612207200000L).build().getTime());
+            Assertions.assertEquals(reservation.getFechaFin(), new Calendar.Builder().setInstant(1612208400000L).build().getTime());
         } catch (Exception e) {
             Assertions.assertNull(e);
         }
@@ -82,9 +82,9 @@ public class SAReservationImpListTest {
         reservation2.setId(1);
         reservation2.setNombreEscapeRoom("Escape room de prueba");
         Calendar c1 = Calendar.getInstance();
-        c1.set(2020, 05, 30, 21, 10);
+        c1.setTime(new Calendar.Builder().setInstant(1612207210000L).build().getTime());
         Calendar c2 = Calendar.getInstance();
-        c2.set(2020, 05, 30, 22, 00);
+        c2.setTime(new Calendar.Builder().setInstant(1612208410000L).build().getTime());
         reservation2.setFechaIni(c1.getTime());
         reservation2.setFechaFin(c2.getTime());
 
@@ -96,10 +96,10 @@ public class SAReservationImpListTest {
         try {
             List<TReserva> reservations = saReservation.listByDateAndHour(calIni);
             Assertions.assertEquals(reservations.size(), 2);
-            Assertions.assertEquals(reservations.get(0).getFechaIni().compareTo(calIni), 0);
-            Assertions.assertEquals(reservations.get(0).getFechaFin().compareTo(calFin), 0);
-            Assertions.assertEquals(reservations.get(1).getFechaIni().compareTo(c1), 0);
-            Assertions.assertEquals(reservations.get(1).getFechaFin().compareTo(c2), 0);
+            Assertions.assertEquals(reservations.get(0).getFechaIni().compareTo(sdf.format(new Calendar.Builder().setInstant(1612207200000L).build().getTime())), 0);
+            Assertions.assertEquals(reservations.get(0).getFechaFin().compareTo(sdf.format(new Calendar.Builder().setInstant(1612208400000L).build().getTime())), 0);
+            Assertions.assertEquals(reservations.get(1).getFechaIni().compareTo(sdf.format(new Calendar.Builder().setInstant(1612207210000L).build().getTime())), 0);
+            Assertions.assertEquals(reservations.get(1).getFechaFin().compareTo(sdf.format(new Calendar.Builder().setInstant(1612208410000L).build().getTime())), 0);
         } catch (Exception e) {
             Assertions.assertNull(e);
         }
@@ -115,7 +115,7 @@ public class SAReservationImpListTest {
         Mockito.when(repositoryReservation.findAll()).thenReturn(reservationList);
 
         Calendar c1 = Calendar.getInstance();
-        c1.set(2020, 05, 30, 21, 10);
+        c1.setTime(new Calendar.Builder().setInstant(1612207210000L).build().getTime());
         Assertions.assertThrows(NoReservationsAvailableException.class, () -> saReservation.listByDateAndHour(c1));
 
     }
@@ -143,5 +143,4 @@ public class SAReservationImpListTest {
         }
 
     }
-*/
 }
