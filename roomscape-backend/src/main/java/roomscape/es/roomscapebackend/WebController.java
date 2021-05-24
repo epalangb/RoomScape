@@ -13,8 +13,10 @@ import roomscape.es.roomscapebackend.negocio.reservation.SAReserva;
 import roomscape.es.roomscapebackend.negocio.reservation.TReserva;
 
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +32,6 @@ public class WebController {
     SAEscapeRoom saEscapeRoom;
     @Autowired
     SAClient saClient;
-
     @Autowired
     SAReserva saReserva;
 
@@ -201,8 +202,8 @@ public class WebController {
         return new Gson().toJson(newClient);
     }
 
-    @GetMapping(path = "/escape-room/list")
-    public String ListReservationByHourAndDate(HttpServletResponse response, Calendar calendar) {
+    @PostMapping(path = "/reservation/list", consumes = "application/json")
+    public String ListReservationByHourAndDate(@RequestBody String calendar, HttpServletResponse response) {
 
         log.debug("Iniciando la operación GET:ListReservationByHourAndDate para listar todos las reservas por fecha y hora");
 
@@ -210,7 +211,11 @@ public class WebController {
 
         Optional<List<TReserva>> optional;
         try {
-            optional = Optional.ofNullable(saReserva.listByDateAndHour(calendar));
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            Date date = sdf.parse(calendar);
+            cal.setTime(date);
+            optional = Optional.ofNullable(saReserva.listByDateAndHour(cal));
         } catch (Exception e) {
             log.error("El servicio ha respondido con el siguiente error: {}", e.getMessage());
             response.setStatus(400);

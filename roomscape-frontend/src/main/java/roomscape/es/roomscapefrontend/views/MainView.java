@@ -156,10 +156,10 @@ public class MainView extends javax.swing.JFrame {
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-       Context c = new Context(null, Event.AbrirListReservasView);
-        Controller control = Controller.getInstance();
-        control.action(c);
-        this.dispose();
+       Context c = new Context(null, Event.AbrirReservasView);
+       Controller control = Controller.getInstance();
+       control.action(c);
+       this.dispose();
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {

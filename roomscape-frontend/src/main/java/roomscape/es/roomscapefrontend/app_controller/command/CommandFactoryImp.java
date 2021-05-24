@@ -6,7 +6,7 @@ import roomscape.es.roomscapefrontend.app_controller.command.reserva.AltaReserva
 import roomscape.es.roomscapefrontend.app_controller.command.escape_room.BajaEscapeRoomCommand;
 import roomscape.es.roomscapefrontend.app_controller.command.escape_room.ListarEscapeRoomCommand;
 import roomscape.es.roomscapefrontend.app_controller.command.escape_room.UpdateEscapeRoomCommand;
-import roomscape.es.roomscapefrontend.app_controller.command.reservas.ListResevationHourDateCommand;
+import roomscape.es.roomscapefrontend.app_controller.command.reserva.ListResevationHourDateCommand;
 
 import java.util.HashMap;
 

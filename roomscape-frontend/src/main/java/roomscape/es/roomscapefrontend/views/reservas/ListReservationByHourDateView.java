@@ -112,18 +112,15 @@ public class ListReservationByHourDateView extends GenericView implements View {
     }
 
     private void listarButtonActionPerfomed(java.awt.event.ActionEvent evt) {
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         try {
-            cal.setTime(sdf.parse(Validator.DateFieldValidator(fechaTextField.getText(), "fecha de la reserva")));
+            Validator.DateFieldValidator(fechaTextField.getText(), "fecha de la reserva");
         } catch (Exception e) {
             ShowAlertMessage(e.getMessage());
             return;
         }
-        Context c = new Context(cal, Event.ListReservas);
+        Context c = new Context(fechaTextField.getText(), Event.ListReservas);
         Controller control = Controller.getInstance();
         control.action(c);
-        this.dispose();
     }
     @Override
     public void update(Context context) {

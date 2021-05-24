@@ -8,6 +8,7 @@ import roomscape.es.roomscapefrontend.views.escape_room.ListEscapeRoomView;
 import roomscape.es.roomscapefrontend.views.escape_room.UpdateEscapeRoomView;
 import roomscape.es.roomscapefrontend.views.reservas.ListReservationByHourDateView;
 import roomscape.es.roomscapefrontend.views.reservas.AltaReservaView;
+import roomscape.es.roomscapefrontend.views.reservas.ReservaView;
 
 import javax.swing.*;
 
@@ -38,4 +39,6 @@ public abstract class AbstractFactoryView {
     public abstract JFrame createVistaError(String s);
 
     public abstract ListReservationByHourDateView createListarReservasHourDateView();
+
+    public abstract ReservaView createAbrirReservaView();
 }

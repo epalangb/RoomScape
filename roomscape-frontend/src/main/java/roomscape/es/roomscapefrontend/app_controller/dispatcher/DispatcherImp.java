@@ -50,6 +50,10 @@ public class DispatcherImp extends Dispatcher {
             case AbrirListReservasView:
                 AbstractFactoryView.getInstance().createListarReservasHourDateView();
                 break;
+            //Reservas View
+            case AbrirReservasView:
+                AbstractFactoryView.getInstance().createAbrirReservaView();
+                break;
             //Listar Reservas
             case ListReservas:
             case ListReservasError:

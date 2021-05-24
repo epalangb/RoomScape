@@ -9,7 +9,7 @@ import java.util.Calendar;
 
 public class TableModelListarReservas extends AbstractTableModel {
     private ArrayList<TReserva> reservas;
-    private String[] columnNames = {"Fecha Inicio", "Nombre Escape Room", "Participantes", "ID"};
+    private String[] columnNames = {"Fecha Inicio", "Fecha Fin", "Nombre Escape Room", "Participantes", "ID"};
 
     public TableModelListarReservas() {
         reservas = new ArrayList<TReserva>();
@@ -52,6 +52,8 @@ public class TableModelListarReservas extends AbstractTableModel {
             case 2:
                 return String.class;
             case 3:
+                return String.class;
+            case 4:
                 return Integer.class;
             default:
                 return String.class;
@@ -65,15 +67,18 @@ public class TableModelListarReservas extends AbstractTableModel {
 
         switch (columnIndex) {
             case 0:
-                object = reservas.get(rowIndex).getFechaFin().getTime().toString();
+                object = reservas.get(rowIndex).getFechaIni();
                 break;
             case 1:
-                object = reservas.get(rowIndex).getNombreEscapeRoom();
+                object = reservas.get(rowIndex).getFechaFin();
                 break;
             case 2:
-                object = reservas.get(rowIndex).getParticipantes();
+                object = reservas.get(rowIndex).getNombreEscapeRoom();
                 break;
             case 3:
+                object = reservas.get(rowIndex).getParticipantes();
+                break;
+            case 4:
                 object = reservas.get(rowIndex).getId();
         }
         return object;

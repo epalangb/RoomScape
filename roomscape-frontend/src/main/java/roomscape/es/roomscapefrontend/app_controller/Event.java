@@ -26,5 +26,5 @@ public enum Event {
     ListReservasError,
 
 
-    CommandError,
+    CommandError, AbrirReservasView,
 }

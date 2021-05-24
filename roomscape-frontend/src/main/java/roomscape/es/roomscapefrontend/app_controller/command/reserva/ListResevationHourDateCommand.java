@@ -1,4 +1,4 @@
-package roomscape.es.roomscapefrontend.app_controller.command.reservas;
+package roomscape.es.roomscapefrontend.app_controller.command.reserva;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -24,17 +24,18 @@ public class ListResevationHourDateCommand extends Command {
 
     private static final String CONNECTION_ERROR_MSG = "Ha ocurrido un error de comunicación con el servicio";
     private static final String PATH = "/reservation/list";
+    private static final String CONTENT_TYPE_HEADER = "Content-Type";
+    private static final String CONTENT_TYPE_HEADER_VALUE = "application/json";
 
     @Override
     public Context execute(Object data) {
 
         Configuration config = Controller.getInstance().getConfiguration();
-
         HttpClient client = HttpClient.newHttpClient();
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(config.getBackendURL() + PATH))
-                .GET()
+                .headers(CONTENT_TYPE_HEADER, CONTENT_TYPE_HEADER_VALUE)
+                .POST(HttpRequest.BodyPublishers.ofString((String) data))
                 .timeout(Duration.ofSeconds(config.getTimeOut()))
                 .build();
 
