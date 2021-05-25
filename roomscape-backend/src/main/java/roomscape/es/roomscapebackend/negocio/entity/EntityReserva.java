@@ -53,7 +53,7 @@ public class EntityReserva {
         tReserva.setNombreEscapeRoom(this.nombreEscapeRoom);
         tReserva.setFechaIni(sdf.format(this.fechaIni.getTime()));
         tReserva.setFechaFin(sdf.format(this.fechaFin.getTime()));
-
+        tReserva.setCliente(this.cliente);
         return tReserva;
     }
 }

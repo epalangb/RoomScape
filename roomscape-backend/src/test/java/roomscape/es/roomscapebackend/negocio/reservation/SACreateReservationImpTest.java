@@ -68,6 +68,7 @@ public class SACreateReservationImpTest {
         tReservation = new TReserva();
         tReservation.setParticipantes(10);
         tReservation.setNombreEscapeRoom("Test EscapeRoom");
+        tReservation.setCliente("12345678Z");
 
 
         tReservation.setFechaIni(sdf.format(new Calendar.Builder().setInstant(1612207200000L).build().getTime()));
@@ -80,6 +81,7 @@ public class SACreateReservationImpTest {
         entityReservationIn.setActivo(true);
         entityReservationIn.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build().getTime());
         entityReservationIn.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build().getTime());
+        entityReservationIn.setCliente("12345678Z");
 
         entityReservationOut = new EntityReserva();
         entityReservationOut.setActivo(true);
@@ -89,12 +91,14 @@ public class SACreateReservationImpTest {
         entityReservationOut.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build().getTime());
         entityReservationOut.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build().getTime());
         entityReservationOut.setId(1);
+        entityReservationOut.setCliente("12345678Z");
 
         tReservation2 = new TReserva();
         tReservation2.setParticipantes(10);
         tReservation2.setNombreEscapeRoom("Test EscapeRoom");
         tReservation2.setFechaIni(sdf.format(new Calendar.Builder().setInstant(1612207300000L).build().getTime()));
         tReservation2.setFechaFin(sdf.format(new Calendar.Builder().setInstant(1612208500000L).build().getTime()));
+        tReservation2.setCliente("12345678Z");
 
         reservationList = new ArrayList<>();
     }
@@ -106,6 +110,7 @@ public class SACreateReservationImpTest {
         tReservation = new TReserva();
         tReservation.setParticipantes(10);
         tReservation.setNombreEscapeRoom("Test EscapeRoom");
+        tReservation.setCliente("12345678Z");
         tReservation.setFechaIni(sdf.format(new Calendar.Builder().setInstant(1612207200000L).build().getTime()));
 
         entityReservationIn = new EntityReserva();
@@ -116,6 +121,7 @@ public class SACreateReservationImpTest {
         entityReservationIn.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build().getTime());
         entityReservationIn.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build().getTime());
         entityReservationIn.setEscapeRoom(entityEscapeRoomIn);
+        entityReservationIn.setCliente("12345678Z");
 
         entityReservationOut = new EntityReserva();
         entityReservationOut.setActivo(true);
@@ -126,6 +132,7 @@ public class SACreateReservationImpTest {
         entityReservationOut.setFechaIni(new Calendar.Builder().setInstant(1612207200000L).build().getTime());
         entityReservationOut.setFechaFin(new Calendar.Builder().setInstant(1612208400000L).build().getTime());
         entityReservationOut.setEscapeRoom(entityEscapeRoomIn);
+        entityReservationOut.setCliente("12345678Z");
 
 
         Calendar calIni = Calendar.getInstance();
@@ -143,6 +150,7 @@ public class SACreateReservationImpTest {
             Assertions.assertEquals(testReservation.getNombreEscapeRoom(), "Test EscapeRoom");
             Assertions.assertTrue(testReservation.isActivo());
             Assertions.assertEquals(testReservation.getParticipantes(), 10);
+            Assertions.assertEquals(testReservation.getCliente(), "12345678Z");
             Assertions.assertEquals(testReservation.getFechaIni(), sdf.format(new Calendar.Builder().setInstant(1612207200000L).build().getTime()));
             Assertions.assertEquals(testReservation.getFechaFin(), sdf.format(new Calendar.Builder().setInstant(1612208400000L).build().getTime()));
         } catch (Exception e) {
