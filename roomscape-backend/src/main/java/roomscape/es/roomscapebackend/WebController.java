@@ -14,10 +14,8 @@ import roomscape.es.roomscapebackend.negocio.login.TLogin;
 import roomscape.es.roomscapebackend.negocio.reservation.SAReserva;
 import roomscape.es.roomscapebackend.negocio.reservation.TReserva;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,10 +41,6 @@ public class WebController {
     SALogin saLogin;
     @Autowired
     SAReserva saReserva;
-
-    private static final String USER_ROLE = "user";
-    private static final String ROLE_ATTRIBUTE = "role";
-
 
     @PostMapping(path = "/escape-room/create", consumes = "application/json")
     public String CreateEscapeRoom(@RequestBody TEscapeRoom tEscapeRoom, HttpServletResponse response) {
