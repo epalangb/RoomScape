@@ -1,4 +1,4 @@
-package roomscape.es.roomscapebackend.negocio.reserva;
+package roomscape.es.roomscapebackend.negocio.reservation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,14 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import roomscape.es.roomscapebackend.negocio.entity.EntityEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.entity.EntityReserva;
+import roomscape.es.roomscapebackend.negocio.exceptions.list.NoReservationsAvailableException;
 import roomscape.es.roomscapebackend.negocio.exceptions.validations.*;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryReserva;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 @Transactional
@@ -38,22 +37,23 @@ public class SAReservaImp implements SAReserva {
 
         int duration = auxEscapeRoom.getDuracion(); //Miramos duracion de escape room elegida
 
-        EntityReserva auxReserva = repositoryReserva.findEntityReservaByNombreEscapeRoomAndFechaIni(tReserva.getNombreEscapeRoom(), tReserva.getFechaIni().getTime());
+        EntityReserva auxReserva = repositoryReserva.findEntityReservaByNombreEscapeRoomAndFechaIni(tReserva.getNombreEscapeRoom(), tReserva.getFechaIniInDateFormat().getTime());
         Optional<EntityReserva> optional = Optional.ofNullable(auxReserva);
 
-        Date dateIni = tReserva.getFechaIni().getTime();
+        Date dateIni = tReserva.getFechaIniInDateFormat().getTime();
         Calendar fechaFin = new Calendar.Builder().setInstant(dateIni).build();
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
         fechaFin.add(Calendar.MINUTE, duration);
-        tReserva.setFechaFin(fechaFin); //añadimos la duracion del escape room a la reserva
+        tReserva.setFechaFin(sdf.format(fechaFin.getTime())); //añadimos la duracion del escape room a la reserva
 
         ArrayList<EntityReserva> escapeRoomList = repositoryReserva.findEntityReservaByNombreEscapeRoom(tReserva.getNombreEscapeRoom());
 
         Boolean ocupado = false;
         for (EntityReserva entityReserva : escapeRoomList) { //Comprobamos si se sobreponen horarios
-            if (tReserva.getFechaIni().getTime().before(entityReserva.getFechaFin()) && tReserva.getFechaFin().getTime().after(entityReserva.getFechaIni())) {
+            if (tReserva.getFechaIniInDateFormat().getTime().before(entityReserva.getFechaFin()) && tReserva.getFechaFinInDateFormat().getTime().after(entityReserva.getFechaIni())) {
                 ocupado = true;
-
             } //(StartA <= EndB) and (EndA >= StartB)  https://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap
         }
 
@@ -80,10 +80,10 @@ public class SAReservaImp implements SAReserva {
         if (optional.isPresent()) {
             entityReserva = optional.get();
             entityReserva.setActivo(true);
-            entityReserva.setFechaIni(tReserva.getFechaIni().getTime());
+            entityReserva.setFechaIni(tReserva.getFechaFinInDateFormat().getTime());
             entityReserva.setParticipantes(tReserva.getParticipantes());
             entityReserva.setNombreEscapeRoom(tReserva.getNombreEscapeRoom());
-            entityReserva.setFechaFin(tReserva.getFechaFin().getTime());
+            entityReserva.setFechaFin(tReserva.getFechaFinInDateFormat().getTime());
         } else {
             tReserva.setActivo(true);
             entityReserva = new EntityReserva(tReserva);
@@ -93,5 +93,18 @@ public class SAReservaImp implements SAReserva {
         EntityReserva entityReservaSaved = repositoryReserva.save(entityReserva);
 
         return entityReservaSaved.toTransfer();
+    }
+
+    @Override
+    public List<TReserva> listByDateAndHour(Calendar reservationDate) throws Exception {
+        List<TReserva> tReservations = new ArrayList<>();
+        List<EntityReserva> reservations = repositoryReserva.findAll();
+        reservations.stream()
+                .filter(reservation -> reservation.getFechaIni().compareTo(reservationDate.getTime()) >= 0)
+                .forEach(reservation -> tReservations.add(reservation.toTransfer()));
+        if (tReservations.isEmpty())
+            throw new NoReservationsAvailableException();
+        Collections.sort(tReservations);
+        return tReservations;
     }
 }

@@ -4,6 +4,7 @@ import roomscape.es.roomscapefrontend.app_controller.Context;
 import roomscape.es.roomscapefrontend.app_controller.Event;
 import roomscape.es.roomscapefrontend.app_controller.controller.Controller;
 import roomscape.es.roomscapefrontend.utils.Configuration;
+import roomscape.es.roomscapefrontend.views.reservas.ListReservationByHourDateView;
 
 import java.awt.*;
 
@@ -155,7 +156,10 @@ public class MainView extends javax.swing.JFrame {
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+       Context c = new Context(null, Event.AbrirReservasView);
+       Controller control = Controller.getInstance();
+       control.action(c);
+       this.dispose();
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {

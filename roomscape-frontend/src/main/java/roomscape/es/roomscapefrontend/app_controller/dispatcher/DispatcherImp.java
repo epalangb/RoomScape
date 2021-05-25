@@ -12,21 +12,34 @@ public class DispatcherImp extends Dispatcher {
                 AbstractFactoryView.getInstance().createMainView();
                 break;
             case AbrirEscapeRoomView:
-                AbstractFactoryView.getInstance().createViewEscapeRoomBasico();
+            case AltaReservaOK:
+                AbstractFactoryView.getInstance().createViewEscapeRoomBasico().update(context);
                 break;
             case AbrirAltaEscapeRoomBasicoView:
                 AbstractFactoryView.getInstance().createAltaEscapeRoomBasicoView();
+                break;
+            // Alta Reserva
+            case AbrirAltaReservaView:
+                AbstractFactoryView.getInstance().createAltaReservaView().update(context);
+                break;
+            case AltaReservaError:
+                AbstractFactoryView.getInstance().createAltaReservaView().update(context);
                 break;
             case AltaEscapeRoomBasicoOK:
             case AltaEscapeRoomBasicoError:
                 AbstractFactoryView.getInstance().createAltaEscapeRoomBasicoView().update(context);
                 break;
 
+            // Listar EscapeRooms
+            // Baja EscapeRoom
+            case BajaEscapeRoomOK:
+            case BajaEScapeRoomError:
             // Listar
             case ListEscapeRoom:
             case ListEscapeRoomError:
                 AbstractFactoryView.getInstance().createListarEscapeRoomBasicoView().update(context);
                 break;
+
 
             // EscapeRoom Update
             case UpdateEscapeRoomView:
@@ -34,6 +47,19 @@ public class DispatcherImp extends Dispatcher {
             case UpdateEscapeRoomError:
                 AbstractFactoryView.getInstance().createUpdateEscapeRoomView().update(context);
                 break;
+            case AbrirListReservasView:
+                AbstractFactoryView.getInstance().createListarReservasHourDateView();
+                break;
+            //Reservas View
+            case AbrirReservasView:
+                AbstractFactoryView.getInstance().createAbrirReservaView();
+                break;
+            //Listar Reservas
+            case ListReservas:
+            case ListReservasError:
+                AbstractFactoryView.getInstance().createListarReservasHourDateView().update(context);
+                break;
+
 
             // Error
             case CommandError:
