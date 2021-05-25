@@ -16,8 +16,12 @@ import roomscape.es.roomscapebackend.negocio.reservation.TReserva;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -128,6 +132,7 @@ public class WebController {
     public String ListEscapeRoom(HttpServletResponse response, HttpServletRequest request) {
 
         log.debug("Iniciando la operación GET:ListEscapeRoom para listar todos los escape rooms");
+
         List<TEscapeRoom> escapeRoomList;
 
         Optional<List<TEscapeRoom>> optional;
@@ -277,5 +282,38 @@ public class WebController {
         log.debug("Se han recuperado correctamente las siguientes reservas: {}", reservationList);
 
         return new Gson().toJson(reservationList);
+    }
+
+    @PostMapping(path = "/reservation/list", consumes = "application/json")
+    public String ListReservationByHourAndDate(@RequestBody String calendar, HttpServletResponse response) {
+
+        log.debug("Iniciando la operación GET:ListReservationByHourAndDate para listar todos las reservas por fecha y hora");
+
+        List<TReserva> reservaList;
+
+        Optional<List<TReserva>> optional;
+        try {
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            Date date = sdf.parse(calendar);
+            cal.setTime(date);
+            optional = Optional.ofNullable(saReserva.listByDateAndHour(cal));
+        } catch (Exception e) {
+            log.error("El servicio ha respondido con el siguiente error: {}", e.getMessage());
+            response.setStatus(400);
+            return e.getMessage();
+        }
+        if (optional.isPresent()) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            reservaList = optional.get();
+        } else {
+            log.error("El servicio no ha respondido correctamente");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            reservaList = new ArrayList<>();
+        }
+
+        log.debug("Se han recuperado correctamente los siguientes escape rooms: {}", reservaList);
+
+        return new Gson().toJson(reservaList);
     }
 }

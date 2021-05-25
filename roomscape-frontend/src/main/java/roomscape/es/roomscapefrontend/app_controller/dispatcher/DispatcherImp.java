@@ -30,6 +30,7 @@ public class DispatcherImp extends Dispatcher {
                 AbstractFactoryView.getInstance().createAltaEscapeRoomBasicoView().update(context);
                 break;
 
+            // Listar EscapeRooms
             // Baja EscapeRoom
             case BajaEscapeRoomOK:
             case BajaEScapeRoomError:
@@ -46,6 +47,19 @@ public class DispatcherImp extends Dispatcher {
             case UpdateEscapeRoomError:
                 AbstractFactoryView.getInstance().createUpdateEscapeRoomView().update(context);
                 break;
+            case AbrirListReservasView:
+                AbstractFactoryView.getInstance().createListarReservasHourDateView();
+                break;
+            //Reservas View
+            case AbrirReservasView:
+                AbstractFactoryView.getInstance().createAbrirReservaView();
+                break;
+            //Listar Reservas
+            case ListReservas:
+            case ListReservasError:
+                AbstractFactoryView.getInstance().createListarReservasHourDateView().update(context);
+                break;
+
 
             // Error
             case CommandError:

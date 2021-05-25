@@ -21,6 +21,10 @@ public enum Event {
     AltaReserva,
     AltaReservaOK,
     AltaReservaError,
+    AbrirListReservasView,
+    ListReservas,
+    ListReservasError,
 
-    CommandError,
+
+    CommandError, AbrirReservasView,
 }

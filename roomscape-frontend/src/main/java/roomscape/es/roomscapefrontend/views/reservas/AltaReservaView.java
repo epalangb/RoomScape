@@ -122,6 +122,7 @@ public class AltaReservaView extends GenericView implements View {
                 tReserva.setPrecio(Validator.DoubleFieldValidator(priceTxt.getText(), "precio"));
                 tReserva.setFechaIni(Validator.DateFieldValidator(dateTxt.getText(), "fecha de la reserva"));
                 tReserva.setParticipantes(Validator.NumericFieldValidator(numberPersonTxt.getText(), "participantes"));
+                this.dispose();
             } catch (Exception e) {
                 ShowAlertMessage(e.getMessage());
                 return;
