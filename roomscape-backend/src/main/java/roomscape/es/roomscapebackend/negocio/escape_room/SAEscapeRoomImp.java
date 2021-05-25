@@ -13,10 +13,8 @@ import roomscape.es.roomscapebackend.negocio.exceptions.validations.*;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryReserva;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -144,7 +142,15 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
             throw new NonExistentEscapeRoom(id);
         }
 
-        Optional<List<EntityReserva>> reservations = repositoryReserva.findReservationsByEscapeRoomAfterDate(optional.get(), new Date());
+        Calendar cal = Calendar.getInstance();
+        TimeZone tz = cal.getTimeZone();
+        SimpleDateFormat formatter = new SimpleDateFormat("DATE_FORMAT");
+        formatter.setTimeZone(tz);
+
+        Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
+        calendar.getTime();
+
+        Optional<List<EntityReserva>> reservations = repositoryReserva.findReservationsByEscapeRoomAfterDate(optional.get(), calendar.getTime());
         if (reservations.isPresent() && reservations.get().size() > 0) {
             throw new InvalidReservationPendingException();
         }
