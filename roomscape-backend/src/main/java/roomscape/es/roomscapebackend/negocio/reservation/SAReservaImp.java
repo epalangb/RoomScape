@@ -13,10 +13,7 @@ import roomscape.es.roomscapebackend.negocio.repository.RepositoryEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.repository.RepositoryReserva;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -116,7 +113,7 @@ public class SAReservaImp implements SAReserva {
     public List<TReserva> getReservationsByEscapeRoomId(int id) throws Exception {
 
         Optional<EntityEscapeRoom> optEntityEscapeRoom = repositoryEscapeRoom.findById(id);
-        if (!optEntityEscapeRoom.isPresent() || !optEntityEscapeRoom.get().isActivo()){
+        if (!optEntityEscapeRoom.isPresent() || !optEntityEscapeRoom.get().isActivo()) {
             throw new InvalidEscapeRoomException();
         }
 
