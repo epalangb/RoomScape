@@ -41,6 +41,7 @@ public class SACreateReservationTest {
             Calendar calFin = Calendar.getInstance();
             calIni.set(2021,10,10,20,20,20);
             entityReserva.setFechaFin(calFin.getTime());
+            entityReserva.setCliente("12345678Z");
 
             repositoryReservation.save(entityReserva);
             try {
@@ -51,6 +52,7 @@ public class SACreateReservationTest {
                 Assertions.assertEquals(reservationSaved.get(0).getFechaIni().compareTo(calIni.getTime()), -1);
                 Assertions.assertEquals(reservationSaved.get(0).getFechaFin().compareTo(calIni.getTime()), -1);
                 Assertions.assertTrue(reservationSaved.get(0).isActivo());
+                Assertions.assertEquals(reservationSaved.get(0).getCliente(), "12345678Z");
 
             } catch (Exception e) {
                 Assertions.assertNull(e);
