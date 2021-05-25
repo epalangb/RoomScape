@@ -144,11 +144,14 @@ public class SAEscapeRoomImp implements SAEscapeRoom {
 
         Calendar cal = Calendar.getInstance();
         TimeZone tz = cal.getTimeZone();
-        SimpleDateFormat formatter = new SimpleDateFormat("DATE_FORMAT");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         formatter.setTimeZone(tz);
 
         Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
         calendar.getTime();
+
+        System.out.println(calendar.getTime().toString());
+        log.info("fecha: {}", calendar.getTime().toString());
 
         Optional<List<EntityReserva>> reservations = repositoryReserva.findReservationsByEscapeRoomAfterDate(optional.get(), calendar.getTime());
         if (reservations.isPresent() && reservations.get().size() > 0) {
