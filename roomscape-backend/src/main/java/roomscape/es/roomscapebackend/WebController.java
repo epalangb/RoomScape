@@ -9,12 +9,17 @@ import roomscape.es.roomscapebackend.negocio.client.SAClient;
 import roomscape.es.roomscapebackend.negocio.client.TClient;
 import roomscape.es.roomscapebackend.negocio.escape_room.SAEscapeRoom;
 import roomscape.es.roomscapebackend.negocio.escape_room.TEscapeRoom;
+import roomscape.es.roomscapebackend.negocio.login.SALogin;
+import roomscape.es.roomscapebackend.negocio.login.TLogin;
 import roomscape.es.roomscapebackend.negocio.reservation.SAReserva;
 import roomscape.es.roomscapebackend.negocio.reservation.TReserva;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +37,8 @@ public class WebController {
     SAEscapeRoom saEscapeRoom;
     @Autowired
     SAClient saClient;
+    @Autowired
+    SALogin saLogin;
     @Autowired
     SAReserva saReserva;
 
@@ -119,7 +126,7 @@ public class WebController {
     }
 
     @GetMapping(path = "/escape-room/list")
-    public String ListEscapeRoom(HttpServletResponse response) {
+    public String ListEscapeRoom(HttpServletResponse response, HttpServletRequest request) {
 
         log.debug("Iniciando la operación GET:ListEscapeRoom para listar todos los escape rooms");
 
@@ -200,6 +207,19 @@ public class WebController {
         log.debug("Se ha creado correctamente el cliente: {}", newClient);
 
         return new Gson().toJson(newClient);
+    }
+    @PostMapping(path = "/login", consumes = "application/json")
+    public String login(@RequestBody TLogin tLogin, HttpServletResponse response, HttpServletRequest request) {
+        try {
+            TClient client = saLogin.login(tLogin);
+            String data = client.getDni() + client.getUser();
+            return Base64.getEncoder().encode(data.getBytes(StandardCharsets.UTF_8)).toString();
+        }
+        catch (Exception e){
+            log.error("El servicio ha respondido con el siguiente error: {}", e.getMessage());
+            response.setStatus(400);
+            return e.getMessage();
+        }
     }
 
     @PostMapping(path = "/reservation/list", consumes = "application/json")
